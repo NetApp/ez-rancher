@@ -8,11 +8,17 @@ on:
 
 jobs:
   build:
-    name: Build
-    runs-on: hashicorp/terraform:light
+    name: Validate
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+          uses: actions/checkout@v2
+
+      - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Format
+          run: terraform fmt -check
 
       - name: Validate
-        run: terraform validate terraform/vsphere
+          run: terraform validate terraform/vsphere
