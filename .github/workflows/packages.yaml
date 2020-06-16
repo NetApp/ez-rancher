@@ -1,0 +1,18 @@
+name: Publish Container Image
+on:
+  push:
+    branches: [update-structure]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: netapp/ezrancher/terraform-rancher
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          dockerfile: Dockefile
+          tags: "latest,${{ env.RELEASE_VERSION }}"
