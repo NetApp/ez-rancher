@@ -17,8 +17,8 @@ module "control_plane" {
   vsphere-user           = var.vsphere-user
   vsphere-vcenter        = var.vsphere-vcenter
   vsphere-vm-folder      = var.vsphere-vm-folder
-  vsphere-resource-pool = var.vsphere-resource-pool
-  ssh-public-key = var.ssh-public-key
+  vsphere-resource-pool  = var.vsphere-resource-pool
+  ssh-public-key         = var.ssh-public-key
 }
 
 module "worker" {
@@ -36,8 +36,8 @@ module "worker" {
   vsphere-user           = var.vsphere-user
   vsphere-vcenter        = var.vsphere-vcenter
   vsphere-vm-folder      = var.vsphere-vm-folder
-  vsphere-resource-pool = var.vsphere-resource-pool
-  ssh-public-key = var.ssh-public-key
+  vsphere-resource-pool  = var.vsphere-resource-pool
+  ssh-public-key         = var.ssh-public-key
 }
 
 module "rke" {
@@ -48,6 +48,6 @@ module "rke" {
   worker_ips          = module.worker.node_ips
   worker_names        = [""]
   rancher-server-url  = var.rancher-server-url
-  ssh-private-key = var.ssh-private-key
-  ssh-public-key = var.ssh-public-key
+  ssh-private-key     = var.ssh-private-key
+  ssh-public-key      = var.ssh-public-key
 }
