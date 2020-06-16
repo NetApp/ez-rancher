@@ -1,0 +1,18 @@
+name: Terraform Validate
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build
+    runs-on: hashicorp/terraform:light
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Validate
+        run: terraform validate terraform/vsphere
