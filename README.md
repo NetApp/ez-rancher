@@ -24,7 +24,7 @@ or
 
 ```bash
 make shell
-terraform apply -var-file=rancher.tfvars -state=deliverables/terraform.tfstate
+terraform apply -var-file=terraform.tfvars -state=deliverables/terraform.tfstate
 ```
 
 ## Notes
