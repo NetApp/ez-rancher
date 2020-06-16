@@ -20,5 +20,8 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check
 
+      - name: Terraform Init
+        run: terraform init
+
       - name: Validate
         run: terraform validate terraform/vsphere-rancher
