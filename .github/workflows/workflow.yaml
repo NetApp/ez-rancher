@@ -20,11 +20,8 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check
 
-      - name: Install RKE Provider
-        run: hack/install_rke_provider.sh
-
       - name: Terraform Init
-        run: terraform init terraform/vsphere-rancher
+        run: hack/install_rke_provider.sh && terraform init terraform/vsphere-rancher
 
       - name: Validate
         run: terraform validate terraform/vsphere-rancher

@@ -9,3 +9,7 @@ build:  ## Build container image
 shell:  ## Drop into a docker shell with terraform
 	docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables --entrypoint /bin/sh terraform-rancher:latest
 	true
+
+.PHONY: validate
+validate:  ## Validate terraform
+	terraform validate terraform/vsphere-rancher
