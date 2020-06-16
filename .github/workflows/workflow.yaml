@@ -18,13 +18,13 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Format
-        run: terraform fmt -check
+        run: terraform fmt -check -recursive -diff .
 
       - name: Install RKE Provider
         run: hack/gh_actions_install_rke_provider.sh
 
       - name: Terraform Init
-        run: terraform init terraform/vsphere-rancher
+        run: ls -ltrah .terraform.d/plugins/linux_amd64/ && terraform init terraform/vsphere-rancher
 
       - name: Validate
         run: terraform validate terraform/vsphere-rancher
