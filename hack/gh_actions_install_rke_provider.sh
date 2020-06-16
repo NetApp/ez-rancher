@@ -6,6 +6,3 @@ curl -LO https://github.com/rancher/terraform-provider-rke/releases/download/${R
 tar -xzf terraform-provider-rke-linux-amd64.tar.gz
 mkdir -p terraform.d/plugins/linux_amd64/
 mv terraform-provider-rke-*/terraform-provider-rke terraform.d/plugins/linux_amd64/terraform-provider-rke
-
-pwd
-ls -ltrah
