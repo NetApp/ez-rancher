@@ -30,3 +30,21 @@ jobs:
 
       - name: Validate
         run: terraform validate terraform/vsphere-rancher
+
+  publish:
+    name: Publish Image
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == "update-structure" }}
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: netapp/ez-rancher/terraform-rancher
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          dockerfile: Dockerfile
+          tags: "latest,${{ env.RELEASE_VERSION }}"
+
