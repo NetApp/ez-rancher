@@ -24,7 +24,7 @@ jobs:
         run: hack/gh_actions_install_rke_provider.sh
 
       - name: Terraform Init
-        run: TF_LOG=debug terraform init terraform/vsphere-rancher
+        run: ls -ltrah && terraform init terraform/vsphere-rancher
 
       - name: Validate
         run: terraform validate terraform/vsphere-rancher
