@@ -1,8 +1,8 @@
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: build
-build:  ## Build container image
+.PHONY: image
+image:  ## Build container image
 	docker build -t terraform-rancher:latest .
 
 .PHONY: shell
