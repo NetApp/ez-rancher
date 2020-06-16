@@ -21,7 +21,7 @@ jobs:
         run: terraform fmt -check
 
       - name: Terraform Init
-        run: hack/install_rke_provider.sh && terraform init -plug-in=~/.terraform.d/plugins/linux_amd64 terraform/vsphere-rancher
+        run: hack/install_rke_provider.sh && terraform init terraform/vsphere-rancher
 
       - name: Validate
         run: terraform validate terraform/vsphere-rancher
