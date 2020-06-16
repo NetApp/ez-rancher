@@ -26,7 +26,7 @@ variable "vsphere-vcenter" {
 variable "vsphere-resource-pool" {
   type        = string
   description = "VMWare vSphere resource pool"
-  default     = "*/Resources"
+  default     = ""
 }
 
 variable "vsphere-unverified-ssl" {

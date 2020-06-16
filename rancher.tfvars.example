@@ -45,3 +45,4 @@ rancher-server-url = "my.rancher.org"
 
 ssh-private-key = "~/.ssh/id_rsa"
 ssh-public-key = "~/.ssh/id_rsa.pub"
+vsphere-resource-pool = "mypool"

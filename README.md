@@ -1,17 +1,33 @@
-# ez-rancher
-Terraform to deploy a Rancher cluster on vSphere
+# Terraform Rancher
+Terraform to deploy Rancher server on vSphere
 
-## requirements
-If you're running locally without the docker container:
-* Helm 3
-* Kubectl
-* Terraform RKE plugin
+## Requirements
+If you're running locally:
+* [Terraform](https://www.terraform.io/downloads.html) >= 0.12
+* [Kubectl](https://downloadkubernetes.com/)
+* [Terraform RKE plugin](https://github.com/rancher/terraform-provider-rke)
 
-## usage
-provsion some VMs and install RKE and Rancher Server
-`terraform apply`
+## Usage
 
-## as a Docker container
-`docker run -it --rm -v ${PWD}/terraform.tfvars:/terraform/terraform.tfvars -v ${PWD}/deliverables:/terraform/deliverables ez-rancher apply -state=deliverables/terraform.tfstate`
+#### Local
+```bash
+terraform apply -var-file=rancher.tfvars terraform/vsphere-rancher
+```
 
-# Releases will be published as container images in Github
+#### Docker
+```bash
+make build
+docker run -it --rm -v ${PWD}/terraform.tfvars:/terraform/terraform.tfvars -v ${PWD}/deliverables:/terraform/deliverables terraform-rancher apply -state=deliverables/terraform.tfstate
+```
+
+or
+
+```bash
+make shell
+terraform apply -var-file=rancher.tfvars -state=deliverables/terraform.tfstate
+```
+
+## Notes
+
+* `terraform apply` will create a `deliverables/` directory to save things like the kubeconfig, ssh keys, etc
+* Releases will be published as container images in Github
