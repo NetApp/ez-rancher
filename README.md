@@ -11,20 +11,29 @@ If you're running locally:
 
 #### Local
 ```bash
+# create cluster
 terraform apply -var-file=rancher.tfvars terraform/vsphere-rancher
+# remove cluster
+terraform destroy -var-file=rancher.tfvars terraform/vsphere-rancher
 ```
 
 #### Docker
 ```bash
 make image
+# create cluster
 docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables terraform-rancher apply -state=deliverables/terraform.tfstate
+# remove cluster
+docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables terraform-rancher destroy -state=deliverables/terraform.tfstate
 ```
 
 or
 
 ```bash
 make shell
+# create cluster
 terraform apply -var-file=terraform.tfvars -state=deliverables/terraform.tfstate
+# remove cluster
+terraform destroy -var-file=terraform.tfvars -state=deliverables/terraform.tfstate
 ```
 
 ## Notes
