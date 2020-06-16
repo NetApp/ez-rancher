@@ -40,7 +40,7 @@ module "worker" {
   ssh-public-key         = var.ssh-public-key
 }
 
-module "rke" {
+module "rancher" {
   source = "../modules/kubernetes/rancher"
 
   control_plane_ips   = module.control_plane.node_ips
