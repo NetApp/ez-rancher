@@ -35,8 +35,7 @@ jobs:
     name: Publish Image
     needs: validate
     runs-on: ubuntu-latest
-    #if: ${{ github.ref == 'master' }}
-    if: ${{ github.head_ref == 'update-structure' }}
+    if: ${{ github.ref == 'master' }}
     steps:
       - uses: actions/checkout@master
       - name: Publish to Registry
