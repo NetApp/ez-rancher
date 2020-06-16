@@ -1,4 +1,4 @@
-name: Terraform Validate
+name: Terraform
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Validate
+    name: Terraform
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -16,6 +16,8 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.26
 
       - name: Terraform Format
         run: terraform fmt -check -recursive -diff .
