@@ -13,3 +13,7 @@ shell:  ## Drop into a docker shell with terraform
 .PHONY: validate
 validate:  ## Validate terraform
 	terraform validate terraform/vsphere-rancher
+
+.PHONY: fmt
+fmt:  ## Fixes formatting
+	terraform fmt -write=true -recursive -diff .
