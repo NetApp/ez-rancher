@@ -21,4 +21,4 @@ jobs:
         run: terraform fmt -check
 
       - name: Validate
-        run: terraform validate terraform/vsphere
+        run: terraform validate terraform/vsphere-rancher
