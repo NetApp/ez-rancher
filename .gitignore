@@ -3,7 +3,8 @@
 *.tfstate.backup
 *.tfvars
 .terraform/
-./terraform/.terraform
+/terraform/.terraform
+/terraform/deliverables/*
 
 packer/variables.json
 # Cache objects
