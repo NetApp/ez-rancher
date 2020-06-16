@@ -16,7 +16,7 @@ terraform apply -var-file=rancher.tfvars terraform/vsphere-rancher
 
 #### Docker
 ```bash
-make build
+make image
 docker run -it --rm -v ${PWD}/terraform.tfvars:/terraform/terraform.tfvars -v ${PWD}/deliverables:/terraform/deliverables terraform-rancher apply -state=deliverables/terraform.tfstate
 ```
 
