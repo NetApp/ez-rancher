@@ -1,3 +1,13 @@
+variable "worker_count" {
+  type        = number
+  description = "Number of worker nodes"
+}
+
+variable "control_plane_count" {
+  type        = number
+  description = "Number of control plane nodes"
+}
+
 variable "vsphere-user" {
   type        = string
   description = "VMware vSphere user name"
@@ -13,6 +23,12 @@ variable "vsphere-vcenter" {
   description = "VMWare vCenter server FQDN / IP"
 }
 
+variable "vsphere-resource-pool" {
+  type        = string
+  description = "VMWare vSphere resource pool"
+  default     = "*/Resources"
+}
+
 variable "vsphere-unverified-ssl" {
   type        = string
   description = "Is the VMware vCenter using a self signed certificate (true/false)"
@@ -23,35 +39,28 @@ variable "vsphere-datacenter" {
   description = "VMWare vSphere datacenter"
 }
 
-variable "vsphere-cluster" {
-  type        = string
-  description = "VMWare vSphere cluster"
-  default     = ""
-}
-
-
 variable "vsphere-vm-folder" {
   type        = string
   description = "VM folder to create vms under"
-  default = ""
+  default     = ""
 }
 
 variable "vsphere-template-folder" {
   type        = string
   description = "Template folder"
-  default = "Templates"
+  default     = "Templates"
 }
 
 variable "vm-count" {
   type        = string
   description = "Number of VM"
-  default     =  3
+  default     = 3
 }
 
 variable "vm-name-prefix" {
   type        = string
   description = "Name of VM prefix"
-  default     =  "ezvsphere"
+  default     = "ezvsphere"
 }
 
 variable "vm-datastore" {
@@ -87,11 +96,6 @@ variable "vm-name" {
   description = "The name to assign to the machines"
 }
 
-variable "vm-guest-id" {
-  type        = string
-  description = "The ID of virtual machines operating system"
-}
-
 variable "vm-template-name" {
   type        = string
   description = "The template to clone to create the VM"
@@ -103,14 +107,20 @@ variable "vm-domain" {
   default     = ""
 }
 
-variable "machine-cloud-init-dir" {
+variable "rancher-server-url" {
   type        = string
-  description = "Path to local directory containing cloudinit files."
-  default     = "./cloudinit"
+  description = "Rancher server-url"
+  default     = "my.rancher.org"
 }
 
-variable "private-key-file" {
+variable "ssh-private-key" {
   type        = string
-  description = "Path to local ssh private key file."
+  description = "SSH private key"
   default     = "~/.ssh/id_rsa"
+}
+
+variable "ssh-public-key" {
+  type        = string
+  description = "SSH public key"
+  default     = "~/.ssh/id_rsa.pub"
 }

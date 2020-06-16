@@ -1,0 +1,47 @@
+# ======================== #
+# VMware VMs configuration #
+# ======================== #
+
+control_plane_count = "1"
+worker_count        = "2"
+vm-name             = "rancher"
+vm-template-name    = "bionic-server-cloudimg-amd64"
+vm-cpu              = 2
+vm-ram              = 4096
+
+# ============================ #
+# VMware vSphere configuration #
+# ============================ #
+
+# VMware vCenter IP/FQDN
+vsphere-vcenter = "vcenter.example.org"
+
+# VMware vSphere username used to deploy the infrastructure
+vsphere-user = ""
+
+# VMware vSphere password used to deploy the infrastructure
+vsphere-password = ""
+
+# Skip the verification of the vCenter SSL certificate (true/false)
+vsphere-unverified-ssl = "true"
+
+# vSphere datacenter name where the infrastructure will be deployed
+vsphere-datacenter = "myDatacenter"
+
+# vSphere Datastore used to deploy VMs
+vm-datastore = "myDatastore"
+
+# vSphere Network used to deploy VMs
+vm-network = "network1"
+
+# Linux virtual machine domain name
+vm-domain = "example.org"
+
+# vSphere VM Folder
+vsphere-vm-folder = "your/folder"
+
+# rancher server-url
+rancher-server-url = "my.rancher.org"
+
+ssh-private-key = "~/.ssh/id_rsa"
+ssh-public-key = "~/.ssh/id_rsa.pub"
