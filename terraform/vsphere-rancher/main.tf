@@ -6,7 +6,7 @@ module "control_plane" {
   source = "../modules/infrastructure/vsphere"
 
   node_count             = var.control_plane_count
-  type                   = "control_plane"
+  type                   = "control-plane"
   vm-datastore           = var.vm-datastore
   vm-name                = var.vm-name
   vm-network             = var.vm-network
