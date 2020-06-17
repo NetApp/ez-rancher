@@ -37,6 +37,7 @@ resource "vsphere_virtual_machine" "node" {
     "guestinfo.userdata.encoding" = "base64"
   }
   provisioner "local-exec" {
-    command = "count=0; until curl -sm 3 http://${self.default_ip_address}:1234; do sleep 1; if [ $count -eq 600 ]; then break; fi; count=`expr $count + 1`; done"
+    # Netcat: z (scan port only), v (verbose), w3 (wait 3 seconds)
+    command = "count=0; until $(nc -zvw3 ${self.default_ip_address} 1234 > /dev/null 2>&1); do sleep 1; if [ $count -eq 600 ]; then break; fi; count=`expr $count + 1`; done"
   }
 }
