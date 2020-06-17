@@ -31,3 +31,8 @@ variable "ssh-public-key" {
   description = "SSH public key"
   default     = "~/.ssh/id_rsa.pub"
 }
+
+variable "vm_depends_on" {
+  type    = any
+  default = null
+}

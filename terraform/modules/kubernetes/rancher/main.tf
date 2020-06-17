@@ -1,41 +1,5 @@
-resource "time_sleep" "wait_for_cloudinit" {
-  # 2m is probably excessive, but leave it for now
-  create_duration = "3m"
-}
-# We'd like to just use this as our wait for RKE deploy, but then we run into things like ssh keep-alive timeout
-# TODO: Look into modifying sshd config to use this instead of a dumb wait like we have above
-resource "null_resource" "wait_for_worker_node" {
-  depends_on = [time_sleep.wait_for_cloudinit]
-  provisioner "remote-exec" {
-    inline = [
-      "cloud-init status --wait"
-    ]
-    connection {
-      host        = element(var.worker_ips, length(var.worker_ips))
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = file(var.ssh-private-key)
-    }
-  }
-}
-
-resource "null_resource" "wait_for_control_node" {
-  depends_on = [null_resource.wait_for_worker_node]
-  provisioner "remote-exec" {
-    inline = [
-      "cloud-init status --wait"
-    ]
-    connection {
-      host        = element(var.control_plane_ips, length(var.control_plane_ips))
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = file(var.ssh-private-key)
-    }
-  }
-}
-
 resource "rke_cluster" "cluster" {
-  depends_on = [null_resource.wait_for_control_node]
+  depends_on = [var.vm_depends_on]
   dynamic "nodes" {
     for_each = [for ip in var.control_plane_ips : {
       ip = ip

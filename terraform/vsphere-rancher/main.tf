@@ -43,6 +43,7 @@ module "worker" {
 module "rancher" {
   source = "../modules/kubernetes/rancher"
 
+  vm_depends_on       = [module.worker.node_ips, module.control_plane.node_ips]
   control_plane_ips   = module.control_plane.node_ips
   control_plane_names = [""]
   worker_ips          = module.worker.node_ips
