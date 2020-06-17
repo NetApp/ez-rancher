@@ -6,6 +6,7 @@ If you're running locally:
 * [Terraform](https://www.terraform.io/downloads.html) >= 0.12
 * [Kubectl](https://downloadkubernetes.com/)
 * [Terraform RKE plugin](https://github.com/rancher/terraform-provider-rke)
+* [Curl](https://curl.haxx.se/download.html)
 
 ## Usage
 
