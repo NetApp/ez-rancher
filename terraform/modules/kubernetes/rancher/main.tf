@@ -36,14 +36,14 @@ resource "local_file" "rkeconfig" {
 }
 
 resource "local_file" "ssh_private_key" {
-  filename = "${path.root}/deliverables/id_rsa"
-  content  = file(var.ssh-private-key)
+  filename        = "${path.root}/deliverables/id_rsa"
+  content         = file(var.ssh-private-key)
   file_permission = "400"
 }
 
 resource "local_file" "ssh_public_key" {
-  filename = "${path.root}/deliverables/id_rsa.pub"
-  content  = file(var.ssh-public-key)
+  filename        = "${path.root}/deliverables/id_rsa.pub"
+  content         = file(var.ssh-public-key)
   file_permission = "400"
 }
 
