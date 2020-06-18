@@ -46,3 +46,6 @@ rancher-server-url = "my.rancher.org"
 ssh-private-key = "~/.ssh/id_rsa"
 ssh-public-key = "~/.ssh/id_rsa.pub"
 vsphere-resource-pool = "mypool"
+
+# (Optional) List of ip addresses to assign to nodes. Use slash notation
+# static-ip-addresses = ["10.1.1.2/24", "10.1.1.3/24"]

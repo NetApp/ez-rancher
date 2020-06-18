@@ -31,7 +31,7 @@ resource "vsphere_virtual_machine" "node" {
     }
   }
   extra_config = {
-    "guestinfo.metadata"          = base64encode(file("${path.module}/cloudinit/metadata.yaml"))
+    "guestinfo.metadata"          = base64encode(data.template_file.metadata[count.index].rendered)
     "guestinfo.metadata.encoding" = "base64"
     "guestinfo.userdata"          = base64encode(file("${path.module}/cloudinit/userdata.yaml"))
     "guestinfo.userdata.encoding" = "base64"
