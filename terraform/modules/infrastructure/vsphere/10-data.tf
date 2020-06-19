@@ -18,7 +18,7 @@ data "vsphere_virtual_machine" "template" {
 }
 
 locals {
-  num_addresses = length(var.static_ips)
+  num_addresses = length(var.static_ip_addresses)
 }
 
 data "template_file" "metadata" {
@@ -28,7 +28,7 @@ data "template_file" "metadata" {
     ssh_public_key = file(var.ssh-public-key)
     hostname       = format("${var.vm-name}-${var.type}%02d", count.index + 1)
     addresses_key  = local.num_addresses > 0 ? "addresses: " : ""
-    addresses_val  = local.num_addresses > 0 ? jsonencode([var.static_ips[count.index]]) : ""
+    addresses_val  = local.num_addresses > 0 ? jsonencode([var.static_ip_addresses[count.index]]) : ""
     gateway        = var.default_gateway != "" ? format("%s %s", "gateway4:", var.default_gateway) : ""
   }
 }

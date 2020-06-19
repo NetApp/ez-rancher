@@ -119,7 +119,7 @@ variable "ssh-public-key" {
   default     = "~/.ssh/id_rsa.pub"
 }
 
-variable "static_ips" {
+variable "static_ip_addresses" {
   type        = list
   description = "List of IP addresses"
   default     = []
