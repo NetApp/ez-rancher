@@ -49,3 +49,6 @@ vsphere-resource-pool = "mypool"
 
 # (Optional) List of ip addresses to assign to nodes. Use slash notation
 # static-ip-addresses = ["10.1.1.2/24", "10.1.1.3/24"]
+
+# (Optional) Default gateway to assign to nodes. Required if using static ips.
+# default-gateway  = "10.0.0.1"

@@ -130,3 +130,9 @@ variable "static-ip-addresses" {
   description = "List of IP addresses"
   default     = []
 }
+
+variable "default-gateway" {
+  type        = string
+  description = "Default gateway"
+  default     = ""
+}

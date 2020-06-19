@@ -10,3 +10,4 @@ network:
           - 1.1.1.1 # Set DNS ip address here
           - 8.8.8.8
       ${addresses_key} ${addresses_val}
+      ${gateway}

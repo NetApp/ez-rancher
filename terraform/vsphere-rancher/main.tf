@@ -29,6 +29,7 @@ module "control_plane" {
   vsphere-resource-pool  = var.vsphere-resource-pool
   ssh-public-key         = var.ssh-public-key
   static_ips             = local.control_plane_ips
+  default_gateway        = var.default-gateway
 }
 
 module "worker" {
@@ -49,6 +50,7 @@ module "worker" {
   vsphere-resource-pool  = var.vsphere-resource-pool
   ssh-public-key         = var.ssh-public-key
   static_ips             = local.worker_ips
+  default_gateway        = var.default-gateway
 }
 
 module "rancher" {

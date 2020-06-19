@@ -29,6 +29,7 @@ data "template_file" "metadata" {
     hostname       = format("${var.vm-name}-${var.type}%02d", count.index + 1)
     addresses_key  = local.num_addresses > 0 ? "addresses: " : ""
     addresses_val  = local.num_addresses > 0 ? jsonencode([var.static_ips[count.index]]) : ""
+    gateway        = var.default_gateway != "" ? format("%s %s", "gateway4:", var.default_gateway) : ""
   }
 }
 

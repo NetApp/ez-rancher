@@ -120,6 +120,13 @@ variable "ssh-public-key" {
 }
 
 variable "static_ips" {
-  type    = list
-  default = []
+  type        = list
+  description = "List of IP addresses"
+  default     = []
+}
+
+variable "default_gateway" {
+  type        = string
+  description = "Default Gateway"
+  default     = ""
 }
