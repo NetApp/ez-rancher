@@ -5,9 +5,9 @@ terraform {
   }
 }
 
-locals { 
-  control_plane_ips      = length(var.static-ip-addresses) == 0 ? [] : slice(var.static-ip-addresses, 0, var.control_plane_count)
-  worker_ips             = length(var.static-ip-addresses) == 0 ? [] : slice(var.static-ip-addresses, var.control_plane_count, var.worker_count+var.control_plane_count)
+locals {
+  control_plane_ips = length(var.static-ip-addresses) == 0 ? [] : slice(var.static-ip-addresses, 0, var.control_plane_count)
+  worker_ips        = length(var.static-ip-addresses) == 0 ? [] : slice(var.static-ip-addresses, var.control_plane_count, var.worker_count + var.control_plane_count)
 }
 
 

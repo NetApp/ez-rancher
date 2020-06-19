@@ -1,5 +1,5 @@
 locals {
-  node_ips_no_mask = split("\n", replace(join("\n", var.static_ips),"/\\/.*/", ""))
+  node_ips_no_mask = split("\n", replace(join("\n", var.static_ips), "/\\/.*/", ""))
 }
 
 output "node_ips" {

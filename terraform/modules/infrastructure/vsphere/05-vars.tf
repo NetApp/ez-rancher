@@ -120,6 +120,6 @@ variable "ssh-public-key" {
 }
 
 variable "static_ips" {
-  type        = list
-  default     = []
+  type    = list
+  default = []
 }
