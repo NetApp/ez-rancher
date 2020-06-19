@@ -47,8 +47,8 @@ ssh-private-key = "~/.ssh/id_rsa"
 ssh-public-key = "~/.ssh/id_rsa.pub"
 vsphere-resource-pool = "mypool"
 
-# (Optional) List of ip addresses to assign to nodes. Use slash notation
+# (Optional) List of IPv4 ip addresses to assign to nodes. Use CIDR notation
 # static-ip-addresses = ["10.1.1.2/24", "10.1.1.3/24"]
 
-# (Optional) Default gateway to assign to nodes. Required if using static ips.
+# (Optional) Default gateway (IPv4) to assign to nodes. Required if using static ips.
 # default-gateway  = "10.0.0.1"
