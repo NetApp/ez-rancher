@@ -6,6 +6,7 @@ kind load docker-image terraform-rancher
 ```
 
 # client - steps from HCC UI
+In HCC UI, these would be made with the js kubernetes client library. Below are examples using the bash client (`kubectl`)  
 
 create pvc to save deliverables to  
 `metadata.name` must be unique
