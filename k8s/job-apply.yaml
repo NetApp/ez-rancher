@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: apply-rancher
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 60
+  template:
+    metadata:
+      name: apply-rancher
+    spec:
+      containers:
+      - name: apply-rancher
+        image: docker.io/library/terraform-rancher
+        command:
+         - "terraform"
+         - "apply"
+         - "-input=false"
+         - "-auto-approve"
+         - "-var-file=/tfvars/terraform.tfvars"
+         - "-state=deliverables/terraform.tfstate"
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: tfvars
+            mountPath: /tfvars
+          - name: volv
+            mountPath: /terraform/vsphere-rancher/deliverables
+      volumes:
+        - name: tfvars
+          configMap:
+            name: terraform-rancher
+        - name: volv
+          persistentVolumeClaim:
+            claimName: standard-volv-pvc
+      restartPolicy: Never

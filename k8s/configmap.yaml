@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: terraform-rancher
+  namespace: default
+data:
+  terraform.tfvars: |+
+    control_plane_count    = "1"
+    worker_count           = "2"
+    vm-name                = "rancher"
+    vm-template-name       = "bionic-server-cloudimg-amd64"
+    vm-cpu                 = 2
+    vm-ram                 = 4096
+    vsphere-vcenter        = "sfps-vcsa.rtp.openenglab.netapp.com"
+    vsphere-user           = ""
+    vsphere-password       = ""
+    vsphere-unverified-ssl = "true"
+    vsphere-datacenter     = "RTP SFPS Lab"
+    vsphere-resource-pool  = "RancherHCI"
+    vm-datastore           = "sfps-lab-esx-ds01"
+    vm-network             = "Lab-VMNet1-VL20"
+    vm-domain              = "example.local.net"
+    vsphere-vm-folder      = "JohnG/testing-jw"
+    rancher-server-url     = "my.rancher.org"
+    ssh-private-key        = "~/.ssh/id_rsa"
+    ssh-public-key         = "~/.ssh/id_rsa.pub"
