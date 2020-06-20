@@ -3,7 +3,6 @@
 ```bash
 kind create cluster --config kind-config.yaml
 kind load docker-image terraform-rancher
-kubectl apply -f https://raw.githubusercontent.com/longhorn/longhorn/master/deploy/longhorn.yaml
 ```
 
 # client - steps from HCC UI
