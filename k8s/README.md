@@ -14,7 +14,7 @@ create pvc to save deliverables to
 kubectl apply -f pvc.yaml
 ```
 
-create configmap with tfvars file  
+create configmap with tfvars file. be sure to update the configmap.yaml with your info!  
 `metadata.name` must be unique
 ```bash
 kubectl apply -f configmap.yaml
