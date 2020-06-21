@@ -4,7 +4,7 @@ metadata:
   name: apply-rancher
 spec:
   backoffLimit: 0
-  ttlSecondsAfterFinished: 60
+  ttlSecondsAfterFinished: 0
   template:
     metadata:
       name: apply-rancher
@@ -18,13 +18,23 @@ spec:
          - "-input=false"
          - "-auto-approve"
          - "-var-file=/tfvars/terraform.tfvars"
-         - "-state=deliverables/terraform.tfstate"
+         - "-state=/deliverables/terraform.tfstate"
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - name: tfvars
             mountPath: /tfvars
           - name: volv
-            mountPath: /terraform/vsphere-rancher/deliverables
+            mountPath: /deliverables
+      - name: deliverables
+        image: alpine:3.12.0
+        command: ["/bin/sh"]
+        args: ["-c", "/usr/bin/timeout 3600 sh -c \"while [ ! -f /deliverables/done ]; do sleep 1; done\"; true"]
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: tfvars
+            mountPath: /tfvars
+          - name: volv
+            mountPath: /deliverables
       volumes:
         - name: tfvars
           configMap:

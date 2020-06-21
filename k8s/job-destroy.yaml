@@ -4,7 +4,7 @@ metadata:
   name: destroy-rancher
 spec:
   backoffLimit: 0
-  ttlSecondsAfterFinished: 60
+  ttlSecondsAfterFinished: 0
   template:
     metadata:
       name: destroy-rancher
@@ -18,13 +18,13 @@ spec:
          - "-input=false"
          - "-auto-approve"
          - "-var-file=/tfvars/terraform.tfvars"
-         - "-state=deliverables/terraform.tfstate"
+         - "-state=/deliverables/terraform.tfstate"
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - name: tfvars
             mountPath: /tfvars
           - name: volv
-            mountPath: /terraform/vsphere-rancher/deliverables
+            mountPath: /deliverables
       volumes:
         - name: tfvars
           configMap:

@@ -136,3 +136,9 @@ variable "default-gateway" {
   description = "Default gateway"
   default     = ""
 }
+
+variable "deliverables-path" {
+  type        = string
+  description = "Path to deliverables directory"
+  default     = ""
+}
