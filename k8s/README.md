@@ -2,6 +2,7 @@
 ###### High level steps to integrate on an mnode - build time integration
 
 ```bash
+# on mnode we'd create a systemd service to do the first line below
 kind create cluster --config kind-config.yaml
 kind load docker-image terraform-rancher
 ```
