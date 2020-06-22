@@ -2,6 +2,8 @@
 
 ![](decoupled-mnode-arch.png)
 
+# Working Proof of Concept
+
 # Server Side
 ###### High level steps to integrate on an mnode - build time integration
 
