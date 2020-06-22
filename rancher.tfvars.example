@@ -5,7 +5,7 @@
 control_plane_count = "1"
 worker_count        = "2"
 vm_name             = "rancher"
-vm_tempalte_name    = "bionic-server-cloudimg-amd64"
+vm_template_name    = "bionic-server-cloudimg-amd64"
 vm_cpu              = 2
 vm_ram              = 4096
 

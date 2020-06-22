@@ -19,7 +19,7 @@ module "control_plane" {
   vm_datastore           = var.vm_datastore
   vm_name                = var.vm_name
   vm_network             = var.vm_network
-  vm_tempalte_name       = var.vm_tempalte_name
+  vm_template_name       = var.vm_template_name
   vsphere_datacenter     = var.vsphere_datacenter
   vsphere_password       = var.vsphere_password
   vsphere_unverified_ssl = var.vsphere_unverified_ssl
@@ -40,7 +40,7 @@ module "worker" {
   vm_datastore           = var.vm_datastore
   vm_name                = var.vm_name
   vm_network             = var.vm_network
-  vm_tempalte_name       = var.vm_tempalte_name
+  vm_template_name       = var.vm_template_name
   vsphere_datacenter     = var.vsphere_datacenter
   vsphere_password       = var.vsphere_password
   vsphere_unverified_ssl = var.vsphere_unverified_ssl

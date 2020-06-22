@@ -72,7 +72,7 @@ variable "vm_name" {
   description = "The name to assign to the machines"
 }
 
-variable "vm_tempalte_name" {
+variable "vm_template_name" {
   type        = string
   description = "The template to clone to create the VM"
 }
