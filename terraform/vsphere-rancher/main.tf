@@ -18,6 +18,8 @@ module "control_plane" {
   type                   = "control-plane"
   vm-datastore           = var.vm-datastore
   vm-name                = var.vm-name
+  vm-cpu                 = var.vm-cpu
+  vm-ram                 = var.vm-ram
   vm-network             = var.vm-network
   vm-template-name       = var.vm-template-name
   vsphere-datacenter     = var.vsphere-datacenter
