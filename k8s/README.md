@@ -1,12 +1,13 @@
-# server - steps on an mnode - build time integration
+# Server Side
+###### High level steps to integrate on an mnode - build time integration
 
 ```bash
 kind create cluster --config kind-config.yaml
 kind load docker-image terraform-rancher
 ```
 
-# client - steps from HCC UI
-In HCC UI, these would be made with the js kubernetes client library. Below are examples using the bash client (`kubectl`)  
+# Client Side
+###### High level steps of an example client interaction - HCC UI would do all the same in Angular, for example. The example below is using the bash client (`kubectl`)  
 
 create pvc to save deliverables to  
 `metadata.name` must be unique
