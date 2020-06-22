@@ -14,19 +14,19 @@ variable "worker_names" {
   type = list(string)
 }
 
-variable "rancher-server-url" {
+variable "rancher_server_url" {
   type        = string
   description = "Rancher server-url"
   default     = "my.rancher.org"
 }
 
-variable "ssh-private-key" {
+variable "ssh_private_key" {
   type        = string
   description = "SSH private key"
   default     = "~/.ssh/id_rsa"
 }
 
-variable "ssh-public-key" {
+variable "ssh_public_key" {
   type        = string
   description = "SSH public key"
   default     = "~/.ssh/id_rsa.pub"

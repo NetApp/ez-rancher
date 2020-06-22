@@ -4,51 +4,51 @@
 
 control_plane_count = "1"
 worker_count        = "2"
-vm-name             = "rancher"
-vm-template-name    = "bionic-server-cloudimg-amd64"
-vm-cpu              = 2
-vm-ram              = 4096
+vm_name             = "rancher"
+vm_tempalte_name    = "bionic-server-cloudimg-amd64"
+vm_cpu              = 2
+vm_ram              = 4096
 
 # ============================ #
 # VMware vSphere configuration #
 # ============================ #
 
 # VMware vCenter IP/FQDN
-vsphere-vcenter = "vcenter.example.org"
+vsphere_vcenter = "vcenter.example.org"
 
 # VMware vSphere username used to deploy the infrastructure
-vsphere-user = ""
+vsphere_user = ""
 
 # VMware vSphere password used to deploy the infrastructure
-vsphere-password = ""
+vsphere_password = ""
 
 # Skip the verification of the vCenter SSL certificate (true/false)
-vsphere-unverified-ssl = "true"
+vsphere_unverified_ssl = "true"
 
 # vSphere datacenter name where the infrastructure will be deployed
-vsphere-datacenter = "myDatacenter"
+vsphere_datacenter = "myDatacenter"
 
 # vSphere Datastore used to deploy VMs
-vm-datastore = "myDatastore"
+vm_datastore = "myDatastore"
 
 # vSphere Network used to deploy VMs
-vm-network = "network1"
+vm_network = "network1"
 
 # Linux virtual machine domain name
-vm-domain = "example.org"
+vm_domain = "example.org"
 
 # vSphere VM Folder
-vsphere-vm-folder = "your/folder"
+vsphere_vm_folder = "your/folder"
 
 # rancher server-url
-rancher-server-url = "my.rancher.org"
+rancher_server_url = "my.rancher.org"
 
-ssh-private-key = "~/.ssh/id_rsa"
-ssh-public-key = "~/.ssh/id_rsa.pub"
-vsphere-resource-pool = "mypool"
+ssh_private_key = "~/.ssh/id_rsa"
+ssh_public_key = "~/.ssh/id_rsa.pub"
+vsphere_resource_pool = "mypool"
 
 # (Optional) List of IPv4 ip addresses to assign to nodes. Use CIDR notation
-# static-ip-addresses = ["10.1.1.2/24", "10.1.1.3/24"]
+# static_ip_addresses = ["10.1.1.2/24", "10.1.1.3/24"]
 
 # (Optional) Default gateway (IPv4) to assign to nodes. Required if using static ips.
-# default-gateway  = "10.0.0.1"
+# default_gateway  = "10.0.0.1"

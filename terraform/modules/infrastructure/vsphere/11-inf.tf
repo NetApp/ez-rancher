@@ -1,12 +1,12 @@
 
 resource "vsphere_virtual_machine" "node" {
   count            = var.node_count
-  name             = format("${var.vm-name}-${var.type}%02d", count.index + 1)
+  name             = format("${var.vm_name}-${var.type}%02d", count.index + 1)
   resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
-  folder           = var.vsphere-vm-folder
-  num_cpus         = var.vm-cpu
-  memory           = var.vm-ram
+  folder           = var.vsphere_vm_folder
+  num_cpus         = var.vm_cpu
+  memory           = var.vm_ram
   guest_id         = data.vsphere_virtual_machine.template.guest_id
 
   network_interface {
@@ -26,7 +26,7 @@ resource "vsphere_virtual_machine" "node" {
   }
   vapp {
     properties = {
-      hostname  = format("${var.vm-name}-${var.type}%02d", count.index + 1)
+      hostname  = format("${var.vm_name}-${var.type}%02d", count.index + 1)
       user-data = base64encode(data.template_file.userdata.rendered)
     }
   }

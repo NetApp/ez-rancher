@@ -8,7 +8,7 @@ resource "rke_cluster" "cluster" {
       address = nodes.value.ip
       user    = "ubuntu"
       role    = ["controlplane", "etcd"]
-      ssh_key = file(var.ssh-private-key)
+      ssh_key = file(var.ssh_private_key)
     }
   }
 
@@ -20,7 +20,7 @@ resource "rke_cluster" "cluster" {
       address = nodes.value.ip
       user    = "ubuntu"
       role    = ["worker"]
-      ssh_key = file(var.ssh-private-key)
+      ssh_key = file(var.ssh_private_key)
     }
   }
 }
@@ -37,13 +37,13 @@ resource "local_file" "rkeconfig" {
 
 resource "local_file" "ssh_private_key" {
   filename        = "${path.root}/deliverables/id_rsa"
-  content         = file(var.ssh-private-key)
+  content         = file(var.ssh_private_key)
   file_permission = "400"
 }
 
 resource "local_file" "ssh_public_key" {
   filename        = "${path.root}/deliverables/id_rsa.pub"
-  content         = file(var.ssh-public-key)
+  content         = file(var.ssh_public_key)
   file_permission = "400"
 }
 
@@ -93,7 +93,7 @@ resource "helm_release" "rancher" {
 
   set {
     name  = "hostname"
-    value = var.rancher-server-url
+    value = var.rancher_server_url
   }
 
   set {
@@ -103,6 +103,6 @@ resource "helm_release" "rancher" {
 
   set {
     name  = "extraEnv[0].value"
-    value = var.rancher-server-url
+    value = var.rancher_server_url
   }
 }
