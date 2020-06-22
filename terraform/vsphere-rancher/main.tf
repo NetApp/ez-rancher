@@ -61,6 +61,8 @@ module "rancher" {
   control_plane_names = [""]
   worker_ips          = module.worker.node_ips
   worker_names        = [""]
+  control_plane_nodes = module.control_plane.nodes
+  worker_nodes        = module.worker.nodes
   rancher_server_url  = var.rancher_server_url
   ssh_private_key     = var.ssh_private_key
   ssh_public_key      = var.ssh_public_key

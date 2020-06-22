@@ -36,3 +36,13 @@ variable "vm_depends_on" {
   type    = any
   default = null
 }
+
+variable "control_plane_nodes" {
+  type    = list
+  default = []
+}
+
+variable "worker_nodes" {
+  type    = list
+  default = []
+}
