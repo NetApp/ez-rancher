@@ -1,5 +1,7 @@
 resource "rke_cluster" "cluster" {
   depends_on = [var.vm_depends_on]
+  # 2 minute timeout specifically for rke-network-plugin-deploy-job but will apply to any addons
+  addon_job_timeout = 120
   dynamic "nodes" {
     for_each = [for ip in var.control_plane_ips : {
       ip = ip
