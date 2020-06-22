@@ -4,7 +4,7 @@
 
 # Working Proof of Concept
 
-# Server Side
+## Server Side
 ###### High level steps to integrate on an mnode - build time integration
 
 ```bash
@@ -13,7 +13,7 @@ kind create cluster --config kind-config.yaml
 kind load docker-image terraform-rancher
 ```
 
-# Client Side
+## Client Side
 ###### High level steps of an example client interaction - HCC UI would do all the same in Angular, for example. The example below is using the bash client (`kubectl`)  
 
 create pvc to save deliverables to  
@@ -78,7 +78,7 @@ watch destroy job logs
 kubectl logs -f $(kubectl get pods -l job-name=destroy-rancher --output=jsonpath={.items..metadata.name}) destroy-rancher
 ```
 
-# troubleshooting
+## Troubleshooting
 ```bash
 # show images in kind
 docker exec -it kind-control-plane crictl images
