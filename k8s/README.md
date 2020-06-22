@@ -78,3 +78,7 @@ docker exec -it kind-control-plane crictl images
 # drop into a shell
 kubectl exec -it $(kubectl get pods -l job-name=apply-rancher --output=jsonpath={.items..metadata.name}) -c deliverables sh
 ```
+
+# Architecture Diagram
+
+![](decoupled-mnode-arch.png)
