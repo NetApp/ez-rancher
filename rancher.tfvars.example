@@ -52,3 +52,6 @@ vsphere_resource_pool = "mypool"
 
 # (Optional) Default gateway (IPv4) to assign to nodes. Required if using static ips.
 # default_gateway  = "10.0.0.1"
+
+# (Optional) deliverables directory path. Defaults to ./deliverables
+# deliverables_path = "/deliverables"

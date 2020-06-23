@@ -66,5 +66,5 @@ module "rancher" {
   rancher_server_url  = var.rancher_server_url
   ssh_private_key     = var.ssh_private_key
   ssh_public_key      = var.ssh_public_key
-  deliverables-path   = var.deliverables-path
+  deliverables_path   = var.deliverables_path
 }

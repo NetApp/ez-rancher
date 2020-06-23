@@ -32,23 +32,23 @@ resource "rke_cluster" "cluster" {
 }
 
 resource "local_file" "kubeconfig" {
-  filename = format("${var.deliverables-path}/kubeconfig")
+  filename = format("${var.deliverables_path}/kubeconfig")
   content  = rke_cluster.cluster.kube_config_yaml
 }
 
 resource "local_file" "rkeconfig" {
-  filename = format("${var.deliverables-path}/rkeconfig.yaml")
+  filename = format("${var.deliverables_path}/rkeconfig.yaml")
   content  = rke_cluster.cluster.rke_cluster_yaml
 }
 
 resource "local_file" "ssh_private_key" {
-  filename        = format("${var.deliverables-path}/id_rsa")
+  filename        = format("${var.deliverables_path}/id_rsa")
   content         = file(var.ssh_private_key)
   file_permission = "400"
 }
 
 resource "local_file" "ssh_public_key" {
-  filename        = format("${var.deliverables-path}/id_rsa.pub")
+  filename        = format("${var.deliverables_path}/id_rsa.pub")
   content         = file(var.ssh_public_key)
   file_permission = "400"
 }
@@ -56,7 +56,7 @@ resource "local_file" "ssh_public_key" {
 provider "helm" {
   version = "1.2.2"
   kubernetes {
-    config_path = format("${var.deliverables-path}/kubeconfig")
+    config_path = format("${var.deliverables_path}/kubeconfig")
   }
 }
 

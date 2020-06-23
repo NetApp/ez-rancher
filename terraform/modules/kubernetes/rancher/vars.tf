@@ -21,7 +21,7 @@ variable "vm_depends_on" {
   default = null
 }
 
-variable "deliverables-path" {
+variable "deliverables_path" {
   type        = string
   description = "Path to deliverables directory"
   default     = "./deliverables"
