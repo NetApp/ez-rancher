@@ -62,4 +62,9 @@ module "rancher" {
   rancher_server_url  = var.rancher_server_url
   ssh_private_key     = var.ssh_private_key
   ssh_public_key      = var.ssh_public_key
+
+  rancher_vsphere_username = var.vsphere_user
+  rancher_vsphere_password = var.vsphere_password
+  rancher_vsphere_server =  var.vsphere_vcenter
+  rancher_vsphere_port = 443
 }

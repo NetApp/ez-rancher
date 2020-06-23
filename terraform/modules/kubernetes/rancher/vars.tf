@@ -30,3 +30,28 @@ variable "worker_nodes" {
   type    = list
   default = []
 }
+
+variable "create_default_credential" {
+  type = bool
+  default = false
+}
+
+variable "rancher_vsphere_username" {
+  type = string
+  default = ""
+}
+
+variable "rancher_vsphere_password" {
+  type = string
+  default = ""
+}
+
+variable "rancher_vsphere_server" {
+  type = string
+  default = ""
+}
+
+variable "rancher_vsphere_port" {
+  type = string
+  default = 443
+}
