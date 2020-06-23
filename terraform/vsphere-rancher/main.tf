@@ -19,6 +19,8 @@ module "control_plane" {
   vm_datastore           = var.vm_datastore
   vm_name                = var.vm_name
   vm_network             = var.vm_network
+  vm_cpu                 = var.vm_cpu
+  vm_ram                 = var.vm_ram
   vm_template_name       = var.vm_template_name
   vsphere_datacenter     = var.vsphere_datacenter
   vsphere_password       = var.vsphere_password
@@ -30,6 +32,7 @@ module "control_plane" {
   ssh_public_key         = var.ssh_public_key
   static_ip_addresses    = local.control_plane_ips
   default_gateway        = var.default_gateway
+  dns_servers            = var.dns_servers
 }
 
 module "worker" {
@@ -40,6 +43,8 @@ module "worker" {
   vm_datastore           = var.vm_datastore
   vm_name                = var.vm_name
   vm_network             = var.vm_network
+  vm_cpu                 = var.vm_cpu
+  vm_ram                 = var.vm_ram
   vm_template_name       = var.vm_template_name
   vsphere_datacenter     = var.vsphere_datacenter
   vsphere_password       = var.vsphere_password
@@ -51,6 +56,7 @@ module "worker" {
   ssh_public_key         = var.ssh_public_key
   static_ip_addresses    = local.worker_ips
   default_gateway        = var.default_gateway
+  dns_servers            = var.dns_servers
 }
 
 module "rancher" {

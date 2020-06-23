@@ -30,6 +30,7 @@ data "template_file" "metadata" {
     addresses_key  = local.num_addresses > 0 ? "addresses: " : ""
     addresses_val  = local.num_addresses > 0 ? jsonencode([var.static_ip_addresses[count.index]]) : ""
     gateway        = var.default_gateway != "" ? format("%s %s", "gateway4:", var.default_gateway) : ""
+    dns_servers    = format("%s [%s]", "addresses:", join(",", var.dns_servers))
   }
 }
 
