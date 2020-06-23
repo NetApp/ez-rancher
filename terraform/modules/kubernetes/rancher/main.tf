@@ -1,3 +1,7 @@
+locals {
+  deliverables_path = var.deliverables_path == "" ? "./deliverables" : var.deliverables_path
+}
+
 resource "rke_cluster" "cluster" {
   depends_on = [var.vm_depends_on]
   # 2 minute timeout specifically for rke-network-plugin-deploy-job but will apply to any addons
@@ -32,31 +36,31 @@ resource "rke_cluster" "cluster" {
 }
 
 resource "local_file" "kubeconfig" {
-  filename = format("${var.deliverables_path}/kubeconfig")
+  filename = format("${local.deliverables_path}/kubeconfig")
   content  = rke_cluster.cluster.kube_config_yaml
 }
 
 resource "local_file" "rkeconfig" {
-  filename = format("${var.deliverables_path}/rkeconfig.yaml")
+  filename = format("${local.deliverables_path}/rkeconfig.yaml")
   content  = rke_cluster.cluster.rke_cluster_yaml
 }
 
 resource "local_file" "ssh_private_key" {
-  filename        = format("${var.deliverables_path}/id_rsa")
+  filename        = format("${local.deliverables_path}/id_rsa")
   content         = file(var.ssh_private_key)
-  file_permission = "400"
+  file_permission = "600"
 }
 
 resource "local_file" "ssh_public_key" {
-  filename        = format("${var.deliverables_path}/id_rsa.pub")
+  filename        = format("${local.deliverables_path}/id_rsa.pub")
   content         = file(var.ssh_public_key)
-  file_permission = "400"
+  file_permission = "644"
 }
 
 provider "helm" {
   version = "1.2.2"
   kubernetes {
-    config_path = format("${var.deliverables_path}/kubeconfig")
+    config_path = format("${local.deliverables_path}/kubeconfig")
   }
 }
 
