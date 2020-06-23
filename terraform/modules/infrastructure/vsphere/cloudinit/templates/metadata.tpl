@@ -6,8 +6,6 @@ network:
     ens192:
       dhcp4: true
       nameservers:
-        addresses:
-          - 1.1.1.1 # Set DNS ip address here
-          - 8.8.8.8
+        ${dns_servers}
       ${addresses_key} ${addresses_val}
       ${gateway}

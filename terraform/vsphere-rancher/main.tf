@@ -32,6 +32,7 @@ module "control_plane" {
   ssh_public_key         = var.ssh_public_key
   static_ip_addresses    = local.control_plane_ips
   default_gateway        = var.default_gateway
+  dns_servers            = var.dns_servers
 }
 
 module "worker" {
@@ -55,6 +56,7 @@ module "worker" {
   ssh_public_key         = var.ssh_public_key
   static_ip_addresses    = local.worker_ips
   default_gateway        = var.default_gateway
+  dns_servers            = var.dns_servers
 }
 
 module "rancher" {

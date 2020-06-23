@@ -112,3 +112,9 @@ variable "default_gateway" {
   description = "Default gateway"
   default     = ""
 }
+
+variable "dns_servers" {
+  type        = list
+  description = "List of DNS server IPv4 addresses"
+  default     = ["1.1.1.1", "8.8.8.8"]
+}
