@@ -1,16 +1,16 @@
 # Architecture Diagram
 
-![](decoupled-mnode-arch.png)
+![](decoupled-arch.png)
 
 # Working Proof of Concept
 
 ## Server Side
-###### High level steps to integrate on an mnode - build time integration
+###### High level steps to integrate on a node - build time integration
 
 ```bash
-# on mnode we'd create a systemd service to do the first line below
+# one option is to create a systemd service with the first line below
 kind create cluster --config kind-config.yaml
-kind load docker-image terraform-rancher
+kind load docker-image terraform-rancher # this line is for use with this guide
 ```
 
 ## Client Side
