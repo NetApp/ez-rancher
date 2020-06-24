@@ -38,6 +38,6 @@ resource "vsphere_virtual_machine" "node" {
   }
   provisioner "local-exec" {
     # Netcat: z (scan port only), v (verbose), w3 (wait 3 seconds)
-    command = "count=0; until $(nc -zvw3 ${self.default_ip_address} 1234 > /dev/null 2>&1); do sleep 1; if [ $count -eq 600 ]; then break; fi; count=`expr $count + 1`; done"
+    command = "count=0; until $(nc -zvw3 ${local.num_addresses == 0 ? self.default_ip_address : local.node_ips_no_mask[count.index]} 1234 > /dev/null 2>&1); do sleep 1; if [ $count -eq 600 ]; then break; fi; count=`expr $count + 1`; done"
   }
 }
