@@ -1,5 +1,10 @@
+resource "time_sleep" "wait_30_seconds" {
+  destroy_duration = "30s"
+}
+
 provider "rancher2" {
   alias = "bootstrap"
+  depends_on = ["time_sleep.wait_30_seconds"]
 
   api_url   = join("", ["https://", var.rancher_server_url])
   bootstrap = true
