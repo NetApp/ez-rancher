@@ -4,8 +4,8 @@ network:
   version: 2
   ethernets:
     ens192:
-      dhcp4: true
+      dhcp4: ${dhcp_enabled}
       nameservers:
         ${dns_servers}
-      ${addresses_key} ${addresses_val}
+      ${addresses}
       ${gateway}
