@@ -71,6 +71,13 @@ module "rancher" {
 
   rancher_vsphere_username = var.vsphere_user
   rancher_vsphere_password = var.vsphere_password
-  rancher_vsphere_server =  var.vsphere_vcenter
+  #rancher_vsphere_server =  var.vsphere_vcenter
+  rancher_vsphere_server =  "10.193.136.5" # Rancher cant resolve vcenter for some reason
   rancher_vsphere_port = 443
+
+  rancher_vsphere_datacenter = var.vsphere_datacenter
+  rancher_vsphere_datastore  = var.vm_datastore
+  rancher_vsphere_folder     = var.vsphere_vm_folder
+  rancher_vsphere_network    = var.vm_network
+  rancher_vsphere_pool       = var.vsphere_resource_pool
 }
