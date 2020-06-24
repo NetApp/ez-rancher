@@ -118,3 +118,9 @@ variable "deliverables_path" {
   description = "Path to deliverables directory"
   default     = ""
 }
+
+variable "dns_servers" {
+  type        = list
+  description = "List of DNS server IPv4 addresses"
+  default     = ["1.1.1.1", "8.8.8.8"]
+}
