@@ -33,7 +33,7 @@ variable "worker_nodes" {
 
 variable "create_default_credential" {
   type = bool
-  default = false
+  default = true
 }
 
 variable "rancher_vsphere_username" {
@@ -54,4 +54,29 @@ variable "rancher_vsphere_server" {
 variable "rancher_vsphere_port" {
   type = string
   default = 443
+}
+
+variable "rancher_vsphere_datacenter" {
+  type = string
+  default = ""
+}
+
+variable "rancher_vsphere_datastore" {
+  type = string
+  default = ""
+}
+
+variable "rancher_vsphere_folder" {
+  type = string
+  default = ""
+}
+
+variable "rancher_vsphere_network" {
+  type = string
+  default = ""
+}
+
+variable "rancher_vsphere_pool" {
+  type = string
+  default = ""
 }
