@@ -27,6 +27,10 @@ provider "rancher2" {
   insecure  = true
 }
 
+data "dns_a_record_set" "vcenter" {
+  host = var.rancher_vsphere_server
+}
+
 resource "rancher2_cloud_credential" "vsphere" {
   count = var.create_default_credential ? 1 : 0
 
@@ -36,7 +40,7 @@ resource "rancher2_cloud_credential" "vsphere" {
   vsphere_credential_config {
     username     = var.rancher_vsphere_username
     password     = var.rancher_vsphere_password
-    vcenter      = var.rancher_vsphere_server
+    vcenter      = data.dns_a_record_set.vcenter.addrs[0]
     vcenter_port = var.rancher_vsphere_port
   }
 }
