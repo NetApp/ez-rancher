@@ -66,7 +66,7 @@ resource "rancher2_node_template" "vsphere" {
 
 resource "rancher2_cluster" "cluster" {
   count    = var.create_user_cluster ? 1 : 0
-  name     = "user-default"
+  name     = var.user_cluster_name
   provider = rancher2.admin
 
   description = "Default user cluster"
