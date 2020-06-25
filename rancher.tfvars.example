@@ -50,9 +50,9 @@ vsphere_resource_pool = "mypool"
 # (Optional) Default gateway (IPv4) to assign to nodes. Required if using static ips.
 # default_gateway  = "10.0.0.1"
 
-# ============================ #
-# Rancher configuration        #
-# ============================ #
+# ===================== #
+# Rancher configuration #
+# ===================== #
 
 # rancher server url
 rancher_server_url = "10.193.138.233.xip.io"
