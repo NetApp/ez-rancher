@@ -4,6 +4,11 @@ variable "rancher_server_url" {
   default     = "my.rancher.org"
 }
 
+variable "rancher_password" {
+  type    = string
+  default = "solidfire"
+}
+
 variable "ssh_private_key" {
   type        = string
   description = "SSH private key"

@@ -15,7 +15,7 @@ resource "rancher2_bootstrap" "admin" {
   provider   = rancher2.bootstrap
   depends_on = [time_sleep.wait_30_seconds]
 
-  password  = "solidfire"
+  password  = var.rancher_password
   telemetry = true
 }
 
@@ -82,7 +82,7 @@ resource "rancher2_node_pool" "control_plane" {
 
   cluster_id       = rancher2_cluster.cluster[0].id
   provider         = rancher2.admin
-  name             = var.user_cluster_name
+  name             = join("", [var.user_cluster_name, "-control-plane"])
   hostname_prefix  = join("", [var.user_cluster_name, "-cp-0"])
   node_template_id = rancher2_node_template.vsphere[0].id
   quantity         = 1
@@ -96,7 +96,7 @@ resource "rancher2_node_pool" "worker" {
 
   cluster_id       = rancher2_cluster.cluster[0].id
   provider         = rancher2.admin
-  name             = var.user_cluster_name
+  name             = join("", [var.user_cluster_name, "-workers"])
   hostname_prefix  = join("", [var.user_cluster_name, "-wrk-0"])
   node_template_id = rancher2_node_template.vsphere[0].id
   quantity         = 2
