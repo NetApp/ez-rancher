@@ -11,7 +11,7 @@ resource "vsphere_virtual_machine" "node" {
 
   network_interface {
     network_id   = data.vsphere_network.network.id
-    adapter_type = data.vsphere_virtual_machine.template.network_interface_types[0]
+    adapter_type = length(data.vsphere_virtual_machine.template.network_interface_types) == 0 ? "vmxnet3" : data.vsphere_virtual_machine.template.network_interface_types[0]
   }
   disk {
     label            = "disk0"
@@ -37,7 +37,7 @@ resource "vsphere_virtual_machine" "node" {
     "guestinfo.userdata.encoding" = "base64"
   }
   provisioner "local-exec" {
-    # Netcat: z (scan port only), v (verbose), w3 (wait 3 seconds)
-    command = "count=0; until $(nc -zvw3 ${local.num_addresses == 0 ? self.default_ip_address : local.node_ips_no_mask[count.index]} 1234 > /dev/null 2>&1); do sleep 1; if [ $count -eq 600 ]; then break; fi; count=`expr $count + 1`; done"
+    # Netcat: z (scan port only), w1 (wait 1 second)
+    command = "count=0; until $(nc -zw1 ${local.num_addresses == 0 ? self.default_ip_address : local.node_ips_no_mask[count.index]} 1234); do sleep 1; if [ $count -eq 600 ]; then break; fi; count=`expr $count + 1`; done"
   }
 }

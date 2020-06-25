@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: terraform-rancher
+  namespace: default
+data:
+  terraform.tfvars: |+
+    control_plane_count    = "1"
+    worker_count           = "2"
+    vm_name                = "rancher"
+    vm_template_name       = "bionic-server-cloudimg-amd64"
+    vm_cpu                 = 2
+    vm_ram                 = 4096
+    vsphere_vcenter        = "my-vcenter.org"
+    vsphere_user           = ""
+    vsphere_password       = ""
+    vsphere_unverified_ssl = "true"
+    vsphere_datacenter     = "datacenter1"
+    vsphere_resource_pool  = "RancherHCI"
+    vm_datastore           = "datastore1"
+    vm_network             = "VMNet1"
+    vm_domain              = "example.local.net"
+    vsphere_vm_folder      = "some/place/good"
+    rancher_server_url     = "my.rancher.org"
+    ssh_private_key        = "~/.ssh/id_rsa"
+    ssh_public_key         = "~/.ssh/id_rsa.pub"
+    deliverables_path      = "/deliverables"

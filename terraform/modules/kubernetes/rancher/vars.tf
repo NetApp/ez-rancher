@@ -26,6 +26,12 @@ variable "vm_depends_on" {
   default = null
 }
 
+variable "deliverables_path" {
+  type        = string
+  description = "Path to deliverables directory"
+  default     = "./deliverables"
+}
+
 variable "control_plane_nodes" {
   type    = list
   default = []

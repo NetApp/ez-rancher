@@ -118,6 +118,12 @@ variable "default_gateway" {
   default     = ""
 }
 
+variable "deliverables_path" {
+  type        = string
+  description = "Path to deliverables directory"
+  default     = ""
+}
+
 variable "dns_servers" {
   type        = list
   description = "List of DNS server IPv4 addresses"
