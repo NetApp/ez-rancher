@@ -62,7 +62,9 @@ vsphere_resource_pool = "mypool"
 # this will be automatically overridden to <IP of first worker>.nip.io 
 rancher_server_url = "my.rancher.org"
 
-# Automatically configure rancher
+# Automatically configure rancher:
+# - Updates the default admin password, provided by the rancher_password variable.
+# - Enables telemetry 
 bootstrap_rancher = false
 
 # rancher default admin password
