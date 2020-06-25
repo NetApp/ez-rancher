@@ -1,6 +1,8 @@
-resource "time_sleep" "wait_30_seconds" {
+resource "null_resource" "wait_for_rancher" {
   depends_on      = [helm_release.rancher]
-  create_duration = "30s"
+  provisioner "local-exec" {
+    command = "count=0; until $(curl -ks --connect-timeout 3 ${join("", ["https://", var.rancher_server_url])} > /dev/null 2>&1); do sleep 1; if [ $count -eq 100 ]; then break; fi; count=`expr $count + 1`; done"
+  }
 }
 
 provider "rancher2" {
@@ -13,7 +15,7 @@ provider "rancher2" {
 
 resource "rancher2_bootstrap" "admin" {
   provider   = rancher2.bootstrap
-  depends_on = [time_sleep.wait_30_seconds]
+  depends_on = [null_resource.wait_for_rancher]
 
   password  = var.rancher_password
   telemetry = true
@@ -103,4 +105,11 @@ resource "rancher2_node_pool" "worker" {
   control_plane    = false
   etcd             = false
   worker           = true
+}
+
+resource "local_file" "kubeconfig_user" {
+  count = var.create_user_cluster ? 1 : 0
+
+  filename = "${path.root}/deliverables/kubeconfig_user"
+  content  = rancher2_cluster.cluster[0].kube_config
 }
