@@ -149,3 +149,8 @@ variable "rancher_user_cluster_memoryMB" {
   type    = string
   default = 6144
 }
+
+variable "bootstrap_rancher" {
+  type    = string
+  default = false
+}

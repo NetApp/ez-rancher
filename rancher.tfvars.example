@@ -58,15 +58,18 @@ vsphere_resource_pool = "mypool"
 # ===================== #
 
 # rancher server url
-# If DHCP is being used for hosts, this will be automatically overridden
-# to <IP of first worker>.nip.io to allow rancher to bootstrap
+# If bootstrap_rancher is enabled and DHCP is being used for hosts, 
+# this will be automatically overridden to <IP of first worker>.nip.io 
 rancher_server_url = "my.rancher.org"
+
+# Automatically configure rancher
+bootstrap_rancher = false
 
 # rancher default admin password
 rancher_password  = "solidfire"
 
-# Create a default user cluster
-rancher_create_user_cluster = true
+# Create a default user cluster. Requires bootstrap_rancher.
+rancher_create_user_cluster = false
 
 # Default user cluster name
 rancher_user_cluster_name  = "user-default"

@@ -42,9 +42,9 @@ variable "worker_nodes" {
   default = []
 }
 
-variable "create_default_credential" {
+variable "bootstrap_rancher" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "create_user_cluster" {
