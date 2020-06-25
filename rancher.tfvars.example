@@ -58,6 +58,8 @@ vsphere_resource_pool = "mypool"
 # ===================== #
 
 # rancher server url
+# If DHCP is being used for hosts, this will be automatically overridden
+# to <IP of first worker>.nip.io to allow rancher to bootstrap
 rancher_server_url = "my.rancher.org"
 
 # rancher default admin password
