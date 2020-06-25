@@ -32,61 +32,61 @@ variable "worker_nodes" {
 }
 
 variable "create_default_credential" {
-  type = bool
+  type    = bool
   default = true
 }
 
 variable "create_user_cluster" {
-  type = bool
+  type    = bool
   default = true
 }
 
-variable "user_cluster_name"{
-  type = string
+variable "user_cluster_name" {
+  type    = string
   default = ""
 }
 
 variable "rancher_vsphere_username" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "rancher_vsphere_password" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "rancher_vsphere_server" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "rancher_vsphere_port" {
-  type = string
+  type    = string
   default = 443
 }
 
 variable "rancher_vsphere_datacenter" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "rancher_vsphere_datastore" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "rancher_vsphere_folder" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "rancher_vsphere_network" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "rancher_vsphere_pool" {
-  type = string
+  type    = string
   default = ""
 }

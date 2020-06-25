@@ -120,11 +120,11 @@ variable "dns_servers" {
 }
 
 variable "rancher_create_user_cluster" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "rancher_user_cluster_name" {
-  type = string
+  type    = string
   default = ""
 }
