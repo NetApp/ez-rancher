@@ -51,6 +51,16 @@ variable "user_cluster_name" {
   default = ""
 }
 
+variable "user_cluster_cpu" {
+  type    = string
+  default = 2
+}
+
+variable "user_cluster_memoryMB" {
+  type    = string
+  default = 6144
+}
+
 variable "rancher_vsphere_username" {
   type    = string
   default = ""

@@ -133,3 +133,13 @@ variable "rancher_user_cluster_name" {
   type    = string
   default = ""
 }
+
+variable "rancher_user_cluster_cpu" {
+  type    = string
+  default = 2
+}
+
+variable "rancher_user_cluster_memoryMB" {
+  type    = string
+  default = 6144
+}

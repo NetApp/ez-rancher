@@ -56,8 +56,8 @@ resource "rancher2_node_template" "vsphere" {
   description         = "vsphere"
   cloud_credential_id = rancher2_cloud_credential.vsphere[0].id
   vsphere_config {
-    cpu_count   = 2
-    memory_size = 4096
+    cpu_count   = var.user_cluster_cpu
+    memory_size = var.user_cluster_memoryMB
     datacenter  = var.rancher_vsphere_datacenter
     datastore   = var.rancher_vsphere_datastore
     folder      = var.rancher_vsphere_folder
