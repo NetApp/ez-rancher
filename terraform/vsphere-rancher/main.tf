@@ -65,7 +65,7 @@ module "rancher" {
   vm_depends_on       = [module.worker.nodes, module.control_plane.nodes]
   control_plane_nodes = module.control_plane.nodes
   worker_nodes        = module.worker.nodes
-  rancher_server_url  = length(local.control_plane_ips) == 0 ? join("", [module.worker.nodes[0].ip, ".xip.io"]) : var.rancher_server_url
+  rancher_server_url  = length(local.control_plane_ips) == 0 ? join("", [module.worker.nodes[0].ip, ".nip.io"]) : var.rancher_server_url
   ssh_private_key     = var.ssh_private_key
   ssh_public_key      = var.ssh_public_key
 
