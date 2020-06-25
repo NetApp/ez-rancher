@@ -36,6 +36,16 @@ variable "create_default_credential" {
   default = true
 }
 
+variable "create_user_cluster" {
+  type = bool
+  default = true
+}
+
+variable "user_cluster_name"{
+  type = string
+  default = ""
+}
+
 variable "rancher_vsphere_username" {
   type = string
   default = ""

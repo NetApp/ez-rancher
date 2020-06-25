@@ -118,3 +118,13 @@ variable "dns_servers" {
   description = "List of DNS server IPv4 addresses"
   default     = ["1.1.1.1", "8.8.8.8"]
 }
+
+variable "rancher_create_user_cluster" {
+  type = bool
+  default = false
+}
+
+variable "rancher_user_cluster_name" {
+  type = string
+  default = ""
+}

@@ -102,13 +102,4 @@ resource "helm_release" "rancher" {
     value = var.rancher_server_url
   }
 
-  /* set {
-    name  = "extraEnv[0].name"
-    value = "CATTLE_SERVER_URL"
-  } */
-
-  /* set {
-    name  = "extraEnv[0].value"
-    value = var.rancher_server_url
-  } */
 }

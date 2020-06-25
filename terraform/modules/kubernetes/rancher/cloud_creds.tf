@@ -1,10 +1,10 @@
 resource "time_sleep" "wait_30_seconds" {
-  destroy_duration = "30s"
+  depends_on = [helm_release.rancher]
+  create_duration = "30s"
 }
 
 provider "rancher2" {
   alias = "bootstrap"
-  depends_on = ["time_sleep.wait_30_seconds"]
 
   api_url   = join("", ["https://", var.rancher_server_url])
   bootstrap = true
@@ -13,6 +13,7 @@ provider "rancher2" {
 
 resource "rancher2_bootstrap" "admin" {
   provider = rancher2.bootstrap
+  depends_on = [time_sleep.wait_30_seconds]
 
   password = "solidfire"
   telemetry = true
@@ -41,6 +42,8 @@ resource "rancher2_cloud_credential" "vsphere" {
 }
 
 resource "rancher2_node_template" "vsphere" {
+  count = var.create_default_credential ? 1 : 0
+
   name = "default-vsphere"
   provider = rancher2.admin
 
@@ -53,4 +56,45 @@ resource "rancher2_node_template" "vsphere" {
     network = [var.rancher_vsphere_network]
     pool = var.rancher_vsphere_pool
   }
+}
+
+resource "rancher2_cluster" "cluster" {
+  count = var.create_user_cluster ? 1 : 0
+  name = "user-default"
+  provider = rancher2.admin
+
+  description = "Default user cluster"
+  rke_config {
+    network {
+      plugin = "canal"
+    }
+  }
+}
+
+resource "rancher2_node_pool" "control_plane" {
+  count = var.create_user_cluster ? 1 : 0
+
+  cluster_id =  rancher2_cluster.cluster[0].id
+  provider = rancher2.admin
+  name = var.user_cluster_name
+  hostname_prefix =  join("", var.user_cluster_name,"-cp-0")
+  node_template_id = rancher2_node_template.vsphere[0].id
+  quantity = 1
+  control_plane = true
+  etcd = true
+  worker = false
+}
+
+resource "rancher2_node_pool" "worker" {
+  count = var.create_user_cluster ? 1 : 0
+
+  cluster_id =  rancher2_cluster.cluster[0].id
+  provider = rancher2.admin
+  name = var.user_cluster_name
+  hostname_prefix =  join("", var.user_cluster_name,"-wrk-0")
+  node_template_id = rancher2_node_template.vsphere[0].id
+  quantity = 2
+  control_plane = false
+  etcd = false
+  worker = true
 }

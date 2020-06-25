@@ -69,10 +69,13 @@ module "rancher" {
   ssh_private_key     = var.ssh_private_key
   ssh_public_key      = var.ssh_public_key
 
+  create_user_cluster = true
+  user_cluster_name   = "sg-test"
+
   rancher_vsphere_username = var.vsphere_user
   rancher_vsphere_password = var.vsphere_password
   #rancher_vsphere_server =  var.vsphere_vcenter
-  rancher_vsphere_server =  "10.193.136.5" # Rancher cant resolve vcenter for some reason
+  rancher_vsphere_server =  "10.193.136.5" # TODO figure out why Rancher cant resolve vcenter
   rancher_vsphere_port = 443
 
   rancher_vsphere_datacenter = var.vsphere_datacenter
