@@ -14,17 +14,20 @@ system_info:
     name: default-user
     lock_passwd: false
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
-#disable_root: false #Enable root acce
 ssh_pwauth: yes #Use pwd to access (otherwise follow official doc to use ssh-keys)
 random_seed:
   file: /dev/urandom
   command: ["pollinate", "-r", "-s", "https://entropy.ubuntu.com"]
   command_required: true
 package_upgrade: true
-packages:
-  - python3-pip #Dependency package for cur
+write_files:
+  - encoding: base64
+    content: ${netplan}
+    path: /etc/netplan/50-cloud-init.yaml
 runcmd:
-  - curl -sSL https://raw.githubusercontent.com/vmware/cloud-init-vmware-guestinfo/master/install.sh | sh - #Install cloud-init
+  - netplan apply
+  - apt update && apt install python3-pip -y  # requirement for vmware guestinfo datasource installer, needs to be run after network is configured
+  - curl -sSL https://raw.githubusercontent.com/vmware/cloud-init-vmware-guestinfo/master/install.sh | sh - 2>&1 | tee install.out #Install cloud-init
 power_state:
   timeout: 30
   mode: reboot

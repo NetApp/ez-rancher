@@ -13,6 +13,8 @@ resource "vsphere_virtual_machine" "node" {
     network_id   = data.vsphere_network.network.id
     adapter_type = length(data.vsphere_virtual_machine.template.network_interface_types) == 0 ? "vmxnet3" : data.vsphere_virtual_machine.template.network_interface_types[0]
   }
+  # For static IPs, we will write the netplan in cloud-init to configure the network so disable net timeout in that case
+  wait_for_guest_net_timeout = local.num_addresses == 0 ? 5 : 0
   disk {
     label            = "disk0"
     size             = data.vsphere_virtual_machine.template.disks.0.size
@@ -27,7 +29,7 @@ resource "vsphere_virtual_machine" "node" {
   vapp {
     properties = {
       hostname  = format("${var.vm_name}-${var.type}%02d", count.index + 1)
-      user-data = base64encode(data.template_file.userdata.rendered)
+      user-data = base64encode(data.template_file.userdata[count.index].rendered)
     }
   }
   extra_config = {
@@ -37,6 +39,7 @@ resource "vsphere_virtual_machine" "node" {
     "guestinfo.userdata.encoding" = "base64"
   }
   provisioner "local-exec" {
+    # Wait for cloud-init userdata cmds
     # Netcat: z (scan port only), w1 (wait 1 second)
     command = "count=0; until $(nc -zw1 ${local.num_addresses == 0 ? self.default_ip_address : local.node_ips_no_mask[count.index]} 1234); do sleep 1; if [ $count -eq 600 ]; then break; fi; count=`expr $count + 1`; done"
   }

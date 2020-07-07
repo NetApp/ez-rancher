@@ -2,6 +2,8 @@
 Terraform to deploy Rancher server on vSphere
 
 ## Requirements
+Network connectivity from where terraform is executed to the vm_network
+
 If you're running locally:
 * [Terraform](https://www.terraform.io/downloads.html) >= 0.12
 * [Kubectl](https://downloadkubernetes.com/)

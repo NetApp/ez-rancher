@@ -13,7 +13,6 @@ runcmd:
   - mkdir -p /mnt/sharedfolder
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
   - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - apt update -y
   - apt install -y docker-ce docker-ce-cli containerd.io
   - usermod -aG docker ubuntu
-  - nc -l 1234
+  - nc -l 1234 # signal local-exec provisioner that cloud-init cmds are complete
