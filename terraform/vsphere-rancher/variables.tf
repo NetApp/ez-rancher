@@ -1,6 +1,6 @@
 variable "cluster_node_count" {
   type        = number
-  description = "Number of control plane nodes"
+  description = "Number of cluster nodes"
   default     = 3
 }
 
