@@ -14,7 +14,7 @@ module "cluster_nodes" {
   source = "../modules/infrastructure/vsphere"
 
   node_count             = var.cluster_node_count
-  type                   = "control-plane"
+  type                   = "node"
   vm_datastore           = var.vm_datastore
   vm_name                = var.vm_name
   vm_network             = var.vm_network
