@@ -64,6 +64,7 @@ resource "rancher2_node_template" "vsphere" {
     memory_size = var.user_cluster_memoryMB
     datacenter  = var.rancher_vsphere_datacenter
     datastore   = var.rancher_vsphere_datastore
+    disk_size   = var.rancher_node_template_disk_size
     folder      = var.rancher_vsphere_folder
     network     = [var.rancher_vsphere_network]
     pool        = var.rancher_vsphere_pool
