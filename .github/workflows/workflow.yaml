@@ -9,7 +9,7 @@ on:
 jobs:
   validate:
     name: Validate Terraform
-    runs-on: ez-rancher
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v2
