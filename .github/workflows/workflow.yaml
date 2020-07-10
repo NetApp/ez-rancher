@@ -65,25 +65,25 @@ jobs:
         run: |
           mkdir deliverables
           env | grep TF_ > env.list
-          COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
+          export COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           echo TF_VAR_vm_name=$COMMIT_ID >> env.list
 
       - name: Plan
         run: |        
-          sudo docker run --rm -v `pwd`/deliverables:/terraform/vsphere-rancher/deliverables \
+          sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
             terraform-rancher:latest plan -input="false"
 
       - name: Deploy
         run: |
-          sudo docker run --rm -v `pwd`/deliverables:/terraform/vsphere-rancher/deliverables \
+          sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
             terraform-rancher:latest apply -input="false" -auto-approve
       
       - name: Destroy
         if: ${{ always() }}
         run: |
-          sudo docker run --rm -v `pwd`/deliverables:/terraform/vsphere-rancher/deliverables \
+          sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
             terraform-rancher:latest destroy -input="false" -auto-approve
 
