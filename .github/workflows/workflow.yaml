@@ -35,6 +35,7 @@ jobs:
   docker-deploy:
     name: Docker Deploy - DHCP
     runs-on: docker
+    needs: validate
     steps:
       - name: Check out code
         uses: actions/checkout@v2

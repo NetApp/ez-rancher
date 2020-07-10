@@ -108,6 +108,6 @@ variable "rancher_vsphere_pool" {
 }
 
 variable "rancher_node_template_disk_size" {
-  type = number
+  type    = number
   default = 51200
 }
