@@ -1,11 +1,13 @@
 variable "worker_count" {
   type        = number
   description = "Number of worker nodes"
+  default = 2
 }
 
 variable "control_plane_count" {
   type        = number
   description = "Number of control plane nodes"
+  default = 1
 }
 
 variable "vsphere_user" {

@@ -26,17 +26,20 @@ There are 2 ways to run Terraform Rancher:
 ### vSphere
 
 #### VM template
-The 'vm_template_name' must be a cloud-init OVA that is in your vCenter instance. We have tested this Ubuntu image: https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.ova
+The `vm_template_name` must be a cloud-init OVA that is in your vCenter instance. We have tested this Ubuntu image: https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.ova
 
 ### Network
-Network connectivity from where terraform is executed to the vm_network. The vm_network must also have internet access.
+Network connectivity from where terraform is executed to the `vm_network`. The `vm_network` must also have internet access.
 
 #### DNS
 The `rancher_server_url` input must resolve to one of the worker node IPs. 
 
 If DHCP is used (default), this can be done after the deployment completes and the worker nodes recieve an IP from the `vm_network`. 
 
-## Usage
+## Getting Started
+For tfvars config file examples, refer to [tfvars examples](docs/TfvarsExamples.md)
+
+`terraform apply` will create a `deliverables/` directory to save things like the kubeconfig, ssh keys, etc
 
 #### Terraform CLI
 ```bash
@@ -65,7 +68,10 @@ terraform apply -var-file=terraform.tfvars -state=deliverables/terraform.tfstate
 terraform destroy -var-file=terraform.tfvars -state=deliverables/terraform.tfstate
 ```
 
-## Notes
+## Releases
 
-* `terraform apply` will create a `deliverables/` directory to save things like the kubeconfig, ssh keys, etc
-* Releases will be published as container images in Github
+* [Releases will be published as container images in Github](https://github.com/NetApp/ez-rancher/packages)
+```bash
+docker login docker.pkg.github.com -u <GITHUB_USER> -p <GITHUB_ACCESS_TOKEN> 
+docker pull docker.pkg.github.com/netapp/ez-rancher/terraform-rancher:latest
+```
