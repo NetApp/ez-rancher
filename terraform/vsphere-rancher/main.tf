@@ -6,15 +6,14 @@ terraform {
 }
 
 locals {
-  control_plane_ips = length(var.static_ip_addresses) == 0 ? [] : slice(var.static_ip_addresses, 0, var.control_plane_count)
-  worker_ips        = length(var.static_ip_addresses) == 0 ? [] : slice(var.static_ip_addresses, var.control_plane_count, var.worker_count + var.control_plane_count)
+  cluster_node_ips = length(var.static_ip_addresses) == 0 ? [] : slice(var.static_ip_addresses, 0, var.cluster_node_count)
 }
 
 
-module "control_plane" {
+module "cluster_nodes" {
   source = "../modules/infrastructure/vsphere"
 
-  node_count             = var.control_plane_count
+  node_count             = var.cluster_node_count
   type                   = "control-plane"
   vm_datastore           = var.vm_datastore
   vm_name                = var.vm_name
@@ -30,31 +29,7 @@ module "control_plane" {
   vsphere_vm_folder      = var.vsphere_vm_folder
   vsphere_resource_pool  = var.vsphere_resource_pool
   ssh_public_key         = var.ssh_public_key
-  static_ip_addresses    = local.control_plane_ips
-  default_gateway        = var.default_gateway
-  dns_servers            = var.dns_servers
-}
-
-module "worker" {
-  source = "../modules/infrastructure/vsphere"
-
-  node_count             = var.worker_count
-  type                   = "worker"
-  vm_datastore           = var.vm_datastore
-  vm_name                = var.vm_name
-  vm_network             = var.vm_network
-  vm_cpu                 = var.vm_cpu
-  vm_ram                 = var.vm_ram
-  vm_template_name       = var.vm_template_name
-  vsphere_datacenter     = var.vsphere_datacenter
-  vsphere_password       = var.vsphere_password
-  vsphere_unverified_ssl = var.vsphere_unverified_ssl
-  vsphere_user           = var.vsphere_user
-  vsphere_vcenter        = var.vsphere_vcenter
-  vsphere_vm_folder      = var.vsphere_vm_folder
-  vsphere_resource_pool  = var.vsphere_resource_pool
-  ssh_public_key         = var.ssh_public_key
-  static_ip_addresses    = local.worker_ips
+  static_ip_addresses    = local.cluster_node_ips
   default_gateway        = var.default_gateway
   dns_servers            = var.dns_servers
 }
@@ -62,12 +37,11 @@ module "worker" {
 module "rancher" {
   source = "../modules/kubernetes/rancher"
 
-  vm_depends_on       = [module.worker.nodes, module.control_plane.nodes]
-  control_plane_nodes = module.control_plane.nodes
-  worker_nodes        = module.worker.nodes
-  rancher_server_url  = var.bootstrap_rancher ? length(local.control_plane_ips) == 0 ? join("", [module.worker.nodes[0].ip, ".nip.io"]) : var.rancher_server_url : var.rancher_server_url
-  ssh_private_key     = var.ssh_private_key
-  ssh_public_key      = var.ssh_public_key
+  vm_depends_on      = [module.cluster_nodes.nodes]
+  cluster_nodes      = module.cluster_nodes.nodes
+  rancher_server_url = var.bootstrap_rancher ? length(local.cluster_node_ips) == 0 ? join("", [module.cluster_nodes.nodes[0].ip, ".nip.io"]) : var.rancher_server_url : var.rancher_server_url
+  ssh_private_key    = var.ssh_private_key
+  ssh_public_key     = var.ssh_public_key
 
   rancher_password    = var.rancher_password
   create_user_cluster = var.rancher_create_user_cluster

@@ -1,9 +1,5 @@
-output "control_plane_nodes" {
-  value = module.control_plane.nodes
-}
-
-output "worker_nodes" {
-  value = module.worker.nodes
+output "cluster_nodes" {
+  value = module.cluster_nodes.nodes
 }
 
 output "rancher_server_url" {

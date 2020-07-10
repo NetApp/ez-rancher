@@ -32,12 +32,7 @@ variable "deliverables_path" {
   default     = "./deliverables"
 }
 
-variable "control_plane_nodes" {
-  type    = list
-  default = []
-}
-
-variable "worker_nodes" {
+variable "cluster_nodes" {
   type    = list
   default = []
 }
