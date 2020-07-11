@@ -92,4 +92,9 @@ resource "helm_release" "rancher" {
     value = var.rancher_server_url
   }
 
+  set {
+    name  = "ingress.extraAnnotations.nginx\\.ingress\\.kubernetes\\.io/server-alias"
+    value = join(",", formatlist("%s.nip.io", [for node in slice(var.cluster_nodes, 1, length(var.cluster_nodes)-1): node["ip"]]))
+  }
+
 }
