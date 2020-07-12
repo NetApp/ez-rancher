@@ -77,7 +77,8 @@ jobs:
           TF_VAR_bootstrap_rancher: true
           TF_VAR_vsphere_resource_pool: ${{ secrets.TF_VSPHERE_RESOURCE_POOL }}
         run: |
-          mkdir deliverables
+          export COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
+          mkdir deliverables-$COMMIT_ID
           env | grep TF_ > env.list
           export COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           echo TF_VAR_vm_name=$COMMIT_ID >> env.list
