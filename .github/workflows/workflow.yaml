@@ -6,6 +6,10 @@ on:
     - 'terraform/**'
     - '.github/workflows/workflow.yaml'
   workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git Ref (Optional)    
+        required: false
   schedule:
     - cron: '45 * * * *'
 
@@ -16,6 +20,13 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+        if: github.event.inputs.git-ref == ''
+        
+      - name: Clone Repository (Custom Ref)
+        uses: actions/checkout@v2
+        if: github.event.inputs.git-ref != ''
+        with:
+          ref: ${{ github.event.inputs.git-ref }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
