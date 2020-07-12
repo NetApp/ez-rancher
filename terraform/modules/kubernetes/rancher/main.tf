@@ -75,8 +75,14 @@ resource "helm_release" "cert-manager" {
   }
 }
 
+resource "time_sleep" "wait_for_cert_manager" {
+  depends_on = [helm_release.cert-manager]
+
+  create_duration = "30s"
+}
+
 resource "helm_release" "rancher" {
-  depends_on       = [helm_release.cert-manager]
+  depends_on       = [helm_release.cert-manager, time_sleep.wait_for_cert_manager]
   name             = "rancher"
   chart            = "rancher"
   repository       = "https://releases.rancher.com/server-charts/stable"
