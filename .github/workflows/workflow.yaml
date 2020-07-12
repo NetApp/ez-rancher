@@ -80,7 +80,6 @@ jobs:
           export COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           mkdir deliverables-$COMMIT_ID
           env | grep TF_ > env.list
-          export COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           echo TF_VAR_vm_name=$COMMIT_ID >> env.list
 
       - name: Plan
@@ -99,18 +98,7 @@ jobs:
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
-            terraform-rancher:latest apply -input="false" -auto-approve
-      
-      - name: Wait 15 minutes
-        if : ${{ failure() }}
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: |
-          COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
-          ls `pwd`/deliverables-$COMMIT_ID
-          cat `pwd`/deliverables-$COMMIT_ID/kubeconfig
-          sleep 15m
-          
+            terraform-rancher:latest apply -input="false" -auto-approve         
 
       - name: Destroy
         env:
