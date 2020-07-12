@@ -21,7 +21,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         if: github.event.inputs.git-ref == ''
-        
+
       - name: Clone Repository (Custom Ref)
         uses: actions/checkout@v2
         if: github.event.inputs.git-ref != ''
@@ -94,6 +94,13 @@ jobs:
             --env-file env.list \
             terraform-rancher:latest apply -input="false" -auto-approve
       
+      - name: Wait 15 minutes
+        if : ${{ failure() }}
+        run: |
+          cat `pwd`/deliverables-$COMMIT_ID/kubeconfig
+          sleep 15m
+          
+
       - name: Destroy
         if: ${{ always() }}
         run: |
