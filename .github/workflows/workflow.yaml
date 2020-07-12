@@ -5,6 +5,9 @@ on:
     paths:
     - 'terraform/**'
     - '.github/workflows/workflow.yaml'
+  workflow_dispatch:
+  schedule:
+    - cron: '45 * * * *'
 
 jobs:
   validate:
