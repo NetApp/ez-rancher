@@ -83,27 +83,40 @@ jobs:
           echo TF_VAR_vm_name=$COMMIT_ID >> env.list
 
       - name: Plan
-        run: |        
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)        
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
             terraform-rancher:latest plan -input="false"
 
       - name: Deploy
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
+          COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
             terraform-rancher:latest apply -input="false" -auto-approve
       
       - name: Wait 15 minutes
         if : ${{ failure() }}
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
+          COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
+          ls `pwd`/deliverables-$COMMIT_ID
           cat `pwd`/deliverables-$COMMIT_ID/kubeconfig
           sleep 15m
           
 
       - name: Destroy
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
         if: ${{ always() }}
         run: |
+          COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
             terraform-rancher:latest destroy -input="false" -auto-approve
