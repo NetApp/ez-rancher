@@ -1,5 +1,6 @@
 locals {
   deliverables_path = var.deliverables_path == "" ? "./deliverables" : var.deliverables_path
+  alias_initial_node = var.rancher_server_url == join("", [var.cluster_nodes[0].ip, ".nip.io"]) ? 1 : 0
 }
 
 resource "rke_cluster" "cluster" {
@@ -101,7 +102,7 @@ resource "helm_release" "rancher" {
 
   set {
     name  = "ingress.extraAnnotations.nginx\\.ingress\\.kubernetes\\.io/server-alias"
-    value = join(" ", formatlist("%s.nip.io", [for node in slice(var.cluster_nodes, 1, length(var.cluster_nodes)) : node["ip"]]))
+    value = join(" ", formatlist("%s.nip.io", [for node in slice(var.cluster_nodes, local.alias_initial_node, length(var.cluster_nodes)) : node["ip"]]))
   }
 
 }
