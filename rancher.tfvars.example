@@ -73,6 +73,8 @@ rancher_server_url = "my.rancher.org"
 # Automatically configure rancher:
 # - Updates the default admin password, provided by the rancher_password variable.
 # - Enables telemetry 
+# - Creates cloud credentials for vCenter
+# - Creates node template for vCenter
 bootstrap_rancher = false
 
 # rancher default admin password
