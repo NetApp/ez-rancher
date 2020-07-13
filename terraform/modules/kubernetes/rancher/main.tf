@@ -1,5 +1,5 @@
 locals {
-  deliverables_path = var.deliverables_path == "" ? "./deliverables" : var.deliverables_path
+  deliverables_path  = var.deliverables_path == "" ? "./deliverables" : var.deliverables_path
   alias_initial_node = var.rancher_server_url == join("", [var.cluster_nodes[0].ip, ".nip.io"]) ? 1 : 0
 }
 
