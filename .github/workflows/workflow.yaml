@@ -11,7 +11,7 @@ on:
         description: Git Ref (Optional)    
         required: false
   schedule:
-    - cron: '45 * * * *'
+    - cron: '0 */4 * * *'
 
 jobs:
   validate:
@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Build image
-        run: sudo docker build -t terraform-rancher:latest .
+        run: sudo docker build --no-cache -t terraform-rancher:latest .
 
       - name: Create vars file
         env:
@@ -109,5 +109,8 @@ jobs:
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
             terraform-rancher:latest destroy -input="false" -auto-approve
+      
+      - name: Remove image
+        run: sudo docker rmi terraform-rancher:latest
 
           
