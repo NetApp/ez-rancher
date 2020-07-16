@@ -11,6 +11,7 @@ on:
         description: Git Ref (Optional)    
         required: false
   schedule:
+    # Run every 4 hours
     - cron: '0 */4 * * *'
 
 jobs:
