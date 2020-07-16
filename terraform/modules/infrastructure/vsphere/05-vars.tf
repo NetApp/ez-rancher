@@ -89,18 +89,6 @@ variable "vm_domain" {
   default     = ""
 }
 
-variable "ssh_private_key" {
-  type        = string
-  description = "SSH private key"
-  default     = "~/.ssh/id_rsa"
-}
-
-variable "ssh_public_key" {
-  type        = string
-  description = "SSH public key"
-  default     = "~/.ssh/id_rsa.pub"
-}
-
 variable "static_ip_addresses" {
   type        = list
   description = "List of IP addresses"

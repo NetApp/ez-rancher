@@ -23,7 +23,6 @@ module "cluster_nodes" {
   vsphere_vcenter        = var.vsphere_vcenter
   vsphere_vm_folder      = var.vsphere_vm_folder
   vsphere_resource_pool  = var.vsphere_resource_pool
-  ssh_public_key         = join("", [var.deliverables_path, "/id_rsa.pub"])
   static_ip_addresses    = var.static_ip_addresses
   default_gateway        = var.default_gateway
   dns_servers            = var.dns_servers
