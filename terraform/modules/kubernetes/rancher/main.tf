@@ -17,7 +17,7 @@ resource "rke_cluster" "cluster" {
       hostname_override = nodes.value.name
       user              = "ubuntu"
       role              = ["controlplane", "etcd", "worker"]
-      ssh_key           = file(var.ssh_private_key)
+      ssh_key           = var.ssh_private_key
     }
   }
 }
@@ -34,13 +34,13 @@ resource "local_file" "rkeconfig" {
 
 resource "local_file" "ssh_private_key" {
   filename        = format("${local.deliverables_path}/id_rsa")
-  content         = file(var.ssh_private_key)
+  content         = var.ssh_private_key
   file_permission = "600"
 }
 
 resource "local_file" "ssh_public_key" {
   filename        = format("${local.deliverables_path}/id_rsa.pub")
-  content         = file(var.ssh_public_key)
+  content         = var.ssh_public_key
   file_permission = "644"
 }
 

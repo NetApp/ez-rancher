@@ -1,4 +1,9 @@
 
+resource "tls_private_key" "key" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P384"
+}
+
 resource "vsphere_virtual_machine" "node" {
   count            = var.node_count
   name             = format("${var.vm_name}-${var.type}%02d", count.index + 1)

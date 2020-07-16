@@ -23,7 +23,7 @@ module "cluster_nodes" {
   vsphere_vcenter        = var.vsphere_vcenter
   vsphere_vm_folder      = var.vsphere_vm_folder
   vsphere_resource_pool  = var.vsphere_resource_pool
-  ssh_public_key         = var.ssh_public_key
+  ssh_public_key         = join("", [var.deliverables_path, "/id_rsa.pub"])
   static_ip_addresses    = var.static_ip_addresses
   default_gateway        = var.default_gateway
   dns_servers            = var.dns_servers
@@ -35,8 +35,8 @@ module "rancher" {
   vm_depends_on      = [module.cluster_nodes.nodes]
   cluster_nodes      = module.cluster_nodes.nodes
   rancher_server_url = var.bootstrap_rancher ? length(var.static_ip_addresses) == 0 ? join("", [module.cluster_nodes.nodes[0].ip, ".nip.io"]) : var.rancher_server_url : var.rancher_server_url
-  ssh_private_key    = var.ssh_private_key
-  ssh_public_key     = var.ssh_public_key
+  ssh_private_key    = module.cluster_nodes.ssh_private_key
+  ssh_public_key     = module.cluster_nodes.ssh_public_key
 
   rancher_password    = var.rancher_password
   create_user_cluster = var.rancher_create_user_cluster

@@ -11,3 +11,12 @@ output "nodes" {
     }
   ]
 }
+
+output "ssh_public_key" {
+  value = tls_private_key.key.public_key_openssh
+}
+
+output "ssh_private_key" {
+  value     = tls_private_key.key.private_key_pem
+  sensitive = true
+}
