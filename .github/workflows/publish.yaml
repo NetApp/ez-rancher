@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '*/15 * * * *w' # Every 15 minutes
+    - cron: '*/15 * * * *' # Every 15 minutes
 
 jobs:
   publish:
