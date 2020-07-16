@@ -17,7 +17,7 @@ resource "vsphere_virtual_machine" "node" {
   wait_for_guest_net_timeout = local.num_addresses == 0 ? 5 : 0
   disk {
     label            = "disk0"
-    size             = data.vsphere_virtual_machine.template.disks.0.size
+    size             = data.vsphere_virtual_machine.template.disks.0.size > 20 ? data.vsphere_virtual_machine.template.disks.0.size : 20
     thin_provisioned = data.vsphere_virtual_machine.template.disks.0.thin_provisioned
   }
   cdrom {
