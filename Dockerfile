@@ -16,7 +16,6 @@ RUN apk add --no-cache curl \
   && mv terraform-provider-rke-*/terraform-provider-rke /root/.terraform.d/plugins/linux_amd64/terraform-provider-rke \
   && rm -rf terraform-provider-rke-linux-amd64.tar.gz \
   && rm -rf terraform-provider-rke-* \
-  && ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa \
   && apk del --no-cache .build-deps \
   && curl -LO https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
   && unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
