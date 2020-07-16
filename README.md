@@ -92,3 +92,23 @@ terraform destroy -var-file=terraform.tfvars -state=deliverables/terraform.tfsta
 docker login docker.pkg.github.com -u <GITHUB_USER> -p <GITHUB_ACCESS_TOKEN> 
 docker pull docker.pkg.github.com/netapp/ez-rancher/terraform-rancher:latest
 ```
+
+## Creating container images
+You can use the `make image` command to easily build a terraform-rancher
+container image with all the necessary dependencies.  This will be built
+based on the current status of your src directory.
+
+By default we set an Image Tag of "dev" eg terraform-rancher:dev.  You can
+change this tag by setting the `IMAGE_TAG` environment variable to your
+desired tag (eg `latest` which we build and publish for each commit).
+
+## Pushing images to a container registry
+After building your image, you can also easily push it to your container
+registry using the Makefile.  By default, we set a container registry
+environment variable ($REGISTRY) to `index.docker.io/netapp`.  You can
+set this environment varialbe to your own dockerhub account as well as
+quay, or gcr and push dev builds to your own registry if you like by running
+`make push`.
+
+The `push` directive honors both the `IMAGE_TAG` env variable and the `REGISTRY`
+env variable.
