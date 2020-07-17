@@ -32,18 +32,6 @@ resource "local_file" "rkeconfig" {
   content  = rke_cluster.cluster.rke_cluster_yaml
 }
 
-resource "local_file" "ssh_private_key" {
-  filename        = format("${local.deliverables_path}/id_rsa")
-  content         = var.ssh_private_key
-  file_permission = "600"
-}
-
-resource "local_file" "ssh_public_key" {
-  filename        = format("${local.deliverables_path}/id_rsa.pub")
-  content         = var.ssh_public_key
-  file_permission = "644"
-}
-
 provider "helm" {
   version = "1.2.2"
   kubernetes {

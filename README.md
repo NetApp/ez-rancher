@@ -47,9 +47,9 @@ If `bootstrap_rancher` is enabled, there are special considerations with respect
 * If using DHCP, the `rancher_server_url` will be automatically overridden to **\<ip address of first node>.nip.io**. This is done in order to provide a hostname to access the rancher service for bootstrapping.
 
 ## Getting Started
-For tfvars config file examples, refer to [tfvars examples](docs/TfvarsExamples.md)
+For tfvars config file examples, refer to [tfvars examples](rancher.tfvars.example)
 
-`terraform apply` will create a `deliverables/` directory to save things like the kubeconfig, ssh keys, etc
+`terraform apply` will create a `deliverables/` directory to save things like the kubeconfig, tfstate, etc
 
 #### Terraform CLI
 ```bash
@@ -60,18 +60,20 @@ terraform destroy -var-file=rancher.tfvars terraform/vsphere-rancher
 ```
 
 #### Docker
+*Note*: If providing the `ssh_public_key` variable, it will need to be available inside the container. [runner.sh](hack/runner.sh) will bind the key to /terraform/vsphere-rancher/id_rsa.pub
+
 ```bash
 make image
 
 # create cluster using default arguments
 make dockerized-terraform-apply
 # create cluster using custom arguments
-sh hack/runner.sh apply <path_to_tfvars_file> <path_to_deliverables_directory> 
+sh hack/runner.sh apply <path_to_tfvars_file> <path_to_deliverables_directory> <path_to_ssh_key>
 
 # remove cluster using default arguments
 make dockerized-terraform-destroy
 # remove cluster using custom arguments
-sh hack/runner.sh destroy <path_to_tfvars_file> <path_to_deliverables_directory> 
+sh hack/runner.sh destroy <path_to_tfvars_file> <path_to_deliverables_directory>
 
 ```
 

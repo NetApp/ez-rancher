@@ -15,12 +15,6 @@ variable "ssh_private_key" {
   default     = "~/.ssh/id_rsa"
 }
 
-variable "ssh_public_key" {
-  type        = string
-  description = "SSH public key"
-  default     = "~/.ssh/id_rsa.pub"
-}
-
 variable "vm_depends_on" {
   type    = any
   default = null
