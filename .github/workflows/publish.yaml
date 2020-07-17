@@ -1,5 +1,7 @@
 name: Publish to Registry
 on:
+  release:
+    types: [published]
   push:
     branches:
       - main
