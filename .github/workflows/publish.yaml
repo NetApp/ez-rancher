@@ -1,18 +1,17 @@
-name: Publish
-
+name: Publish to Registry
 on:
+  release:
+    types: [published]
   push:
     branches:
       - main
   schedule:
     - cron: '*/15 * * * *' # Every 15 minutes
-
 jobs:
   publish:
-    name: Publish Image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
       - name: Get release version
         id: get_version
         run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
