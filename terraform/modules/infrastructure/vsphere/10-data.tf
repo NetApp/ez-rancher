@@ -40,7 +40,7 @@ data "template_file" "userdata" {
   template = file("${path.module}/cloudinit/kickstart-userdata.yaml")
   vars = {
     ssh_public_key          = tls_private_key.key.public_key_openssh
-    admin_access_public_key = var.ssh_public_key != "" ? file(var.ssh_public_key) : ""
+    admin_access_public_key = var.ssh_public_key
     netplan                 = base64encode(data.template_file.netplan[count.index].rendered)
   }
 }

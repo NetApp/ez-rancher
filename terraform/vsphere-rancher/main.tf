@@ -36,6 +36,7 @@ module "rancher" {
   cluster_nodes      = module.cluster_nodes.nodes
   rancher_server_url = var.bootstrap_rancher ? length(var.static_ip_addresses) == 0 ? join("", [module.cluster_nodes.nodes[0].ip, ".nip.io"]) : var.rancher_server_url : var.rancher_server_url
   ssh_private_key    = module.cluster_nodes.ssh_private_key
+  ssh_public_key     = module.cluster_nodes.ssh_public_key
 
   rancher_password    = var.rancher_password
   create_user_cluster = var.rancher_create_user_cluster
