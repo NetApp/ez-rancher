@@ -6,6 +6,7 @@
 .terraform/
 /terraform/.terraform
 /terraform/deliverables/*
+terraform/container-build-stamp.txt
 
 packer/variables.json
 # Cache objects
