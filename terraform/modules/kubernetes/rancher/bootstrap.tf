@@ -10,7 +10,7 @@ resource "null_resource" "wait_for_rancher" {
 provider "rancher2" {
   alias = "bootstrap"
 
-  api_url   = join("", ["https://", var.cluster_nodes[0].ip], ".nip.io")
+  api_url   = join("", ["https://", var.cluster_nodes[0].ip, ".nip.io"])
   bootstrap = true
   insecure  = true
 }
