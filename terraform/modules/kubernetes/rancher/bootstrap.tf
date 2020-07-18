@@ -3,7 +3,7 @@ resource "null_resource" "wait_for_rancher" {
 
   depends_on = [helm_release.rancher]
   provisioner "local-exec" {
-    command = "count=0; until $(curl -ks --connect-timeout 3 ${join("", ["https://", var.rancher_server_url])} > /dev/null 2>&1); do sleep 1; if [ $count -eq 100 ]; then break; fi; count=`expr $count + 1`; done"
+    command = "count=0; until $(curl -ks --connect-timeout 3 ${join("", ["https://", var.cluster_nodes[0].ip, ".nip.io"])} > /dev/null 2>&1); do sleep 1; if [ $count -eq 100 ]; then break; fi; count=`expr $count + 1`; done"
   }
 }
 
