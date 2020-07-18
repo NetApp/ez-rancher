@@ -1,16 +1,19 @@
-name: Publish
-
+name: Publish to Registry
 on:
+  release:
+    types: [published]
   push:
     branches:
       - main
-
 jobs:
   publish:
-    name: Publish Image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
+      - run: git fetch --prune --unshallow
+      - name: Get release version
+        id: get_version
+        run: echo ::set-env name=RELEASE_VERSION::$(git describe --tags --abbrev=0)
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:

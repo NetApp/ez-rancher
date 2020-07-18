@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,9 +16,19 @@
 # Copyright 2020 NetApp
 #
 
-RKE_PROVIDER_VERSION=1.0.0
+IMAGE_TAG=${IMAGE_TAG:-dev}
+echo "building container image using tag: '$IMAGE_TAG'";
 
-curl -LO https://github.com/rancher/terraform-provider-rke/releases/download/${RKE_PROVIDER_VERSION}/terraform-provider-rke-linux-amd64.tar.gz
-tar -xzf terraform-provider-rke-linux-amd64.tar.gz
-mkdir -p terraform.d/plugins/linux_amd64/
-mv terraform-provider-rke-*/terraform-provider-rke terraform.d/plugins/linux_amd64/terraform-provider-rke
+CWD=$PWD
+PROJECT_DIR="$(
+  cd "$(dirname "$BASH_SOURCE[0]")/../"
+  pwd
+)"
+
+cd $PROJECT_DIR
+echo "creating image build stamp using git commit sha..."
+echo $(git rev-parse HEAD) > terraform/container-build-stamp.txt
+echo "starting docker build process..."
+docker build -t terraform-rancher:${IMAGE_TAG} .
+cd $CWD
+

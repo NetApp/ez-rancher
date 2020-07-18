@@ -1,33 +1,46 @@
 #!/usr/bin/env bash
-
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# Copyright 2020 NetApp
+#
+OPERATION=$1
 IMAGE_TAG=${IMAGE_TAG:-dev}
+TFVARS=${ER_VARS_FILE:-"${PWD}/rancher.tfvars"}
+DELIVERABLES=${ER_DELIVERABLES_DIR:-"${PWD}/deliverables"}
+
 if ( ! docker stats --no-stream > /dev/null ); then
   echo 'Docker daemon is not running. Exiting'
   exit 1;
 fi
 
-operation=$1
-tfvars=${2:-"${PWD}/rancher.tfvars"}
-deliverables=${3:-"${PWD}/deliverables"}
-ssh_key=${4:-""}
-if [ ! -f "$tfvars" ]; then
-  echo 'Local tfvars file not found at:'
-  echo "$tfvars"
+if [ ! -f "$TFVARS" ]; then
+  echo 'Local variables file not found at:'
+  echo "$TFVARS"
   echo 'Exiting'
   exit 1;
 fi
 
-if [ ! -d "$deliverables" ]; then
+if [ ! -d "$DELIVERABLES" ]; then
   echo 'Local deliverables file not found at:'
-  echo "$deliverables"
+  echo "$DELIVERABLES"
   echo 'Attempting to create it for you...'
-  mkdir -p "$deliverables"
+  mkdir -p "$DELIVERABLES"
 fi
 
-bind_ssh_key=""
-if [ -n "$ssh_key" ]; then
-  bind_ssh_key="-v ${ssh_key}:/terraform/vsphere-rancher/id_rsa.pub"
-fi
+docker run -it --rm -v "$TFVARS":/terraform/vsphere-rancher/rancher.tfvars -v "$DELIVERABLES":/terraform/vsphere-rancher/deliverables terraform-rancher:"$IMAGE_TAG" "$OPERATION" -auto-approve -var-file=/terraform/vsphere-rancher/rancher.tfvars -state=deliverables/terraform.tfstate
 
-make image
-docker run -it --rm -v "$tfvars":/terraform/vsphere-rancher/rancher.tfvars -v "$deliverables":/terraform/vsphere-rancher/deliverables $bind_ssh_key terraform-rancher:"$IMAGE_TAG" "$operation" -auto-approve -var-file=/terraform/vsphere-rancher/rancher.tfvars -state=deliverables/terraform.tfstate
+if [ "$OPERATION" == "destroy" ]; then
+  echo "removing contents of deliverables directory..."
+  rm -rf "$DELIVERABLES"
+fi
