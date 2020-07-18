@@ -40,12 +40,6 @@ If DHCP is used (default), this can be done after the deployment completes and t
 
 The Rancher service is also accessible via **\<node ip address>.nip.io** for each node in the cluster. This provides additional hostnames that can be used to access the rancher service in the event of a node failure, or simply for convenience.
 
-**DNS and Automatic Bootstrapping**
-
-If `bootstrap_rancher` is enabled, there are special considerations with respect to DNS:
-* If using `static_ip_addresses`, the `rancher_server_url` must resolve to one or more of the cluster nodes.
-* If using DHCP, the `rancher_server_url` will be automatically overridden to **\<ip address of first node>.nip.io**. This is done in order to provide a hostname to access the rancher service for bootstrapping.
-
 ## Getting Started
 For tfvars config file examples, refer to [tfvars examples](docs/TfvarsExamples.md)
 
