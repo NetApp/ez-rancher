@@ -17,9 +17,9 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: netapp/ez-rancher/terraform-rancher
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
+          name: netapp/ez-rancher
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASS }}
+          registry: docker.io
           dockerfile: Dockerfile
-          tags: "latest,${{ env.RELEASE_VERSION }}"
+          tags: "latest"
