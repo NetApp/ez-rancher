@@ -9,6 +9,7 @@ users:
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh_authorized_keys:
       - ${ssh_public_key}
+      - ${admin_access_public_key}
 system_info:
   default_user:
     name: default-user
