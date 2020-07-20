@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: destroy-rancher
-        image: docker.io/library/terraform-rancher
+        image: docker.io/library/ez-rancher
         command:
          - "terraform"
          - "destroy"
@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: tfvars
           configMap:
-            name: terraform-rancher
+            name: ez-rancher
         - name: volv
           persistentVolumeClaim:
             claimName: standard-volv-pvc

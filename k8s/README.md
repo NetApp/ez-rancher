@@ -10,7 +10,7 @@
 ```bash
 # one option is to create a systemd service with the first line below
 kind create cluster --config kind-config.yaml
-kind load docker-image terraform-rancher # this line is for use with this guide
+kind load docker-image ez-rancher # this line is for use with this guide
 ```
 
 ## Client Side

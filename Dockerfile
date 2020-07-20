@@ -1,5 +1,5 @@
-# docker build -t terraform-rancher:latest .
-# docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/rancher.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables terraform-rancher:latest apply -state=deliverables/terraform.tfstate
+# docker build -t ez-rancher:latest .
+# docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/rancher.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables ez-rancher:latest apply -state=deliverables/terraform.tfstate
 FROM alpine:3.12.0
 
 ENV KUBECTL_VERSION=v1.17.4

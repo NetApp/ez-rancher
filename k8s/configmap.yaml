@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: terraform-rancher
+  name: ez-rancher
   namespace: default
 data:
   terraform.tfvars: |+

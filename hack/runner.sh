@@ -15,9 +15,14 @@
 # Copyright 2020 NetApp
 #
 OPERATION=$1
-IMAGE_TAG=${IMAGE_TAG:-dev}
+IMAGE_NAME=${IMAGE_NAME:-netapp/ez-rancher}
+IMAGE_TAG=${IMAGE_TAG:-latest}
 TFVARS=${ER_VARS_FILE:-"${PWD}/rancher.tfvars"}
 DELIVERABLES=${ER_DELIVERABLES_DIR:-"${PWD}/deliverables"}
+
+if [ ! -z ${ER_DEBUG} ] ; then
+  set -x
+fi
 
 if ( ! docker stats --no-stream > /dev/null ); then
   echo 'Docker daemon is not running. Exiting'
@@ -38,9 +43,11 @@ if [ ! -d "$DELIVERABLES" ]; then
   mkdir -p "$DELIVERABLES"
 fi
 
-docker run -it --rm -v "$TFVARS":/terraform/vsphere-rancher/rancher.tfvars -v "$DELIVERABLES":/terraform/vsphere-rancher/deliverables terraform-rancher:"$IMAGE_TAG" "$OPERATION" -auto-approve -var-file=/terraform/vsphere-rancher/rancher.tfvars -state=deliverables/terraform.tfstate
+docker run -it --rm -v "$TFVARS":/terraform/vsphere-rancher/rancher.tfvars -v "$DELIVERABLES":/terraform/vsphere-rancher/deliverables \
+    ${IMAGE_NAME}:"$IMAGE_TAG" "$OPERATION" -auto-approve -var-file=/terraform/vsphere-rancher/rancher.tfvars -state=deliverables/terraform.tfstate
 
 if [ "$OPERATION" == "destroy" ]; then
   echo "removing contents of deliverables directory..."
   rm -rf "$DELIVERABLES"
 fi
+ 
