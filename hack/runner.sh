@@ -38,9 +38,11 @@ if [ ! -d "$DELIVERABLES" ]; then
   mkdir -p "$DELIVERABLES"
 fi
 
-docker run -it --rm -v "$TFVARS":/terraform/vsphere-rancher/rancher.tfvars -v "$DELIVERABLES":/terraform/vsphere-rancher/deliverables terraform-rancher:"$IMAGE_TAG" "$OPERATION" -auto-approve -var-file=/terraform/vsphere-rancher/rancher.tfvars -state=deliverables/terraform.tfstate
-
 if [ "$OPERATION" == "destroy" ]; then
+  docker run -it --rm -v "$TFVARS":/terraform/vsphere-rancher/rancher.tfvars -v "$DELIVERABLES":/terraform/vsphere-rancher/deliverables terraform-rancher:"$IMAGE_TAG" state rm module.rancher
+  docker run -it --rm -v "$TFVARS":/terraform/vsphere-rancher/rancher.tfvars -v "$DELIVERABLES":/terraform/vsphere-rancher/deliverables terraform-rancher:"$IMAGE_TAG" "$OPERATION" -auto-approve -var-file=/terraform/vsphere-rancher/rancher.tfvars -target=module.cluster_nodes.vsphere_virtual_machine.node
   echo "removing contents of deliverables directory..."
   rm -rf "$DELIVERABLES"
+else
+  docker run -it --rm -v "$TFVARS":/terraform/vsphere-rancher/rancher.tfvars -v "$DELIVERABLES":/terraform/vsphere-rancher/deliverables terraform-rancher:"$IMAGE_TAG" "$OPERATION" -auto-approve -var-file=/terraform/vsphere-rancher/rancher.tfvars
 fi
