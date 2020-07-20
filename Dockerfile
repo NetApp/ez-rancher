@@ -2,6 +2,9 @@
 # docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/rancher.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables terraform-rancher:latest apply -state=deliverables/terraform.tfstate
 FROM alpine:3.12.0
 
+ARG GIT_COMMIT=unspecified
+LABEL git_commit=$GIT_COMMIT
+
 ENV KUBECTL_VERSION=v1.17.4
 ENV RKE_PROVIDER_VERSION=1.0.0
 ENV TERRAFORM_VERSION=0.12.26
