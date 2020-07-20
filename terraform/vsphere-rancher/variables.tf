@@ -90,16 +90,10 @@ variable "rancher_password" {
   default = "solidfire"
 }
 
-variable "ssh_private_key" {
-  type        = string
-  description = "SSH private key"
-  default     = "~/.ssh/id_rsa"
-}
-
 variable "ssh_public_key" {
   type        = string
   description = "SSH public key"
-  default     = "~/.ssh/id_rsa.pub"
+  default     = ""
 }
 
 variable "static_ip_addresses" {

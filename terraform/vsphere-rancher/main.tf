@@ -26,6 +26,7 @@ module "cluster_nodes" {
   static_ip_addresses    = var.static_ip_addresses
   default_gateway        = var.default_gateway
   dns_servers            = var.dns_servers
+  ssh_public_key         = var.ssh_public_key
 }
 
 module "rancher" {
