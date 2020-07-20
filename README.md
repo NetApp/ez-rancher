@@ -92,18 +92,25 @@ docker pull docker.pkg.github.com/netapp/ez-rancher/terraform-rancher:latest
 ```
 
 ## Creating container images
-You can use the `make image` command to easily build a terraform-rancher
+You can use the `make build` command to easily build a terraform-rancher
 container image with all the necessary dependencies.  This will be built
 based on the current status of your src directory.
 
-By default we set an Image Tag of "dev" eg terraform-rancher:dev.  You can
+By default, we set an Image Tag of "dev" eg terraform-rancher:dev.  You can
 change this tag by setting the `IMAGE_TAG` environment variable to your
 desired tag (eg `latest` which we build and publish for each commit).
 
 When building container images, keep in mind that the `make build` option includes
-a helper script to gather the current git commit sha and places that file in the
-conatiner image that's built.  This provides a mechanism to determine the current
-git state of tagged builds that are in use.
+a helper script to gather the current git commit sha and sets a `git_commit` label 
+on the image. This provides a mechanism to determine the current git state of tagged
+builds that are in use. You can access the label using docker inspect:
+
+```
+$ docker inspect ez-rancher:dev  | jq '.[].ContainerConfig.Labels'
+{
+  "git_commit": "1c35dae6ef81c0bd14439c100a4260f3bff4ccce"
+}
+```
 
 ## Pushing images to a container registry
 After building your image, you can also easily push it to your container
