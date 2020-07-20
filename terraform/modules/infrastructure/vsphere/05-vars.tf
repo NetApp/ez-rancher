@@ -106,3 +106,9 @@ variable "dns_servers" {
   description = "List of DNS server IPv4 addresses"
   default     = ["1.1.1.1", "8.8.8.8"]
 }
+
+variable "ssh_public_key" {
+  type        = string
+  description = "SSH public key"
+  default     = ""
+}

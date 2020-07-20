@@ -47,9 +47,7 @@ If `bootstrap_rancher` is enabled, there are special considerations with respect
 * If using DHCP, the `rancher_server_url` will be automatically overridden to **\<ip address of first node>.nip.io**. This is done in order to provide a hostname to access the rancher service for bootstrapping.
 
 ## Getting Started
-For tfvars config file examples, refer to [tfvars examples](docs/TfvarsExamples.md)
-
-`terraform apply` will create a `deliverables/` directory to save things like the kubeconfig, ssh keys, etc
+For tfvars config file examples, refer to [tfvars examples](rancher.tfvars.example)
 
 #### Terraform CLI
 ```bash
@@ -82,6 +80,14 @@ make rancher-destroy
 The `make rancher-destroy` directive will not only tear down a cluster deployed with `make cluster-up` but it will
 also clean up/remove the deliverables files generated from that run.  As such, if for some reason you'd like to save
 files from a previous run you'll want to copy them to another location.
+
+### Deliverables
+ez-rancher will create several files based on the `deliverables_path` variable to save things like the kubeconfig, ssh keys, etc
+
+#### Node Access
+ez-rancher will generate an SSH key pair for RKE node communication. The generated key pair will be saved to the `deliverables_path` directory.
+
+Additionally, the `ssh_public_key` variable can optionally set an authorized_key on each node for admin access.
 
 ## Releases
 
