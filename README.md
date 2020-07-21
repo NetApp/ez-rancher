@@ -29,6 +29,10 @@ There are 2 ways to run EZ-Rancher:
 
 The `vm_template_name` must be a cloud-init OVA that is in your vCenter instance. We have tested this Ubuntu image: <https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.ova>
 
+#### VM datastore
+
+The `vm_datastore` must be set to a VMFS datastore to support disk resizing.
+
 ### Network
 
 Network connectivity from where terraform is executed to the `vm_network`. The `vm_network` must also have internet access.

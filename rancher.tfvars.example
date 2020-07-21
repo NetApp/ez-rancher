@@ -45,7 +45,7 @@ vsphere_unverified_ssl = "true"
 # vSphere datacenter name where the infrastructure will be deployed
 vsphere_datacenter = "myDatacenter"
 
-# vSphere Datastore used to deploy VMs
+# vSphere VMFS Datastore used to deploy VMs
 vm_datastore = "myDatastore"
 
 # vSphere Network used to deploy VMs
