@@ -8,7 +8,7 @@ resource "rke_cluster" "cluster" {
   # 2 minute timeout specifically for rke-network-plugin-deploy-job but will apply to any addons
   addon_job_timeout = 120
   dynamic "nodes" {
-    for_each = [for node in var.cluster_nodes : {
+    for_each = [for node in [var.cluster_nodes[0]] : {
       name = node["name"]
       ip   = node["ip"]
     }]
@@ -17,6 +17,20 @@ resource "rke_cluster" "cluster" {
       hostname_override = nodes.value.name
       user              = "ubuntu"
       role              = ["controlplane", "etcd", "worker"]
+      ssh_key           = var.ssh_private_key
+    }
+  }
+
+  dynamic "nodes" {
+    for_each = [for node in slice(var.cluster_nodes, 1, length(var.cluster_nodes)) : {
+      name = node["name"]
+      ip   = node["ip"]
+    }]
+    content {
+      address           = nodes.value.ip
+      hostname_override = nodes.value.name
+      user              = "ubuntu"
+      role              = ["controlplane", "worker"]
       ssh_key           = var.ssh_private_key
     }
   }
