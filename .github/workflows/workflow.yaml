@@ -94,7 +94,7 @@ jobs:
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)        
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
-            ea-rancher:$COMMIT_ID plan -input="false"
+            ez-rancher:$COMMIT_ID plan -input="false"
 
       - name: Deploy
         env:
