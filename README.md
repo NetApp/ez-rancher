@@ -100,7 +100,7 @@ Additionally, the `ssh_public_key` variable can optionally set an authorized_key
 
 [Releases](https://github.com/NetApp/ez-rancher/releases) will be published as container images in [Docker Hub](https://hub.docker.com/r/netapp/ez-rancher/tags)
 
-Releases created in GitHub will generate ez-rancher images tagged with the release version.
+Releases created in GitHub will generate ez-rancher images tagged with the release version in Docker Hub.
 Latest will point to the latest tagged release version. Commits to the main branch will not
 automatically publish a new image, but the image can be [created locally](#create-image).
 
