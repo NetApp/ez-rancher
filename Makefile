@@ -1,5 +1,6 @@
 IMAGE_TAG ?= dev
-REGISTRY ?= index.docker.io/netapp # Can substitute gcr, quay or registry:5000
+IMAGE_NAME ?= ez-rancher
+REGISTRY ?= index.docker.io/netapp# Default to DockerHub but can substitute gcr, quay or registry:5000
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
@@ -7,14 +8,20 @@ help:
 build:  ## Build container image (set $IMAGE_TAG or use default of `dev`)
 	hack/rancher-build.sh
 
+.PHONY: push-latest-image
+push-latest-image: export IMAGE_TAG := latest ## Push a container image with the latest tag
+push-latest-image:  build push 
+
 .PHONY: push
-push: ## Push a Container image (terraform-rancher:$IMAGE_TAG) to the specified registry ($REGISTRY, defaults to `index.docker.io` )
-	docker tag terraform-rancher:${IMAGE_TAG} ${REGISTRY}/terraform-rancher:${IMAGE_TAG}
-	docker push ${REGISTRY}/terraform-rancher:${IMAGE_TAG}
+push: ## Push a Container image (ez-rancher:$IMAGE_TAG) to the specified registry ($REGISTRY, defaults to DockerHub	 )
+	docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
+	docker push ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
 
 .PHONY: shell
 shell:  ## Drop into a docker shell with terraform (used for debug and development purposes, shell access may be removed from the container in the future)
-	docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables --entrypoint /bin/sh terraform-rancher:${IMAGE_TAG}
+	docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars \
+	       -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables --entrypoint /bin/sh \
+		   ${IMAGE_NAME}:${IMAGE_TAG}
 	true
 
 .PHONY: validate
