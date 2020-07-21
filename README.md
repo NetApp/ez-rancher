@@ -117,7 +117,7 @@ env variable.
 
 ## Verifying the Installation
 
-After installation, the following information will be displayed:
+After installation, the some information will be displayed about your installation:
 ```bash
 Outputs:
 
@@ -135,18 +135,20 @@ cluster_nodes = [
     "name" = "my-node03"
   },
 ]
-rancher_server_url = https://rancher.myorg.com
+rancher_server_url = https://<Your Rancher URL>
 ```
 
 ## Accessing the Rancher UI
 
-Provided the correct DNS record is in place, the Rancher UI is accessible at the location specified for `rancher_server_url`
+In order to access the Rancher UI via your chosen `rancher_server_url`, you must ensure that a valid DNS record exists, that resolves to one or more of your cluster node IPs.
+
+Once the DNS record is in place, the Rancher UI will become accessible at the location specified for `rancher_server_url`.
 
 #### Automatic DNS Names
 
-If you have not yet configured DNS (or prefer not to), the Rancher UI can also be accessed via the following URL:
+If you have not yet configured DNS (or prefer not to), the Rancher UI can also be accessed via the following URL syntax, using the IP address of any node in the cluster:
 ```bash
-http://<IP of node>.nip.io
+https://<IP of node>.nip.io
 ```
 
 ## Admin Access to Cluster Nodes
