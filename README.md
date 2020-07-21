@@ -53,6 +53,8 @@ For tfvars config file examples, refer to [tfvars examples](rancher.tfvars.examp
 ### Terraform CLI
 
 ```bash
+cd terraform/vsphere-rancher/
+terraform init
 # create cluster
 terraform apply -var-file=rancher.tfvars terraform/vsphere-rancher
 # remove cluster
@@ -96,21 +98,25 @@ Additionally, the `ssh_public_key` variable can optionally set an authorized_key
 
 ## Releases
 
-* [Releases will be published as container images in Github](https://github.com/NetApp/ez-rancher/packages)
+[Releases](https://github.com/NetApp/ez-rancher/releases) will be published as container images in [Docker Hub](https://hub.docker.com/r/netapp/ez-rancher)
+
+Releases created in GitHub will generate ez-rancher images tagged with the release version.
+Latest will point to the latest tagged release version. Commits to the main branch will not
+automatically publish a new image, but the image can be [created locally](#create-image).
 
 ```bash
-docker login docker.pkg.github.com -u <GITHUB_USER> -p <GITHUB_ACCESS_TOKEN>
-docker pull docker.pkg.github.com/netapp/ez-rancher/ez-rancher:latest
+docker pull netapp/ez-rancher:latest
 ```
 
+<a name="create-image"></a>
 ## Creating container images
-You can use the `make build` command to easily build a ez-rancher
+You can use the `make build` command to easily build an ez-rancher
 container image with all the necessary dependencies.  This will be built
 based on the current status of your src directory.
 
 By default, we set an Image Tag of "dev" eg ez-rancher:dev.  You can
 change this tag by setting the `IMAGE_TAG` environment variable to your
-desired tag (eg `latest` which we build and publish for each commit).
+desired tag.
 
 When building container images, keep in mind that the `make build` option includes
 a helper script to gather the current git commit sha and sets a `git_commit` label 
