@@ -14,12 +14,16 @@ jobs:
       - name: Get release version
         id: get_version
         run: echo ::set-env name=RELEASE_VERSION::$(git describe --tags --abbrev=0)
+      - name: Get commit revision
+        id: get_commit
+        run: echo ::set-env name=GIT_COMMIT::$(git rev-parse HEAD)
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: netapp/ez-rancher/ez-rancher
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
+          name: netapp/ez-rancher
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASS }}
+          registry: docker.io
           dockerfile: Dockerfile
-          tags: "latest,${{ env.RELEASE_VERSION }}"
+          buildargs: GIT_COMMIT="${{ env.GIT_COMMIT }}"
+          tags: "latest"

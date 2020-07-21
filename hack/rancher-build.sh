@@ -26,9 +26,7 @@ PROJECT_DIR="$(
 )"
 
 cd $PROJECT_DIR
-echo "creating image build stamp using git commit sha..."
-echo $(git rev-parse HEAD) > terraform/container-build-stamp.txt
 echo "starting docker build process..."
-docker build -t ez-rancher:${IMAGE_TAG} .
+docker build -t ez-rancher:${IMAGE_TAG} --build-arg GIT_COMMIT=$(git rev-parse HEAD) .
 cd $CWD
 

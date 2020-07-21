@@ -56,7 +56,11 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Build image
-        run: sudo docker build --no-cache -t ez-rancher:latest .
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          export COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
+          sudo docker build --no-cache -t ez-rancher:$COMMIT_ID .
 
       - name: Create vars file
         env:
@@ -90,7 +94,7 @@ jobs:
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)        
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
-            ez-rancher:latest plan -input="false"
+            ea-rancher:$COMMIT_ID plan -input="false"
 
       - name: Deploy
         env:
@@ -98,8 +102,8 @@ jobs:
         run: |
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
-            --env-file env.list \
-            ez-rancher:latest apply -input="false" -auto-approve         
+            --env-file env.list \        
+            ez-rancher:$COMMIT_ID apply -input="false" -auto-approve         
 
       - name: Destroy
         env:
@@ -109,9 +113,13 @@ jobs:
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
-            ez-rancher:latest destroy -input="false" -auto-approve
+            ez-rancher:$COMMIT_ID destroy -input="false" -auto-approve
       
       - name: Remove image
-        run: sudo docker rmi ez-rancher:latest
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
+          sudo docker rmi ez-rancher:$COMMIT_ID
 
           

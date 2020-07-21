@@ -45,13 +45,6 @@ If DHCP is used (default), this can be done after the deployment completes and t
 
 The Rancher service is also accessible via **\<node ip address>.nip.io** for each node in the cluster. This provides additional hostnames that can be used to access the rancher service in the event of a node failure, or simply for convenience.
 
-**DNS and Automatic Bootstrapping**
-
-If `bootstrap_rancher` is enabled, there are special considerations with respect to DNS:
-
-* If using `static_ip_addresses`, the `rancher_server_url` must resolve to one or more of the cluster nodes.
-* If using DHCP, the `rancher_server_url` will be automatically overridden to **\<ip address of first node>.nip.io**. This is done in order to provide a hostname to access the rancher service for bootstrapping.
-
 ## Getting Started
 
 For tfvars config file examples, refer to [tfvars examples](rancher.tfvars.example)
@@ -112,19 +105,25 @@ docker pull docker.pkg.github.com/netapp/ez-rancher/ez-rancher:latest
 ```
 
 ## Creating container images
-
 You can use the `make build` command to easily build a ez-rancher
 container image with all the necessary dependencies.  This will be built
 based on the current status of your src directory.
 
-By default we set an Image Tag of "dev" eg ez-rancher:dev.  You can
+By default, we set an Image Tag of "dev" eg ez-rancher:dev.  You can
 change this tag by setting the `IMAGE_TAG` environment variable to your
 desired tag (eg `latest` which we build and publish for each commit).
 
 When building container images, keep in mind that the `make build` option includes
-a helper script to gather the current git commit sha and places that file in the
-container image that's built.  This provides a mechanism to determine the current
-git state of tagged builds that are in use.
+a helper script to gather the current git commit sha and sets a `git_commit` label 
+on the image. This provides a mechanism to determine the current git state of tagged
+builds that are in use. You can access the label using docker inspect:
+
+```
+$ docker inspect ez-rancher:dev  | jq '.[].ContainerConfig.Labels'
+{
+  "git_commit": "1c35dae6ef81c0bd14439c100a4260f3bff4ccce"
+}
+```
 
 ## Pushing images to a container registry
 
