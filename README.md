@@ -49,19 +49,7 @@ For tfvars config file examples, refer to [tfvars examples](rancher.tfvars.examp
 
 `terraform apply` will create a `deliverables/` directory to save things like the kubeconfig, ssh keys, etc
 
-
-### Terraform CLI
-
-```bash
-cd terraform/vsphere-rancher/
-terraform init
-# create cluster
-terraform apply -var-file=rancher.tfvars terraform/vsphere-rancher
-# remove cluster
-terraform destroy -var-file=rancher.tfvars terraform/vsphere-rancher
-```
-
-### Docker
+### Docker (Recommended)
 
 We rely on environment variables for setting image tags, pointing to rancher variables files and providing
 a directory to put deployment output/deliverables in:
@@ -87,6 +75,17 @@ The `make rancher-destroy` directive will not only tear down a cluster deployed 
 also clean up/remove the deliverables files generated from that run.  As such, if for some reason you'd like to save
 files from a previous run you'll want to copy them to another location.
 
+### Terraform CLI
+
+```bash
+cd terraform/vsphere-rancher/
+terraform init
+# create cluster
+terraform apply -var-file=rancher.tfvars terraform/vsphere-rancher
+# remove cluster
+terraform destroy -var-file=rancher.tfvars terraform/vsphere-rancher
+```
+
 ### Deliverables
 ez-rancher will create several files based on the `deliverables_path` variable to save things like the kubeconfig, ssh keys, etc
 * See [Admin Access to Cluster Nodes](#admin-access-to-cluster-nodes) for more details.
@@ -98,7 +97,7 @@ Additionally, the `ssh_public_key` variable can optionally set an authorized_key
 
 ## Releases
 
-[Releases](https://github.com/NetApp/ez-rancher/releases) will be published as container images in [Docker Hub](https://hub.docker.com/r/netapp/ez-rancher)
+[Releases](https://github.com/NetApp/ez-rancher/releases) will be published as container images in [Docker Hub](https://hub.docker.com/r/netapp/ez-rancher/tags)
 
 Releases created in GitHub will generate ez-rancher images tagged with the release version.
 Latest will point to the latest tagged release version. Commits to the main branch will not
