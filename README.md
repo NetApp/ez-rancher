@@ -54,19 +54,16 @@ For tfvars config file examples, refer to [tfvars examples](rancher.tfvars.examp
 We rely on environment variables for setting image tags, pointing to rancher variables files and providing
 a directory to put deployment output/deliverables in:
 
-* IMAGE_TAG (default is `dev`)
+* IMAGE_TAG (default is `latest`)
 * ER_VARS_FILE (default is `./rancher.tfvars`) 
 * ER_DELIVERABLES_DIR (default is `./deliverables`, will attempt creation if it doesn't exist)
 
 ```bash
-make build
-
 # create cluster using default arguments
 make rancher-up
 
 # remove cluster using default arguments
 make rancher-destroy
-
 ```
 
 *NOTE*
