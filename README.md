@@ -89,11 +89,6 @@ files from a previous run you'll want to copy them to another location.
 ez-rancher will create several files based on the `deliverables_path` variable to save things like the kubeconfig, ssh keys, etc
 * See [Admin Access to Cluster Nodes](#admin-access-to-cluster-nodes) for more details.
 
-#### Node Access
-ez-rancher will generate an SSH key pair for RKE node communication. The generated key pair will be saved to the `deliverables_path` directory.
-
-Additionally, the `ssh_public_key` variable can optionally set an authorized_key on each node for admin access.
-
 ## Releases
 
 * [Releases will be published as container images in Github](https://github.com/NetApp/ez-rancher/packages)
