@@ -1,10 +1,10 @@
-# Terraform Rancher
+# EZ Rancher
 
 ----
 
-Terraform Rancher is Infrastructure as Code to deploy Rancher server on vSphere. It creates the VM infrastructure and configures [Rancher server](https://rancher.com/docs/rancher/v2.x/en/overview/).
+EZ Rancher is Infrastructure as Code to deploy Rancher server on vSphere. It creates the VM infrastructure and configures [Rancher server](https://rancher.com/docs/rancher/v2.x/en/overview/).
 
-Terraform Rancher can either be ran directly using the terraform CLI with the required dependencies or simply running the provided docker container.
+EZ Rancher can either be ran directly using the terraform CLI with the required dependencies or simply running the provided docker container.
 
 ----
 
