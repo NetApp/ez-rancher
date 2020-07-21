@@ -1,16 +1,16 @@
-IMAGE_TAG ?= dev
-IMAGE_NAME ?= ez-rancher
+IMAGE_TAG ?= latest
+IMAGE_NAME ?= netapp/ez-rancher
 REGISTRY ?= index.docker.io/netapp# Default to DockerHub but can substitute gcr, quay or registry:5000
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: build 
 build:  ## Build container image (set $IMAGE_TAG or use default of `dev`)
-	hack/rancher-build.sh
+	IMAGE_TAG=${IMAGE_TAG} hack/rancher-build.sh
 
 .PHONY: push-latest-image
 push-latest-image: export IMAGE_TAG := latest ## Push a container image with the latest tag
-push-latest-image:  build push 
+push-latest-image: build push
 
 .PHONY: push
 push: ## Push a Container image (ez-rancher:$IMAGE_TAG) to the specified registry ($REGISTRY, defaults to DockerHub	 )
@@ -34,8 +34,8 @@ fmt:  ## Fixes formatting
 
 .PHONY: rancher-up
 rancher-up: ## Runs the ez-rancher container deploying rancher server on vSphere
-	hack/runner.sh apply
+	IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} hack/runner.sh apply
 
 .PHONY: rancher-destroy
 rancher-destroy: ## Runs the ez-rancher container, destroying a rancher server previously deployed with rancher-up
-	hack/runner.sh destroy
+	IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG}  hack/runner.sh destroy

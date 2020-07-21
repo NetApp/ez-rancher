@@ -114,9 +114,15 @@ You can use the `make build` command to easily build an ez-rancher
 container image with all the necessary dependencies.  This will be built
 based on the current status of your src directory.
 
-By default, we set an Image Tag of "dev" eg ez-rancher:dev.  You can
+By default, we set an Image Tag of "latest" eg ez-rancher:latest.  You can
 change this tag by setting the `IMAGE_TAG` environment variable to your
 desired tag.
+
+```bash
+export IMAGE_TAG=dev
+make build
+IMAGE_NAME=ez-rancher make rancher-up
+```
 
 When building container images, keep in mind that the `make build` option includes
 a helper script to gather the current git commit sha and sets a `git_commit` label 
@@ -124,7 +130,7 @@ on the image. This provides a mechanism to determine the current git state of ta
 builds that are in use. You can access the label using docker inspect:
 
 ```
-$ docker inspect ez-rancher:dev  | jq '.[].ContainerConfig.Labels'
+$ docker inspect ez-rancher:latest  | jq '.[].ContainerConfig.Labels'
 {
   "git_commit": "1c35dae6ef81c0bd14439c100a4260f3bff4ccce"
 }
