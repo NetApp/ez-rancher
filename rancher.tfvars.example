@@ -62,8 +62,6 @@ vsphere_resource_pool = "mypool"
 # ===================== #
 
 # Rancher server URL
-# If bootstrap_rancher is enabled and DHCP is being used for hosts, 
-# this will be automatically overridden to <IP of first node>.nip.io 
 rancher_server_url = "my.rancher.org"
 
 # Automatically configure rancher:
@@ -71,7 +69,7 @@ rancher_server_url = "my.rancher.org"
 # - Enables telemetry 
 # - Creates cloud credentials for vCenter
 # - Creates node template for vCenter
-bootstrap_rancher = false
+bootstrap_rancher = true
 
 # rancher default admin password
 rancher_password  = "solidfire"
