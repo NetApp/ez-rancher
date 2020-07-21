@@ -39,6 +39,8 @@ if [ ! -d "$DELIVERABLES" ]; then
 fi
 
 if [ "$OPERATION" == "destroy" ]; then
+  # Remove Rancher resources from project state prior to running destroy. 
+  # This will allow any additional clusters that the user has created to be retained.
   docker run -it --rm -v "$TFVARS":/terraform/vsphere-rancher/rancher.tfvars -v "$DELIVERABLES":/terraform/vsphere-rancher/deliverables terraform-rancher:"$IMAGE_TAG" state rm module.rancher
   docker run -it --rm -v "$TFVARS":/terraform/vsphere-rancher/rancher.tfvars -v "$DELIVERABLES":/terraform/vsphere-rancher/deliverables terraform-rancher:"$IMAGE_TAG" "$OPERATION" -auto-approve -var-file=/terraform/vsphere-rancher/rancher.tfvars -target=module.cluster_nodes.vsphere_virtual_machine.node
   echo "removing contents of deliverables directory..."
