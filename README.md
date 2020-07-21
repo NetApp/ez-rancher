@@ -41,7 +41,7 @@ If DHCP is used (default), this can be done after the deployment completes and t
 
 **Supplemental DNS names**
 
-The Rancher service is also accessible via **\<node ip address>.nip.io** for each node in the cluster. This provides additional hostnames that can be used to access the rancher service in the event of a node failure, or simply for convenience.
+See [Automatic DNS names](#automatic-dns-names)
 
 ## Getting Started
 
@@ -87,6 +87,7 @@ files from a previous run you'll want to copy them to another location.
 
 ### Deliverables
 ez-rancher will create several files based on the `deliverables_path` variable to save things like the kubeconfig, ssh keys, etc
+* See [Admin Access to Cluster Nodes](#admin-access-to-cluster-nodes) for more details.
 
 #### Node Access
 ez-rancher will generate an SSH key pair for RKE node communication. The generated key pair will be saved to the `deliverables_path` directory.
