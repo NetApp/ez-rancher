@@ -5,8 +5,8 @@ help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: build 
-build:  ## Build container image (set $IMAGE_TAG or use default of `dev`)
-	IMAGE_TAG=${EZR_IMAGE_TAG} hack/rancher-build.sh
+build:  ## Build container image (set $EZR_IMAGE_TAG or use default of `dev`)
+	EZR_IMAGE_TAG=${EZR_IMAGE_TAG} hack/rancher-build.sh
 
 .PHONY: push-latest-image
 push-latest-image: export EZR_IMAGE_TAG := latest ## Push a container image with the latest tag
@@ -33,8 +33,8 @@ fmt:  ## Fixes formatting
 
 .PHONY: rancher-up
 rancher-up: ## Runs the ez-rancher container deploying rancher server on vSphere
-	IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} hack/runner.sh apply
+	EZR_IMAGE_NAME=${EZR_IMAGE_NAME} EZR_IMAGE_TAG=${EZR_IMAGE_TAG} hack/runner.sh apply
 
 .PHONY: rancher-destroy
 rancher-destroy: ## Runs the ez-rancher container, destroying a rancher server previously deployed with rancher-up
-	IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG}  hack/runner.sh destroy
+	EZR_IMAGE_NAME=${EZR_IMAGE_NAME} EZR_IMAGE_TAG=${EZR_IMAGE_TAG}  hack/runner.sh destroy
