@@ -64,6 +64,9 @@ vsphere_resource_pool = "mypool"
 # Rancher server URL
 rancher_server_url = "my.rancher.org"
 
+# Automatically set rancher_server_url URL to <node ip>.nip.io
+use_auto_dns_url = false
+
 # Automatically configure rancher:
 # - Updates the default admin password, provided by the rancher_password variable.
 # - Enables telemetry 

@@ -144,3 +144,8 @@ variable "bootstrap_rancher" {
   type    = string
   default = true
 }
+
+variable "use_auto_dns_url" {
+  type    = bool
+  default = false
+}

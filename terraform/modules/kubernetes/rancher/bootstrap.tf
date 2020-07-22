@@ -51,6 +51,15 @@ resource "rancher2_cloud_credential" "vsphere" {
   }
 }
 
+resource "rancher2_setting" "server_url" {
+  count      = var.bootstrap_rancher ? 1 : 0
+  provider   = rancher2.admin
+  depends_on = [rancher2_node_template.vsphere]
+
+  name  = "server-url"
+  value = join("", ["https://", var.rancher_server_url])
+}
+
 resource "rancher2_node_template" "vsphere" {
   count = var.bootstrap_rancher ? 1 : 0
 
