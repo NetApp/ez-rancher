@@ -22,6 +22,8 @@ There are 2 ways to run EZ-Rancher:
     * [Kubectl](https://downloadkubernetes.com/)
     * [Terraform RKE plugin](https://github.com/rancher/terraform-provider-rke)
     * netcat
+    
+    (We recommend you check the CVE for the above tools and only use versions without security issues)
 
 ### vSphere
 
