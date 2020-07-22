@@ -185,7 +185,14 @@ Once the DNS record is in place, the Rancher UI will become accessible at the lo
 
 #### Automatic DNS Names
 
-* See [Auto DNS URL](#auto-dns-url)
+If you have not yet configured DNS, the Rancher UI can also be accessed via the following URL syntax, using the IP address of any node in the cluster:
+
+```bash
+https://<IP of node>.nip.io
+```
+
+*note: A valid DNS record must be in place for `rancher_server_url` before Rancher will become fully functional. To eliminate this DNS requirement, see [Auto DNS URL](#auto-dns-url)*
+
 
 ## Admin Access to Cluster Nodes
 
