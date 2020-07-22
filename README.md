@@ -50,7 +50,7 @@ If the `use_auto_dns_url` parameter is set to `true`, then the `rancher_server_u
 https://<IP of primary node>.nip.io
 ```
 
-This URL allow you to start using the Rancher UI right away, eliminating the need to configure DNS manually.
+This URL allow you to start using Rancher right away, eliminating the need to configure DNS manually.
 
 
 ## Getting Started
@@ -191,7 +191,7 @@ If you have not yet configured DNS, the Rancher UI can also be accessed via the 
 https://<IP of node>.nip.io
 ```
 
-*note: A valid DNS record must be in place for `rancher_server_url` before Rancher will become fully functional. To eliminate this DNS requirement, see [Auto DNS URL](#auto-dns-url)*
+*note: A valid DNS record must be in place for the `rancher_server_url` before Rancher will become fully functional. To eliminate this DNS requirement, see [Auto DNS URL](#auto-dns-url)*
 
 
 ## Admin Access to Cluster Nodes
