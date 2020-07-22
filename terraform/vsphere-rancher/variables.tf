@@ -147,5 +147,5 @@ variable "bootstrap_rancher" {
 
 variable "use_auto_dns_url" {
   type    = bool
-  default = true
+  default = false
 }
