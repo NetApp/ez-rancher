@@ -81,6 +81,7 @@ jobs:
           TF_VAR_rancher_password: ${{ secrets.TF_RANCHER_PASSWORD }}
           TF_VAR_bootstrap_rancher: true
           TF_VAR_vsphere_resource_pool: ${{ secrets.TF_VSPHERE_RESOURCE_POOL }}
+          TF_VAR_use_auto_dns_url: true
         run: |
           export COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           mkdir deliverables-$COMMIT_ID
