@@ -39,13 +39,19 @@ Network connectivity from where terraform is executed to the `vm_network`. The `
 
 #### DNS
 
-The `rancher_server_url` input must resolve to one of the worker node IPs.
+The `rancher_server_url` input must resolve to one or more of the worker node IPs.
 
 If DHCP is used (default), this can be done after the deployment completes and the worker nodes receive an IP from the `vm_network`.
 
-**Supplemental DNS names**
+#### Auto DNS URL
 
-See [Automatic DNS names](#automatic-dns-names)
+If the `use_auto_dns_url` parameter is set to `true`, then the `rancher_server_url` will be automatically set to the following URL:
+```bash
+https://<IP of primary node>.nip.io
+```
+
+This URL allow you to start using the Rancher UI right away, eliminating the need to configure DNS manually.
+
 
 ## Getting Started
 
@@ -179,10 +185,7 @@ Once the DNS record is in place, the Rancher UI will become accessible at the lo
 
 #### Automatic DNS Names
 
-If you have not yet configured DNS (or prefer not to), the Rancher UI can also be accessed via the following URL syntax, using the IP address of any node in the cluster:
-```bash
-https://<IP of node>.nip.io
-```
+* See [Auto DNS URL](#auto-dns-url)
 
 ## Admin Access to Cluster Nodes
 
