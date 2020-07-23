@@ -16,7 +16,7 @@ resource "rke_cluster" "cluster" {
       address           = nodes.value.ip
       hostname_override = nodes.value.name
       user              = "ubuntu"
-      role              = ["controlplane", "etcd", "worker"]
+      role              = ["controlplane", "etcd"]
       ssh_key           = var.ssh_private_key
     }
   }
@@ -30,7 +30,7 @@ resource "rke_cluster" "cluster" {
       address           = nodes.value.ip
       hostname_override = nodes.value.name
       user              = "ubuntu"
-      role              = ["controlplane", "worker"]
+      role              = ["worker", "etcd"]
       ssh_key           = var.ssh_private_key
     }
   }
