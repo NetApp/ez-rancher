@@ -76,10 +76,6 @@ resource "helm_release" "cert-manager" {
   }
 }
 
-provider "kubernetes" {
-  config_path = format("${local.deliverables_path}/kubeconfig")
-}
-
 resource "tls_private_key" "cert" {
   depends_on = [helm_release.cert-manager]
   algorithm  = "ECDSA"
@@ -96,8 +92,6 @@ resource "tls_self_signed_cert" "cert" {
   early_renewal_hours = 3
 
   allowed_uses = [
-    "key_encipherment",
-    "digital_signature",
     "server_auth",
   ]
 
@@ -109,7 +103,7 @@ resource "tls_self_signed_cert" "cert" {
   }
 }
 
-resource "null_resource" "create_secret" {
+resource "null_resource" "create_ca_secret" {
   depends_on = [tls_self_signed_cert.cert]
 
   provisioner "local-exec" {
@@ -122,10 +116,10 @@ data "template_file" "test_cert" {
 }
 
 resource "null_resource" "create_ca" {
-  depends_on = [helm_release.cert-manager, null_resource.create_secret]
+  depends_on = [helm_release.cert-manager, null_resource.create_ca_secret]
 
   provisioner "local-exec" {
-    command = "export KUBECONFIG=${format("${local.deliverables_path}/kubeconfig")}; export count=0; until [ $(echo '${data.template_file.test_cert.rendered}' | kubectl apply -f - > /dev/null 2>&1) ]; do sleep 1; if [ $count -eq 100 ]; then break; fi; count=`expr $count + 1`; done"
+    command = "export KUBECONFIG=${format("${local.deliverables_path}/kubeconfig")}; export count=0; until $(echo '${data.template_file.test_cert.rendered}' | kubectl apply -f - > /dev/null 2>&1); do sleep 1; if [ $count -eq 100 ]; then break; fi; count=`expr $count + 1`; done"
   }
 }
 
@@ -134,6 +128,14 @@ resource "null_resource" "verify_ca" {
 
   provisioner "local-exec" {
     command = "KUBECONFIG=${format("${local.deliverables_path}/kubeconfig")} kubectl wait issuer ca-issuer --for condition=ready --timeout=1m --namespace default"
+  }
+}
+
+resource "null_resource" "cleanup_ca" {
+  depends_on = [null_resource.verify_ca]
+
+  provisioner "local-exec" {
+    command = "export KUBECONFIG=${format("${local.deliverables_path}/kubeconfig")}; export count=0; until $(echo '${data.template_file.test_cert.rendered}' | kubectl delete -f - > /dev/null 2>&1); do sleep 1; if [ $count -eq 100 ]; then break; fi; count=`expr $count + 1`; done"
   }
 }
 
