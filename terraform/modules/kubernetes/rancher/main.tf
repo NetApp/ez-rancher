@@ -110,7 +110,7 @@ resource "tls_self_signed_cert" "cert" {
 }
 
 resource "null_resource" "create_secret" {
-  depends_on = [null_resource.wait_k8s_api]
+  depends_on = [tls_self_signed_cert.cert]
 
   provisioner "local-exec" {
     command = "export KUBECONFIG=${format("${local.deliverables_path}/kubeconfig")}; export count=0; until $(kubectl create secret generic ca-key-pair --from-literal='tls.crt=${tls_self_signed_cert.cert.cert_pem}' --from-literal='tls.key=${tls_private_key.cert.private_key_pem}' > /dev/null 2>&1); do sleep 1; if [ $count -eq 100 ]; then break; fi; count=`expr $count + 1`; done"
