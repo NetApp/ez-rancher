@@ -82,30 +82,30 @@ provider "kubernetes" {
 
 resource "tls_private_key" "cert" {
   depends_on = [helm_release.cert-manager]
-  algorithm = "ECDSA"
+  algorithm  = "ECDSA"
 }
 
 resource "tls_self_signed_cert" "cert" {
-  depends_on = [tls_private_key.cert]
+  depends_on      = [tls_private_key.cert]
   key_algorithm   = tls_private_key.cert.algorithm
   private_key_pem = tls_private_key.cert.private_key_pem
 
-  is_ca_certificate = true
+  is_ca_certificate     = true
   validity_period_hours = 12
 
   early_renewal_hours = 3
 
   allowed_uses = [
-      "key_encipherment",
-      "digital_signature",
-      "server_auth",
+    "key_encipherment",
+    "digital_signature",
+    "server_auth",
   ]
 
   dns_names = ["example.com", "example.net"]
 
   subject {
-      common_name  = "example.com"
-      organization = "ACME Examples, Inc"
+    common_name  = "example.com"
+    organization = "ACME Examples, Inc"
   }
 }
 
@@ -147,7 +147,7 @@ resource "null_resource" "verify_ca" {
 
 
 resource "helm_release" "rancher" {
-  depends_on = [null_resource.verify_ca]
+  depends_on       = [null_resource.verify_ca]
   name             = "rancher"
   chart            = "rancher"
   repository       = "https://releases.rancher.com/server-charts/stable"
