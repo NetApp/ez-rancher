@@ -76,72 +76,8 @@ resource "helm_release" "cert-manager" {
   }
 }
 
-resource "tls_private_key" "cert" {
-  depends_on = [helm_release.cert-manager]
-  algorithm  = "ECDSA"
-}
-
-resource "tls_self_signed_cert" "cert" {
-  depends_on      = [tls_private_key.cert]
-  key_algorithm   = tls_private_key.cert.algorithm
-  private_key_pem = tls_private_key.cert.private_key_pem
-
-  is_ca_certificate     = true
-  validity_period_hours = 12
-
-  early_renewal_hours = 3
-
-  allowed_uses = [
-    "server_auth",
-  ]
-
-  dns_names = ["example.com", "example.net"]
-
-  subject {
-    common_name  = "example.com"
-    organization = "ACME Examples, Inc"
-  }
-}
-
-resource "null_resource" "create_ca_secret" {
-  depends_on = [tls_self_signed_cert.cert]
-
-  provisioner "local-exec" {
-    command = "export KUBECONFIG=${format("${local.deliverables_path}/kubeconfig")}; export count=0; until $(kubectl create secret generic ca-key-pair --from-literal='tls.crt=${tls_self_signed_cert.cert.cert_pem}' --from-literal='tls.key=${tls_private_key.cert.private_key_pem}' > /dev/null 2>&1); do sleep 1; if [ $count -eq 100 ]; then break; fi; count=`expr $count + 1`; done"
-  }
-}
-
-data "template_file" "test_cert" {
-  template = file("${path.module}/templates/cert.tpl")
-}
-
-resource "null_resource" "create_ca" {
-  depends_on = [helm_release.cert-manager, null_resource.create_ca_secret]
-
-  provisioner "local-exec" {
-    command = "export KUBECONFIG=${format("${local.deliverables_path}/kubeconfig")}; export count=0; until $(echo '${data.template_file.test_cert.rendered}' | kubectl apply -f - > /dev/null 2>&1); do sleep 1; if [ $count -eq 100 ]; then break; fi; count=`expr $count + 1`; done"
-  }
-}
-
-resource "null_resource" "verify_ca" {
-  depends_on = [null_resource.create_ca]
-
-  provisioner "local-exec" {
-    command = "KUBECONFIG=${format("${local.deliverables_path}/kubeconfig")} kubectl wait issuer ca-issuer --for condition=ready --timeout=1m --namespace default"
-  }
-}
-
-resource "null_resource" "cleanup_ca" {
-  depends_on = [null_resource.verify_ca]
-
-  provisioner "local-exec" {
-    command = "export KUBECONFIG=${format("${local.deliverables_path}/kubeconfig")}; export count=0; until $(echo '${data.template_file.test_cert.rendered}' | kubectl delete -f - > /dev/null 2>&1); do sleep 1; if [ $count -eq 100 ]; then break; fi; count=`expr $count + 1`; done"
-  }
-}
-
-
 resource "helm_release" "rancher" {
-  depends_on       = [null_resource.verify_ca]
+  depends_on       = [helm_release.cert-manager]
   name             = "rancher"
   chart            = "rancher"
   repository       = "https://releases.rancher.com/server-charts/stable"
