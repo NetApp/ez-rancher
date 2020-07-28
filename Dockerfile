@@ -1,6 +1,6 @@
 # docker build -t ez-rancher:latest .
 # docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/rancher.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables ez-rancher:latest apply -state=deliverables/terraform.tfstate
-FROM golang:alpine
+FROM golang:alpine3.12
 
 ARG EZR_COMPRESS_BINARIES=false
 ARG GIT_COMMIT=unspecified
