@@ -35,8 +35,8 @@ RUN apk add --no-cache git && \
   cd terragrunt && \
   go build -o terragrunt -v && \
   chmod +x terragrunt && \
-  mv terragrunt /usr/local/bin
-
+  mv terragrunt /usr/local/bin && \
+  cd .. && rm -rf terragrunt/
 
 COPY terraform/ /terraform/
 
