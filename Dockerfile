@@ -1,6 +1,18 @@
 # docker build -t ez-rancher:latest .
 # docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/rancher.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables ez-rancher:latest apply -state=deliverables/terraform.tfstate
-FROM golang:alpine3.12
+FROM golang:alpine3.12 as builder
+
+RUN apk add --no-cache git && \
+  git clone https://github.com/sgryczan/terragrunt.git && \
+  cd terragrunt && \
+  go build -o terragrunt -v && \
+  chmod +x terragrunt && \
+  mv terragrunt /usr/local/bin && \
+  cd .. && rm -rf terragrunt/
+
+FROM alpine:3.12.0
+
+COPY --from=builder /usr/local/bin/terragrunt /bin/terragrunt
 
 ARG EZR_COMPRESS_BINARIES=false
 ARG GIT_COMMIT=unspecified
@@ -29,14 +41,6 @@ RUN apk add --no-cache --virtual .build-deps curl \
   && apk del --no-cache .build-deps \
   && rm -rf /tf-provider-rke.zip \
   && if ${EZR_COMPRESS_BINARIES}; then /install_upx.sh; /compress_binaries.sh; fi
-
-RUN apk add --no-cache git && \
-  git clone https://github.com/sgryczan/terragrunt.git && \
-  cd terragrunt && \
-  go build -o terragrunt -v && \
-  chmod +x terragrunt && \
-  mv terragrunt /usr/local/bin && \
-  cd .. && rm -rf terragrunt/
 
 COPY terraform/ /terraform/
 
