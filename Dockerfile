@@ -1,6 +1,6 @@
 # docker build -t ez-rancher:latest .
 # docker run -it --rm -v ${PWD}/rancher.tfvars:/terraform/vsphere-rancher/rancher.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables ez-rancher:latest apply -state=deliverables/terraform.tfstate
-FROM alpine:3.12.0
+FROM golang:alpine
 
 ARG EZR_COMPRESS_BINARIES=false
 ARG GIT_COMMIT=unspecified
@@ -30,12 +30,21 @@ RUN apk add --no-cache --virtual .build-deps curl \
   && rm -rf /tf-provider-rke.zip \
   && if ${EZR_COMPRESS_BINARIES}; then /install_upx.sh; /compress_binaries.sh; fi
 
+RUN apk add --no-cache git && \
+  git clone https://github.com/sgryczan/terragrunt.git && \
+  cd terragrunt && \
+  go build -o terragrunt -v && \
+  chmod +x terragrunt && \
+  mv terragrunt /usr/local/bin
+
+
 COPY terraform/ /terraform/
 
 WORKDIR /terraform/vsphere-rancher
+RUN touch terragrunt.hcl
 #ARG RELEASE_BUILD=false
 RUN terraform init \
   && if ${EZR_COMPRESS_BINARIES}; then /compress_binaries.sh; terraform init; fi \
   && rm -rf /compress_binaries.sh /install_upx.sh /bin/upx
 
-ENTRYPOINT ["terraform"]
+ENTRYPOINT ["terragrunt"]
