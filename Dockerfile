@@ -40,9 +40,8 @@ RUN mkdir -p /terraform/vsphere-rancher/.terraform/plugins/linux_amd64/ && touch
 
 FROM alpine:3.12.0 as final
 
-LABEL git_commit=$GIT_COMMIT
-
 ARG GIT_COMMIT=unspecified
+LABEL git_commit=$GIT_COMMIT
 
 COPY --from=binaries /bin/terragrunt /bin/kubectl /bin/terraform /bin/
 COPY --from=binaries /root/.terraform.d/plugins/linux_amd64/terraform-provider-rke /root/.terraform.d/plugins/linux_amd64/terraform-provider-rke
