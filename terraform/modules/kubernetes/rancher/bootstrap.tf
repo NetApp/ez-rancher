@@ -124,6 +124,13 @@ resource "rancher2_node_pool" "worker" {
 resource "local_file" "kubeconfig_user" {
   count = var.create_user_cluster && var.bootstrap_rancher ? 1 : 0
 
-  filename = "${path.root}/deliverables/kubeconfig_user"
+  filename = format("${local.deliverables_path}/kubeconfig_user")
   content  = rancher2_cluster.cluster[0].kube_config
+}
+
+resource "local_file" "rancher_api_key" {
+  count = var.bootstrap_rancher ? 1 : 0
+
+  filename = format("${local.deliverables_path}/rancher_token")
+  content = rancher2_bootstrap.admin[0].token
 }
