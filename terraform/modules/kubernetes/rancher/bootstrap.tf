@@ -132,5 +132,5 @@ resource "local_file" "rancher_api_key" {
   count = var.bootstrap_rancher ? 1 : 0
 
   filename = format("${local.deliverables_path}/rancher_token")
-  content = rancher2_bootstrap.admin[0].token
+  content  = rancher2_bootstrap.admin[0].token
 }
