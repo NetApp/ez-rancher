@@ -98,12 +98,12 @@ files from a previous run you'll want to copy them to another location.
 
 ```bash
 # direct docker command to create the cluster
-docker run -it --rm $[PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables netapp/ez-rancher:v0.1.0 apply -auto-approve
+docker run -it --rm $[PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables netapp/ez-rancher apply -auto-approve
 ```
 
 ```bash
 # direct docker command to delete a created cluster
-docker run -it --rm $[PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables netapp/ez-rancher:v0.1.0 destroy -auto-approve
+docker run -it --rm $[PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables netapp/ez-rancher destroy -auto-approve
 ```
 
 ### Terraform CLI
