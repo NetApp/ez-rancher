@@ -9,13 +9,13 @@ vm_name = "rancher"
 vm_template_name = "bionic-server-cloudimg-amd64"
 
 # (Optional) number of CPUs all nodes will be assigned. Defaults to 4
-vm_cpu = 2
+# vm_cpu = 2
 
 # (Optional) number of CPUs all nodes will be assigned. Defaults to 8192
-vm_ram = 4096
+# vm_ram = 4096
 
 # (Optional) Linux virtual machine domain name
-vm_domain = "example.org"
+# vm_domain = "example.org"
 
 # (Optional) SSH public key to add to all nodes authorized_keys file.
 ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/0u1rdJJLt4ycshZg7zsbMbK/nydyn4rYuK7UXTtoH53geMbsxxwGOTZMKaTA4bVgSKBEwybVodfEzEsnsBgigUN/0OXAos6mWosDj8rPNGZ8lr7Sefn5x6ZhESVIuwpDp+bEukCYp6V+FtNiL2U+iWM5eOpl1vvPNMcYXhBdU948RZrubMTa8QlyzSY1Go46gfmVtW+pdXLxGM2sTXlKTA2IxMabmF/BxbVmoQPCNoFObtGxTBNfytbv4yZN73xq52xOvwhiOiLEo3Kj3vbjP49L750oaKKRIP62cd0/dU4y3r8OyJSJehpSYQhwy5slUjIl3KI/QRE8yuTX3+kV"
@@ -52,7 +52,7 @@ vm_datastore = "myDatastore"
 vm_network = "network1"
 
 # (Optional) vSphere VM Folder. Defaults to top level vSphere ie no folder
-vsphere_vm_folder = "your/folder"
+# vsphere_vm_folder = "your/folder"
 
 # (Conditionally optional) vSphere Resource Pool where all VMs will be placed. 
 # Default: Resources
@@ -94,10 +94,10 @@ rancher_user_cluster_name = "user-default"
 # deliverables_path = "/deliverables"
 
 # (Optional) HTTP proxy server. Also specify https_proxy.
-http_proxy = "http://10.1.1.1:3128"
+# http_proxy = "http://10.1.1.1:3128"
 
 # (Optional) HTTPS proxy server. Also specify http_proxy.
-https_proxy = "http://10.1.1.1:3128"
+# https_proxy = "http://10.1.1.1:3128"
 
 # (Optional) Comma separated string of URLs that should be excluded from proxying. Ignored if no proxy is set.
-no_proxy = "localhost,127.0.0.1,docker-registry.example.com,.corp"
+# no_proxy = "localhost,127.0.0.1,docker-registry.example.com,.corp"
