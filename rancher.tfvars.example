@@ -11,7 +11,7 @@ vm_template_name = "bionic-server-cloudimg-amd64"
 # (Optional) number of CPUs all nodes will be assigned. Defaults to 4
 # vm_cpu = 2
 
-# (Optional) number of CPUs all nodes will be assigned. Defaults to 8192
+# (Optional) amount of RAM all nodes will be assigned. Defaults to 8192
 # vm_ram = 4096
 
 # (Optional) Linux virtual machine domain name
