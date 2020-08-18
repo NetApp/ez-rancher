@@ -33,8 +33,8 @@ resource "local_file" "rkeconfig" {
 }
 
 resource "local_file" "rke_state_file" {
-  filename        = format("${local.deliverables_path}/cluster.rkestate")
-  content         = rke_cluster.cluster.rke_state
+  filename = format("${local.deliverables_path}/cluster.rkestate")
+  content  = rke_cluster.cluster.rke_state
 }
 
 resource "local_file" "ssh_private_key" {
