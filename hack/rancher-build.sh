@@ -19,14 +19,5 @@
 EZR_IMAGE_TAG=${EZR_IMAGE_TAG:-dev}
 echo "building container image using tag: '$EZR_IMAGE_TAG'";
 
-CWD=$PWD
-PROJECT_DIR="$(
-  cd "$(dirname "$BASH_SOURCE[0]")/../"
-  pwd
-)"
-
-cd $PROJECT_DIR
 echo "starting docker build process..."
 docker build --force-rm -t ez-rancher:${EZR_IMAGE_TAG} --build-arg EZR_COMPRESS_BINARIES --build-arg GIT_COMMIT=$(git rev-parse HEAD) .
-cd $CWD
-
