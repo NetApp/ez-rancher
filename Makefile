@@ -9,7 +9,6 @@ build:  ## Build container image (set $EZR_IMAGE_TAG or use default of `latest`)
 	EZR_IMAGE_TAG=${EZR_IMAGE_TAG} hack/rancher-build.sh
 
 .PHONY: push-latest-image
-push-latest-image: export EZR_IMAGE_TAG := latest ## Push a container image with the latest tag
 push-latest-image: build push
 
 .PHONY: push
