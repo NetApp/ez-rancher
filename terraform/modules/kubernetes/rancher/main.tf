@@ -28,12 +28,12 @@ resource "local_file" "kubeconfig" {
 }
 
 resource "local_file" "rkeconfig" {
-  filename = format("${local.deliverables_path}/rkeconfig.yaml")
+  filename = format("${local.deliverables_path}/rkecluster.yaml")
   content  = rke_cluster.cluster.rke_cluster_yaml
 }
 
 resource "local_file" "rke_state_file" {
-  filename        = format("${local.deliverables_path}/rke_state")
+  filename        = format("${local.deliverables_path}/cluster.rkestate")
   content         = rke_cluster.cluster.rke_state
 }
 
