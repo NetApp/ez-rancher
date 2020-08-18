@@ -27,7 +27,7 @@ There are 2 ways to run EZ-Rancher:
 
 ### vSphere
 
-The following parameters specify how Rancher will be deployed within your vSphere environment.
+The following tfvars parameters specify how Rancher will be deployed within your vSphere environment.
 
 #### VM template
 
@@ -95,6 +95,16 @@ make rancher-destroy
 > The `make rancher-destroy` directive will not only tear down a cluster deployed with `make rancher-up` but it will
 also clean up/remove the deliverables files generated from that run.  As such, if for some reason you'd like to save
 files from a previous run you'll want to copy them to another location.
+
+```bash
+# direct docker command to create the cluster
+docker run -it --rm $[PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables netapp/ez-rancher:v0.1.0 apply -auto-approve
+```
+
+```bash
+# direct docker command to delete a created cluster
+docker run -it --rm $[PWD}/rancher.tfvars:/terraform/vsphere-rancher/terraform.tfvars -v ${PWD}/deliverables:/terraform/vsphere-rancher/deliverables netapp/ez-rancher:v0.1.0 destroy -auto-approve
+```
 
 ### Terraform CLI
 
