@@ -32,6 +32,11 @@ resource "local_file" "rkeconfig" {
   content  = rke_cluster.cluster.rke_cluster_yaml
 }
 
+resource "local_file" "rke_state_file" {
+  filename        = format("${local.deliverables_path}/rke_state")
+  content         = rke_cluster.cluster.rke_state
+}
+
 resource "local_file" "ssh_private_key" {
   filename        = format("${local.deliverables_path}/id_rsa")
   content         = var.ssh_private_key
