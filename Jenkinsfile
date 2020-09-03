@@ -32,9 +32,9 @@ spec:
       tty: true
       command: ["cat"]
     - name: dind
-      image: docker:18.05-dind
+      image: docker:dind
       args:
-      - --dns=8.8.8.8
+      - --dns-opt='options single-request'
       securityContext:
         privileged: true
       volumeMounts:
@@ -89,7 +89,7 @@ spec:
             steps {
                 container('dind') {
                     sh """
-                        docker build --no-cache -t ez-rancher:${COMMIT_SLUG} .
+                        docker build --network host --no-cache -t ez-rancher:${COMMIT_SLUG} .
                         """
                 }
             }
@@ -111,6 +111,7 @@ spec:
                         DELIVERABLES=deliverables
                         docker run --rm --env-file env.list \
                             -v `pwd`/deliverables:/terraform/vsphere-rancher/deliverables \
+                            --network host \
                             ez-rancher:${COMMIT_SLUG} apply -auto-approve -input=false
                         """
                     }
@@ -126,6 +127,7 @@ spec:
                     cd terraform/vsphere-rancher
                     docker run --rm --env-file env.list \
                         -v `pwd`/deliverables:/terraform/vsphere-rancher/deliverables \
+                        --network host \
                         ez-rancher:${COMMIT_SLUG} destroy -auto-approve -input=false
                     """
             }
