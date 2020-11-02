@@ -162,6 +162,15 @@ automatically publish a new image, but the image can be [created locally](#creat
 docker pull netapp/ez-rancher:latest
 ```
 
+### Images Tagged By Name
+
+Releases where the API does not change will be tagged with a name instead of a semver and will get updated periodically
+with fixes and enhancements that do not affect the API contract.
+
+| Tag |   Summary |
+| :-----: | :-----: |
+|   bryce-canyon	  |Initial release |
+
 ## Creating Container Images
 
 You can use the `make build` command to easily build an ez-rancher
