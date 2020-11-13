@@ -12,6 +12,7 @@ variable "vsphere_user" {
 variable "vsphere_password" {
   type        = string
   description = "VMware vSphere password"
+  sensitive   = true
 }
 
 variable "vsphere_vcenter" {
@@ -82,12 +83,14 @@ variable "vm_domain" {
 variable "rancher_server_url" {
   type        = string
   description = "Rancher server-url"
-  default     = "my.rancher.org"
+  default     = ""
 }
 
 variable "rancher_password" {
   type    = string
+  descrption = "Rancher cluster manager password"
   default = "solidfire"
+  sensitive = true
 }
 
 variable "ssh_public_key" {
