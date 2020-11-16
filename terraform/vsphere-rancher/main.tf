@@ -70,4 +70,6 @@ module "rancher" {
   no_proxy                       = var.no_proxy
   rancher_cluster_cidr           = var.rancher_cluster_cidr
   rancher_service_cidr           = var.rancher_service_cidr
+  kubernetes_version             = var.kubernetes_version
+  rancher_version                = var.rancher_version
 }
