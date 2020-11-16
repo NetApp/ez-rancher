@@ -184,3 +184,13 @@ variable "rancher_service_cidr" {
   type    = string
   default = "10.43.0.0/16"
 }
+
+variable "kubernetes_version" {
+  type    = string
+  default = "v1.18.10-rancher1-2"
+}
+
+variable "rancher_version" {
+  type    = string
+  default = ""
+}

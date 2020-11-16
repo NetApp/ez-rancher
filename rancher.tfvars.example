@@ -120,3 +120,9 @@ rancher_password = "rancher"
 
 # (Optional) The CIDR pool used to assign IP addresses to services in the cluster
 # rancher_service_cidr = "10.43.0.0/16"
+
+# (Optional) The RKE version to install
+# kubernetes_version = "v1.18.10-rancher1-2"
+
+# (Optional) The Rancher version to install
+# rancher_version = "2.5.0"

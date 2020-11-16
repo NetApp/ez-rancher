@@ -19,7 +19,8 @@ locals {
 resource "rke_cluster" "cluster" {
   depends_on = [var.vm_depends_on]
   # 2 minute timeout specifically for rke-network-plugin-deploy-job but will apply to any addons
-  addon_job_timeout = 120
+  addon_job_timeout  = 120
+  kubernetes_version = var.kubernetes_version
   services {
     kube_api {
       service_cluster_ip_range = var.rancher_service_cidr
@@ -118,6 +119,7 @@ resource "helm_release" "rancher" {
   create_namespace = "true"
   wait             = "true"
   replace          = true
+  version          = var.rancher_version
 
   set {
     name  = "namespace"
