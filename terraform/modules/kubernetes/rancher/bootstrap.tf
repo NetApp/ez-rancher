@@ -136,7 +136,7 @@ resource "local_file" "rancher_api_key" {
 }
 
 resource "rancher2_catalog" "trident" {
-  count    = var.rancher_create_trident_catalog ? 1 : 0
+  count    = var.rancher_create_node_template && var.rancher_create_trident_catalog ? 1 : 0
   provider = rancher2.admin
 
   name    = "netapp-trident"
