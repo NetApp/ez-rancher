@@ -49,7 +49,6 @@ jobs:
   docker-deploy:
     name: Docker Deploy - DHCP
     runs-on: docker
-    continue-on-error: false
     needs: validate
     steps:
       - name: Check out code
@@ -99,6 +98,7 @@ jobs:
             ez-rancher:$COMMIT_ID plan -input="false"
 
       - name: Deploy
+        continue-on-error: false
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
@@ -128,7 +128,6 @@ jobs:
   docker-deploy-proxy:
     name: Docker Deploy - Proxy
     runs-on: docker-vpc
-    continue-on-error: false
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -172,6 +171,7 @@ jobs:
           echo TF_VAR_vm_name=$COMMIT_ID-proxy >> env.list
 
       - name: Deploy
+        continue-on-error: false
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
