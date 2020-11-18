@@ -49,6 +49,7 @@ jobs:
   docker-deploy:
     name: Docker Deploy - DHCP
     runs-on: docker
+    continue-on-error: false
     needs: validate
     steps:
       - name: Check out code
@@ -81,6 +82,7 @@ jobs:
           TF_VAR_rancher_create_node_template: true
           TF_VAR_vsphere_resource_pool: ${{ secrets.TF_VSPHERE_RESOURCE_POOL }}
           TF_VAR_use_auto_dns_url: true
+          TF_VAR_ssh_public_key : ${{ secrets.TF_SSH_PUBLIC_KEY }}
         run: |
           export COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           mkdir deliverables-$COMMIT_ID
@@ -126,6 +128,7 @@ jobs:
   docker-deploy-proxy:
     name: Docker Deploy - Proxy
     runs-on: docker-vpc
+    continue-on-error: false
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -151,6 +154,7 @@ jobs:
           TF_VAR_vsphere_vm_folder: ${{ secrets.TF_VSPHERE_VM_FOLDER }}
           TF_VAR_rancher_password: ${{ secrets.TF_RANCHER_PASSWORD }}
           TF_VAR_vsphere_resource_pool: ${{ secrets.TF_VSPHERE_RESOURCE_POOL }}
+          TF_VAR_ssh_public_key : ${{ secrets.TF_SSH_PUBLIC_KEY }}
           TF_VAR_use_auto_dns_url: true
           TF_VAR_rancher_create_node_template: true
           TF_VAR_static_ip_addresses: '["10.96.162.252/24", "10.96.162.253/24", "10.96.162.254/24"]'
