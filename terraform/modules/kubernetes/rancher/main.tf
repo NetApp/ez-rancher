@@ -95,7 +95,7 @@ resource "helm_release" "cert-manager" {
 
   set {
     name  = "version"
-    value = "v1.0.4"
+    value = "v1.1.0"
   }
 
   set {
