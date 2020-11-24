@@ -13,7 +13,6 @@ provider "rancher2" {
   api_url   = join("", ["https://", var.cluster_nodes[0].ip, ".nip.io"])
   bootstrap = true
   insecure  = true
-  retries   = 30
 }
 
 resource "rancher2_bootstrap" "admin" {
