@@ -98,7 +98,6 @@ jobs:
             ez-rancher:$COMMIT_ID plan -input="false"
 
       - name: Deploy
-        continue-on-error: false
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
@@ -111,7 +110,7 @@ jobs:
       - name: Destroy
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        if: ${{ always() }}
+        if: ${{ success() }}
         run: |
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
@@ -121,6 +120,7 @@ jobs:
       - name: Remove image
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
+        if: ${{ success() }}
         run: |
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker rmi ez-rancher:$COMMIT_ID
@@ -171,7 +171,6 @@ jobs:
           echo TF_VAR_vm_name=$COMMIT_ID-proxy >> env.list
 
       - name: Deploy
-        continue-on-error: false
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
@@ -184,7 +183,7 @@ jobs:
       - name: Destroy
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        if: ${{ always() }}
+        if: ${{ success() }}
         run: |
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID-proxy:/terraform/vsphere-rancher/deliverables \
@@ -194,6 +193,7 @@ jobs:
       - name: Remove image
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
+        if: ${{ success() }}
         run: |
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker rmi ez-rancher:$COMMIT_ID
