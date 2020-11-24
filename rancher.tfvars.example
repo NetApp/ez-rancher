@@ -113,7 +113,7 @@ rancher_password = "rancher"
 # https_proxy = "http://10.1.1.1:3128"
 
 # (Optional) Comma separated string of hostnames or IP addresses (CIDR notation) that should be excluded from proxying. Ignored if no proxy is set.
-# no_proxy = "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+# no_proxy = "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.svc,.cluster.local"
 
 # (Optional) The CIDR pool used to assign IP addresses to pods in the cluster
 # rancher_cluster_cidr = "10.42.0.0/16"

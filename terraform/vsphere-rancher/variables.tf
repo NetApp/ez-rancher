@@ -172,7 +172,7 @@ variable "https_proxy" {
 
 variable "no_proxy" {
   type    = string
-  default = "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+  default = "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.svc,.cluster.local"
 }
 
 variable "rancher_cluster_cidr" {

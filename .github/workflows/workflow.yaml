@@ -161,7 +161,7 @@ jobs:
           TF_VAR_dns_servers: '["10.96.160.1","1.1.1.1","8.8.8.8"]'
           TF_VAR_http_proxy: "http://10.96.162.1:3128"
           TF_VAR_https_proxy: "http://10.96.162.1:3128"
-          TF_VAR_no_proxy: "127.0.0.0/8,172.16.0.0/13,192.168.0.0/16,10.96.160.0/22,10.44.0.0/16,10.45.0.0/16"
+          TF_VAR_no_proxy: "127.0.0.0/8,172.16.0.0/13,192.168.0.0/16,10.96.160.0/22,10.44.0.0/16,10.45.0.0/16,.svc,.cluster.local"
           TF_VAR_rancher_cluster_cidr: "10.44.0.0/16"
           TF_VAR_rancher_service_cidr: "10.45.0.0/16"
         run: |
