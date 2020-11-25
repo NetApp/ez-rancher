@@ -54,7 +54,7 @@ variable "vm_network" {
 variable "vm_cpu" {
   type        = string
   description = "Number of vCPU for the vSphere virtual machines"
-  default     = "4"
+  default     = "2"
 }
 
 variable "vm_ram" {
@@ -71,12 +71,6 @@ variable "vm_name" {
 variable "vm_template_name" {
   type        = string
   description = "The template to clone to create the VM"
-}
-
-variable "vm_domain" {
-  type        = string
-  description = "Domain name for the machine."
-  default     = ""
 }
 
 variable "rancher_server_url" {

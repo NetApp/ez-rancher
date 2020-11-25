@@ -75,7 +75,6 @@ jobs:
           TF_VAR_vm_datastore: ${{ secrets.TF_VM_DATASTORE }}
           TF_VAR_vm_network: ${{ secrets.TF_VM_NETWORK }}
           TF_VAR_vsphere_vm_folder: ${{ secrets.TF_VSPHERE_VM_FOLDER }}
-          TF_VAR_vm_domain: example.net
           TF_VAR_rancher_server_url: ${{ secrets.TF_RANCHER_SERVER_URL }}
           TF_VAR_rancher_password: ${{ secrets.TF_RANCHER_PASSWORD }}
           TF_VAR_rancher_create_node_template: true

@@ -19,7 +19,6 @@ data:
     vsphere_resource_pool  = "RancherHCI"
     vm_datastore           = "datastore1"
     vm_network             = "VMNet1"
-    vm_domain              = "example.local.net"
     vsphere_vm_folder      = "some/place/good"
     rancher_server_url     = "my.rancher.org"
     ssh_private_key        = "~/.ssh/id_rsa"
