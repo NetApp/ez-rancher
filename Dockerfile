@@ -9,7 +9,7 @@ COPY hack/install_upx.sh hack/compress_binaries.sh /
 
 ENV KUBECTL_VERSION=v1.18.3
 ENV TERRAFORM_VERSION=0.13.0
-ENV TERRAGRUNT_VERSION=v0.23.31-r.1
+ENV TERRAGRUNT_VERSION=v0.26.6
 
 RUN apk add --no-cache --virtual .build-deps curl \
   && curl -Lo /bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl \
@@ -18,7 +18,7 @@ RUN apk add --no-cache --virtual .build-deps curl \
   && unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
   && rm -rf terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
   && mv terraform /bin/terraform \
-  && curl -Lo /bin/terragrunt https://github.com/sgryczan/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 \
+  && curl -Lo /bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 \
   && chmod +x /bin/terragrunt \
   && apk del --no-cache .build-deps
 
@@ -41,6 +41,6 @@ COPY --from=binaries /terraform/ /terraform/
 
 WORKDIR /terraform/vsphere-rancher
 
-RUN touch terragrunt.hcl && terraform init && rm -rf /tmp/*
+RUN terraform init && rm -rf /tmp/*
 
 ENTRYPOINT ["terragrunt"]
