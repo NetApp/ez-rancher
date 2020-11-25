@@ -120,7 +120,7 @@ jobs:
       - name: Remove image
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        if: ${{ success() }}
+        if: ${{ always() }}
         run: |
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker rmi ez-rancher:$COMMIT_ID
@@ -183,7 +183,7 @@ jobs:
       - name: Destroy
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        if: ${{ success() }}
+        if: ${{ always() }}
         run: |
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID-proxy:/terraform/vsphere-rancher/deliverables \
@@ -193,7 +193,7 @@ jobs:
       - name: Remove image
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        if: ${{ success() }}
+        if: ${{ always() }}
         run: |
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker rmi ez-rancher:$COMMIT_ID
