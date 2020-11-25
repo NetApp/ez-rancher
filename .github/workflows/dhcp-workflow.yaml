@@ -11,8 +11,8 @@ on:
         description: Git Ref (Optional)    
         required: false
   schedule:
-    # Run every 4 hours
-    - cron: '0 */4 * * *'
+    # Run every 12 hours
+    - cron: '0 */12 * * *'
 
 jobs:
   validate:
@@ -64,8 +64,6 @@ jobs:
       - name: Create vars file
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-          TF_VAR_control_plane_count: 1
-          TF_VAR_worker_count: 2
           TF_VAR_vm_template_name: bionic-server-cloudimg-amd64
           TF_VAR_vsphere_vcenter: ${{ secrets.TF_VSPHERE_VCENTER }}
           TF_VAR_vsphere_user: ${{ secrets.TF_VSPHERE_USER }}
@@ -109,7 +107,7 @@ jobs:
       - name: Destroy
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        if: ${{ always() }}
+        if: ${{ success() }}
         run: |
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID:/terraform/vsphere-rancher/deliverables \
@@ -119,80 +117,7 @@ jobs:
       - name: Remove image
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        if: ${{ always() }}
-        run: |
-          COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
-          sudo docker rmi ez-rancher:$COMMIT_ID
-
-  docker-deploy-proxy:
-    name: Docker Deploy - Proxy
-    runs-on: docker-vpc
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-
-      - name: Build image
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: |
-          export COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
-          sudo docker build --no-cache -t ez-rancher:$COMMIT_ID .
-
-      - name: Create vars file
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-          TF_VAR_vm_template_name: bionic-server-cloudimg-amd64
-          TF_VAR_vsphere_vcenter: ${{ secrets.TF_VSPHERE_VCENTER }}
-          TF_VAR_vsphere_user: ${{ secrets.TF_VSPHERE_USER }}
-          TF_VAR_vsphere_password: ${{ secrets.TF_VSPHERE_PASSWORD }}
-          TF_VAR_vsphere_unverified_ssl: true
-          TF_VAR_vsphere_datacenter: ${{ secrets.TF_VSPHERE_DATACENTER }}
-          TF_VAR_vm_datastore: ${{ secrets.TF_VM_DATASTORE }}
-          TF_VAR_vm_network: ${{ secrets.TF_VPC_PROXY_NETWORK }}
-          TF_VAR_vsphere_vm_folder: ${{ secrets.TF_VSPHERE_VM_FOLDER }}
-          TF_VAR_rancher_password: ${{ secrets.TF_RANCHER_PASSWORD }}
-          TF_VAR_vsphere_resource_pool: ${{ secrets.TF_VSPHERE_RESOURCE_POOL }}
-          TF_VAR_ssh_public_key : ${{ secrets.TF_SSH_PUBLIC_KEY }}
-          TF_VAR_use_auto_dns_url: true
-          TF_VAR_rancher_create_node_template: true
-          TF_VAR_static_ip_addresses: '["10.96.162.252/24", "10.96.162.253/24", "10.96.162.254/24"]'
-          TF_VAR_default_gateway: "10.96.162.1"
-          TF_VAR_dns_servers: '["10.96.160.1","1.1.1.1","8.8.8.8"]'
-          TF_VAR_http_proxy: "http://10.96.162.1:3128"
-          TF_VAR_https_proxy: "http://10.96.162.1:3128"
-          TF_VAR_no_proxy: "127.0.0.0/8,172.16.0.0/13,192.168.0.0/16,10.96.160.0/22,10.44.0.0/16,10.45.0.0/16,.svc,.cluster.local"
-          TF_VAR_rancher_cluster_cidr: "10.44.0.0/16"
-          TF_VAR_rancher_service_cidr: "10.45.0.0/16"
-        run: |
-          export COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
-          mkdir deliverables-$COMMIT_ID-proxy
-          env | grep TF_ > env.list
-          echo TF_VAR_vm_name=$COMMIT_ID-proxy >> env.list
-
-      - name: Deploy
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: |
-          COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
-          sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID-proxy:/terraform/vsphere-rancher/deliverables \
-            --env-file env.list \
-            -e TF_LOG=DEBUG \
-            ez-rancher:$COMMIT_ID apply -input="false" -auto-approve
-
-      - name: Destroy
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        if: ${{ always() }}
-        run: |
-          COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
-          sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID-proxy:/terraform/vsphere-rancher/deliverables \
-            --env-file env.list \
-            ez-rancher:$COMMIT_ID destroy -input="false" -auto-approve
-
-      - name: Remove image
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        if: ${{ always() }}
+        if: ${{ success() }}
         run: |
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker rmi ez-rancher:$COMMIT_ID
