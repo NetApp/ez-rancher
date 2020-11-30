@@ -115,6 +115,11 @@ variable "rancher_vsphere_pool" {
   default = ""
 }
 
+variable "rancher_vm_template_name" {
+  type    = string
+  default = ""
+}
+
 variable "rancher_node_template_disk_size" {
   type    = number
   default = 51200

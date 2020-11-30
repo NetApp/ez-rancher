@@ -63,6 +63,7 @@ module "rancher" {
   rancher_vsphere_folder         = var.vsphere_vm_folder
   rancher_vsphere_network        = var.vm_network
   rancher_vsphere_pool           = var.vsphere_resource_pool
+  rancher_vm_template_name       = var.vm_template_name
   rancher_create_node_template   = var.rancher_create_node_template
   rancher_node_template_name     = var.rancher_node_template_name
   rancher_create_trident_catalog = var.rancher_create_trident_catalog
