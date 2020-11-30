@@ -140,6 +140,6 @@ resource "rancher2_catalog" "trident" {
   provider = rancher2.admin
 
   name    = "netapp-trident"
-  url     = "https://raw.githubusercontent.com/NetApp/ez-rancher-trident-installer/master/chart"
+  url     = "https://github.com/NetApp/ez-rancher-trident-installer.git"
   version = "helm_v3"
 }
