@@ -33,6 +33,7 @@ write_files:
 runcmd:
   - ${env_proxy}
   - netplan apply
+  - count=0; until $(nc -zw1 raw.githubusercontent.com 443); do sleep 5; if [ $count -eq 300 ]; then break; fi; count=`expr $count + 5`; done # wait for DNS to resolve
   - apt update && apt install python3-pip -y  # requirement for vmware guestinfo datasource installer, needs to be run after network is configured
   - curl -sSL https://raw.githubusercontent.com/vmware/cloud-init-vmware-guestinfo/master/install.sh | sh - 2>&1  #Install cloud-init
 power_state:
