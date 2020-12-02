@@ -147,7 +147,7 @@ variable "rancher_service_cidr" {
 
 variable "kubernetes_version" {
   type    = string
-  default = ""
+  default = null
 }
 
 variable "rancher_version" {
