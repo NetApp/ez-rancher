@@ -37,5 +37,5 @@ runcmd:
   - apt update && apt install python3-pip -y  # requirement for vmware guestinfo datasource installer, needs to be run after network is configured
   - curl -sSL https://raw.githubusercontent.com/vmware/cloud-init-vmware-guestinfo/master/install.sh | sh - 2>&1  #Install cloud-init
 power_state:
-  timeout: 300
+  timeout: 600
   mode: reboot
