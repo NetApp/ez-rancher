@@ -79,6 +79,9 @@ vm_network = "network1"
 # See https://github.com/NetApp/TridentInstaller for details about how to configure the Trident chart.
 # rancher_create_trident_catalog = true
 
+# (Optional) Trident installer branch to use. Defaults to master
+# rancher_trident_installer_branch = "master"
+
 # (Optional) Automatically configure rancher node template:
 # - Updates the default admin password, provided by the rancher_password variable.
 # - Enables telemetry 

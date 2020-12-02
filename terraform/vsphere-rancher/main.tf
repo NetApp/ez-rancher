@@ -68,6 +68,7 @@ module "rancher" {
   rancher_create_node_template   = var.rancher_create_node_template
   rancher_node_template_name     = var.rancher_node_template_name
   rancher_create_trident_catalog = var.rancher_create_trident_catalog
+  rancher_trident_installer_branch = var.rancher_trident_installer_branch
   http_proxy                     = var.http_proxy
   no_proxy                       = var.no_proxy
   rancher_cluster_cidr           = var.rancher_cluster_cidr

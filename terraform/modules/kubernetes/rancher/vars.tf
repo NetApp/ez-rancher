@@ -40,6 +40,11 @@ variable "rancher_create_trident_catalog" {
   default = true
 }
 
+variable "rancher_trident_installer_branch" {
+  type = string
+  default = "master"
+}
+
 variable "rancher_create_node_template" {
   type    = bool
   default = false

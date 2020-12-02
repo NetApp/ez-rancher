@@ -144,4 +144,5 @@ resource "rancher2_catalog" "trident" {
   name    = "netapp-trident"
   url     = "https://github.com/NetApp/ez-rancher-trident-installer.git"
   version = "helm_v3"
+  branch = var.rancher_trident_installer_branch
 }
