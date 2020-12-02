@@ -8,7 +8,6 @@ packages:
   - ca-certificates
   - gnupg-agent
   - software-properties-common
-  - wget
 runcmd:
   - ${env_proxy}
   - mkdir -p /mnt/sharedfolder
