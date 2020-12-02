@@ -83,6 +83,12 @@ variable "vm_template_name" {
   description = "The template to clone to create the VM"
 }
 
+variable "vm_hardware_version" {
+  type        = string
+  description = "The VM hardware version number"
+  default = null
+}
+
 variable "static_ip_addresses" {
   type        = list
   description = "List of IP addresses"

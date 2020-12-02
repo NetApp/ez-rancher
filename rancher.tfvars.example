@@ -14,6 +14,9 @@ vm_template_name = "bionic-server-cloudimg-amd64"
 # (Optional) amount of RAM all nodes will be assigned. Defaults to 8192
 # vm_ram = 4096
 
+# (Optional) VM hardware version number (See https://kb.vmware.com/s/article/2007240). Defaults to null
+# vm_hardware_version = "14"
+
 # (Optional) SSH public key to add to all nodes authorized_keys file.
 # ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/0u1rdJJLt4ycshZg7zsbMbK/nydyn4rYuK7UXTtoH53geMbsxxwGOTZMKaTA4bVgSKBEwybVodfEzEsnsBgigUN/0OXAos6mWosDj8rPNGZ8lr7Sefn5x6ZhESVIuwpDp+bEukCYp6V+FtNiL2U+iWM5eOpl1vvPNMcYXhBdU948RZrubMTa8QlyzSY1Go46gfmVtW+pdXLxGM2sTXlKTA2IxMabmF/BxbVmoQPCNoFObtGxTBNfytbv4yZN73xq52xOvwhiOiLEo3Kj3vbjP49L750oaKKRIP62cd0/dU4y3r8OyJSJehpSYQhwy5slUjIl3KI/QRE8yuTX3+kV"
 

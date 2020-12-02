@@ -21,6 +21,7 @@ resource "vsphere_virtual_machine" "node" {
   num_cpus         = var.vm_cpu
   memory           = var.vm_ram
   guest_id         = data.vsphere_virtual_machine.template.guest_id
+  hardware_version = var.vm_hardware_version
 
   network_interface {
     network_id   = data.vsphere_network.network.id

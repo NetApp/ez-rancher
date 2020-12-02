@@ -73,6 +73,12 @@ variable "vm_template_name" {
   description = "The template to clone to create the VM"
 }
 
+variable "vm_hardware_version" {
+  type        = string
+  description = "The VM hardware version number"
+  default = null
+}
+
 variable "rancher_server_url" {
   type        = string
   description = "Rancher server-url"
@@ -137,6 +143,11 @@ variable "rancher_user_cluster_memoryMB" {
 variable "rancher_create_trident_catalog" {
   type    = bool
   default = true
+}
+
+variable "rancher_trident_installer_branch" {
+  type = string
+  default = "master"
 }
 
 variable "rancher_create_node_template" {

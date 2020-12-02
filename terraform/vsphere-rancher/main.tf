@@ -23,6 +23,7 @@ module "cluster_nodes" {
   vm_cpu                 = var.vm_cpu
   vm_ram                 = var.vm_ram
   vm_template_name       = var.vm_template_name
+  vm_hardware_version = var.vm_hardware_version
   vsphere_datacenter     = var.vsphere_datacenter
   vsphere_password       = var.vsphere_password
   vsphere_unverified_ssl = var.vsphere_unverified_ssl
