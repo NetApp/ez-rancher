@@ -69,14 +69,16 @@ resource "rancher2_node_template" "vsphere" {
   description         = "vsphere"
   cloud_credential_id = rancher2_cloud_credential.vsphere[0].id
   vsphere_config {
-    cpu_count   = var.user_cluster_cpu
-    memory_size = var.user_cluster_memoryMB
-    datacenter  = var.rancher_vsphere_datacenter
-    datastore   = var.rancher_vsphere_datastore
-    disk_size   = var.rancher_node_template_disk_size
-    folder      = var.rancher_vsphere_folder
-    network     = [var.rancher_vsphere_network]
-    pool        = var.rancher_vsphere_pool
+    creation_type = "template"
+    clone_from    = var.rancher_vm_template_name
+    cpu_count     = var.user_cluster_cpu
+    memory_size   = var.user_cluster_memoryMB
+    datacenter    = var.rancher_vsphere_datacenter
+    datastore     = var.rancher_vsphere_datastore
+    disk_size     = var.rancher_node_template_disk_size
+    folder        = var.rancher_vsphere_folder
+    network       = [var.rancher_vsphere_network]
+    pool          = var.rancher_vsphere_pool
   }
 }
 
@@ -140,6 +142,6 @@ resource "rancher2_catalog" "trident" {
   provider = rancher2.admin
 
   name    = "netapp-trident"
-  url     = "https://raw.githubusercontent.com/NetApp/ez-rancher-trident-installer/master/chart"
+  url     = "https://github.com/NetApp/ez-rancher-trident-installer.git"
   version = "helm_v3"
 }
