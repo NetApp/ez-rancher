@@ -15,7 +15,7 @@ vm_template_name = "bionic-server-cloudimg-amd64"
 # vm_ram = 4096
 
 # (Optional) VM hardware version number (See https://kb.vmware.com/s/article/2007240). Defaults to null
-# vm_hardware_version = "14"
+# vm_hardware_version = 14
 
 # (Optional) SSH public key to add to all nodes authorized_keys file.
 # ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/0u1rdJJLt4ycshZg7zsbMbK/nydyn4rYuK7UXTtoH53geMbsxxwGOTZMKaTA4bVgSKBEwybVodfEzEsnsBgigUN/0OXAos6mWosDj8rPNGZ8lr7Sefn5x6ZhESVIuwpDp+bEukCYp6V+FtNiL2U+iWM5eOpl1vvPNMcYXhBdU948RZrubMTa8QlyzSY1Go46gfmVtW+pdXLxGM2sTXlKTA2IxMabmF/BxbVmoQPCNoFObtGxTBNfytbv4yZN73xq52xOvwhiOiLEo3Kj3vbjP49L750oaKKRIP62cd0/dU4y3r8OyJSJehpSYQhwy5slUjIl3KI/QRE8yuTX3+kV"
@@ -23,7 +23,7 @@ vm_template_name = "bionic-server-cloudimg-amd64"
 # (Optional) List of IPv4 ip addresses to assign to nodes. Use CIDR notation
 # static_ip_addresses = ["10.1.1.2/24", "10.1.1.3/24"]
 
-# (Optional) Default gateway (IPv4) to assign to nodes. Required if using static ips.
+# (Conditionally optional) Default gateway (IPv4) to assign to nodes. Required if using static ips.
 # default_gateway  = "10.1.1.1"
 
 # (Optional) DNS servers to assign to the nodes
@@ -63,15 +63,15 @@ vm_network = "network1"
 #       The easiest option is to enter the name of a pre-configured ResourcePool.   
 # vsphere_resource_pool = "mypool"
 
-# ===================== #
-# Rancher configuration #
-# ===================== #
+# =========================== #
+# RKE / Rancher configuration #
+# =========================== #
 
-# (Optional) Rancher server URL.
+# (Conditionally optional) Rancher server URL.
 # If use_auto_dns_url is false, this field is required. If use_auto_dns_url is true, this value will be ignored.
 # rancher_server_url = "my.rancher.org"
 
-# (Optional) Automatically set rancher_server_url URL to <node ip>.nip.io.
+# (Conditionally optional) Automatically set rancher_server_url URL to <node ip>.nip.io.
 # If use_auto_dns_url is false, rancher_server_url is required.
 # use_auto_dns_url = false
 
@@ -81,6 +81,10 @@ vm_network = "network1"
 # - Creates cloud credentials for vCenter
 # - Creates node template for vCenter
 # rancher_create_node_template = true
+
+# (Conditionally optional) rancher default admin password
+# Note: The value is used only when rancher_create_node_template=true
+rancher_password = "rancher"
 
 # (Optional) Install a catalog with Trident.  This will allow administrators of 
 # downstream clusters to configure persistent storage for NetApp storage systems.
@@ -92,10 +96,6 @@ vm_network = "network1"
 # (Optional) Trident installer branch to use. Requires rancher_create_trident_catalog. Defaults to master
 # rancher_trident_installer_branch = "master"
 
-# (Conditionally optional) rancher default admin password 
-# Note: The value is used only when rancher_create_node_template=true
-rancher_password = "rancher"
-
 # (Optional) Name the node template so it is familiar to your users. Requires rancher_create_node_template.
 # rancher_node_template_name = "vsphere-default"
 
@@ -104,6 +104,18 @@ rancher_password = "rancher"
 
 # (Optional) Default user cluster name
 # rancher_user_cluster_name = "user-default"
+
+# (Optional) The CIDR pool used to assign IP addresses to pods in the cluster
+# rancher_cluster_cidr = "10.42.0.0/16"
+
+# (Optional) The CIDR pool used to assign IP addresses to services in the cluster
+# rancher_service_cidr = "10.43.0.0/16"
+
+# (Optional) The RKE version to install
+# kubernetes_version = "v1.18.10-rancher1-2"
+
+# (Optional) The Rancher version to install
+# rancher_version = "2.4.8"
 
 # =================== #
 # Other configuration #
@@ -120,15 +132,3 @@ rancher_password = "rancher"
 
 # (Optional) Comma separated string of hostnames or IP addresses (CIDR notation) that should be excluded from proxying. Ignored if no proxy is set.
 # no_proxy = "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.svc,.cluster.local"
-
-# (Optional) The CIDR pool used to assign IP addresses to pods in the cluster
-# rancher_cluster_cidr = "10.42.0.0/16"
-
-# (Optional) The CIDR pool used to assign IP addresses to services in the cluster
-# rancher_service_cidr = "10.43.0.0/16"
-
-# (Optional) The RKE version to install
-# kubernetes_version = "v1.18.10-rancher1-2"
-
-# (Optional) The Rancher version to install
-# rancher_version = "2.4.8"
