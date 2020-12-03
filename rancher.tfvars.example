@@ -67,27 +67,30 @@ vm_network = "network1"
 # Rancher configuration #
 # ===================== #
 
-# (Optional) Rancher server URL
+# (Optional) Rancher server URL.
+# If use_auto_dns_url is false, this field is required. If use_auto_dns_url is true, this value will be ignored.
 # rancher_server_url = "my.rancher.org"
 
-# (Optional) Automatically set rancher_server_url URL to <node ip>.nip.io
+# (Optional) Automatically set rancher_server_url URL to <node ip>.nip.io.
+# If use_auto_dns_url is false, rancher_server_url is required.
 # use_auto_dns_url = false
 
+# (Optional) Automatically configure rancher node template:
+# - Updates the default admin password, provided by the rancher_password variable.
+# - Enables telemetry
+# - Creates cloud credentials for vCenter
+# - Creates node template for vCenter
+# rancher_create_node_template = true
+
 # (Optional) Install a catalog with Trident.  This will allow administrators of 
-# downstream clusters to configure persistent storage for NetApp storage systems.  
+# downstream clusters to configure persistent storage for NetApp storage systems.
+# Requires rancher_create_node_template.
 # See https://github.com/NetApp/trident for details about Trident.
 # See https://github.com/NetApp/TridentInstaller for details about how to configure the Trident chart.
 # rancher_create_trident_catalog = true
 
-# (Optional) Trident installer branch to use. Defaults to master
+# (Optional) Trident installer branch to use. Requires rancher_create_trident_catalog. Defaults to master
 # rancher_trident_installer_branch = "master"
-
-# (Optional) Automatically configure rancher node template:
-# - Updates the default admin password, provided by the rancher_password variable.
-# - Enables telemetry 
-# - Creates cloud credentials for vCenter
-# - Creates node template for vCenter
-# rancher_create_node_template = true
 
 # (Conditionally optional) rancher default admin password 
 # Note: The value is used only when rancher_create_node_template=true
