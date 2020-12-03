@@ -23,7 +23,7 @@ module "cluster_nodes" {
   vm_cpu                 = var.vm_cpu
   vm_ram                 = var.vm_ram
   vm_template_name       = var.vm_template_name
-  vm_hardware_version = var.vm_hardware_version
+  vm_hardware_version    = var.vm_hardware_version
   vsphere_datacenter     = var.vsphere_datacenter
   vsphere_password       = var.vsphere_password
   vsphere_unverified_ssl = var.vsphere_unverified_ssl
@@ -59,20 +59,20 @@ module "rancher" {
   rancher_vsphere_server   = var.vsphere_vcenter
   rancher_vsphere_port     = 443
 
-  rancher_vsphere_datacenter     = var.vsphere_datacenter
-  rancher_vsphere_datastore      = var.vm_datastore
-  rancher_vsphere_folder         = var.vsphere_vm_folder
-  rancher_vsphere_network        = var.vm_network
-  rancher_vsphere_pool           = var.vsphere_resource_pool
-  rancher_vm_template_name       = var.vm_template_name
-  rancher_create_node_template   = var.rancher_create_node_template
-  rancher_node_template_name     = var.rancher_node_template_name
-  rancher_create_trident_catalog = var.rancher_create_trident_catalog
+  rancher_vsphere_datacenter       = var.vsphere_datacenter
+  rancher_vsphere_datastore        = var.vm_datastore
+  rancher_vsphere_folder           = var.vsphere_vm_folder
+  rancher_vsphere_network          = var.vm_network
+  rancher_vsphere_pool             = var.vsphere_resource_pool
+  rancher_vm_template_name         = var.vm_template_name
+  rancher_create_node_template     = var.rancher_create_node_template
+  rancher_node_template_name       = var.rancher_node_template_name
+  rancher_create_trident_catalog   = var.rancher_create_trident_catalog
   rancher_trident_installer_branch = var.rancher_trident_installer_branch
-  http_proxy                     = var.http_proxy
-  no_proxy                       = var.no_proxy
-  rancher_cluster_cidr           = var.rancher_cluster_cidr
-  rancher_service_cidr           = var.rancher_service_cidr
-  kubernetes_version             = var.kubernetes_version
-  rancher_version                = var.rancher_version
+  http_proxy                       = var.http_proxy
+  no_proxy                         = var.no_proxy
+  rancher_cluster_cidr             = var.rancher_cluster_cidr
+  rancher_service_cidr             = var.rancher_service_cidr
+  kubernetes_version               = var.kubernetes_version
+  rancher_version                  = var.rancher_version
 }

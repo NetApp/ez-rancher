@@ -41,7 +41,7 @@ variable "rancher_create_trident_catalog" {
 }
 
 variable "rancher_trident_installer_branch" {
-  type = string
+  type    = string
   default = "master"
 }
 

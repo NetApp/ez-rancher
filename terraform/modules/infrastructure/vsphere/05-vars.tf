@@ -86,7 +86,7 @@ variable "vm_template_name" {
 variable "vm_hardware_version" {
   type        = number
   description = "The VM hardware version number"
-  default = null
+  default     = null
 }
 
 variable "static_ip_addresses" {

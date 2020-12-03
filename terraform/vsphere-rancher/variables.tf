@@ -76,7 +76,7 @@ variable "vm_template_name" {
 variable "vm_hardware_version" {
   type        = number
   description = "The VM hardware version number"
-  default = null
+  default     = null
 }
 
 variable "rancher_server_url" {
@@ -146,7 +146,7 @@ variable "rancher_create_trident_catalog" {
 }
 
 variable "rancher_trident_installer_branch" {
-  type = string
+  type    = string
   default = "master"
 }
 
