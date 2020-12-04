@@ -67,11 +67,11 @@ vm_network = "network1"
 # RKE / Rancher configuration #
 # =========================== #
 
-# (Conditionally optional) Rancher server URL.
+# (Conditionally optional) Rancher server FQDN. Rancher server URL will be set as https://<rancher_server_url>
 # If use_auto_dns_url is false, this field is required. If use_auto_dns_url is true, this value will be ignored.
 # rancher_server_url = "my.rancher.org"
 
-# (Conditionally optional) Automatically set rancher_server_url URL to <node ip>.nip.io.
+# (Conditionally optional) Automatically set rancher_server_url URL to https://<node ip>.nip.io.
 # If use_auto_dns_url is false, rancher_server_url is required.
 # use_auto_dns_url = false
 
