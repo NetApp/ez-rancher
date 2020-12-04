@@ -67,7 +67,6 @@ jobs:
           COMMIT_ID=$(echo $GITHUB_CONTEXT | jq -r '.sha' | cut -c1-7)
           sudo docker run --rm -v `pwd`/deliverables-$COMMIT_ID-proxy:/terraform/vsphere-rancher/deliverables \
             --env-file env.list \
-            -e TF_LOG=DEBUG \
             ez-rancher:$COMMIT_ID apply -input="false" -auto-approve
 
       - name: Destroy
