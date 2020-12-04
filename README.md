@@ -18,7 +18,7 @@ There are 2 ways to run EZ-Rancher:
 2. Terraform CLI
 
     You have a working Terraform environment with the following dependencies:
-    * [Terraform](https://www.terraform.io/downloads.html) >= 0.13
+    * [Terraform](https://www.terraform.io/downloads.html) >= 0.14
     * [Kubectl](https://downloadkubernetes.com/)
     * [Terraform RKE plugin](https://github.com/rancher/terraform-provider-rke)
     * netcat

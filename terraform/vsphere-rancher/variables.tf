@@ -7,11 +7,13 @@ variable "cluster_node_count" {
 variable "vsphere_user" {
   type        = string
   description = "VMware vSphere user name"
+  sensitive   = true
 }
 
 variable "vsphere_password" {
   type        = string
   description = "VMware vSphere password"
+  sensitive   = true
 }
 
 variable "vsphere_vcenter" {
@@ -86,8 +88,9 @@ variable "rancher_server_url" {
 }
 
 variable "rancher_password" {
-  type    = string
-  default = "solidfire"
+  type      = string
+  default   = "solidfire"
+  sensitive = true
 }
 
 variable "ssh_public_key" {
@@ -97,7 +100,7 @@ variable "ssh_public_key" {
 }
 
 variable "static_ip_addresses" {
-  type        = list
+  type        = list(any)
   description = "List of IP addresses"
   default     = []
 }
@@ -115,7 +118,7 @@ variable "deliverables_path" {
 }
 
 variable "dns_servers" {
-  type        = list
+  type        = list(any)
   description = "List of DNS server IPv4 addresses"
   default     = ["1.1.1.1", "8.8.8.8"]
 }

@@ -28,7 +28,7 @@ spec:
   serviceAccountName: jenkins
   containers:
     - name: tf
-      image: hashicorp/terraform:0.13.0
+      image: hashicorp/terraform:0.14.0
       tty: true
       command: ["cat"]
     - name: dind

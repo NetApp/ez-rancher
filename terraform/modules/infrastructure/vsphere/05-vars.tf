@@ -11,11 +11,13 @@ variable "type" {
 variable "vsphere_user" {
   type        = string
   description = "VMware vSphere user name"
+  sensitive   = true
 }
 
 variable "vsphere_password" {
   type        = string
   description = "VMware vSphere password"
+  sensitive   = true
 }
 
 variable "vsphere_vcenter" {
@@ -90,7 +92,7 @@ variable "vm_hardware_version" {
 }
 
 variable "static_ip_addresses" {
-  type        = list
+  type        = list(any)
   description = "List of IP addresses"
   default     = []
 }
@@ -102,7 +104,7 @@ variable "default_gateway" {
 }
 
 variable "dns_servers" {
-  type        = list
+  type        = list(any)
   description = "List of DNS server IPv4 addresses"
   default     = ["1.1.1.1", "8.8.8.8"]
 }

@@ -31,7 +31,7 @@ variable "deliverables_path" {
 }
 
 variable "cluster_nodes" {
-  type    = list
+  type    = list(any)
   default = []
 }
 

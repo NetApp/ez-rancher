@@ -8,7 +8,7 @@ ARG EZR_COMPRESS_BINARIES=false
 COPY hack/install_upx.sh hack/compress_binaries.sh /
 
 ENV KUBECTL_VERSION=v1.18.3
-ENV TERRAFORM_VERSION=0.13.0
+ENV TERRAFORM_VERSION=0.14.0
 ENV TERRAGRUNT_VERSION=v0.26.6
 
 RUN apk add --no-cache --virtual .build-deps curl \
