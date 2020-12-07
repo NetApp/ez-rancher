@@ -64,6 +64,7 @@ data "template_file" "netplan" {
 data "template_file" "userdata" {
   template = file("${path.module}/cloudinit/userdata.yaml")
   vars = {
-    env_proxy = local.proxy_set ? format("export http_proxy=%s https_proxy=%s", var.http_proxy, var.https_proxy) : "echo"
+    env_proxy      = local.proxy_set ? format("export http_proxy=%s https_proxy=%s", var.http_proxy, var.https_proxy) : "echo"
+    docker_version = var.docker_version
   }
 }
