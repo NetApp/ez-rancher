@@ -139,5 +139,5 @@ variable "cloud_init_vmware_guestinfo_version" {
 # https://github.com/rancher/install-docker
 variable "docker_version" {
   type    = string
-  default = "19.03.14"
+  default = "19.03.13"
 }
