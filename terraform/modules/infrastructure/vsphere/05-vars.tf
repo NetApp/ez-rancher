@@ -130,6 +130,7 @@ variable "no_proxy" {
   default = ""
 }
 
+# https://github.com/vmware/cloud-init-vmware-guestinfo/releases
 variable "cloud_init_vmware_guestinfo_version" {
   type    = string
   default = "master"
