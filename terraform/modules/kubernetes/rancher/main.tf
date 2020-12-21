@@ -120,6 +120,7 @@ resource "helm_release" "rancher" {
   wait             = "true"
   replace          = true
   version          = var.rancher_version
+  timeout          = 600
 
   set {
     name  = "namespace"
