@@ -30,6 +30,11 @@ variable "deliverables_path" {
   default     = "./deliverables"
 }
 
+variable "cluster_master_node_count" {
+  type    = string
+  default = 3
+}
+
 variable "cluster_nodes" {
   type    = list(any)
   default = []

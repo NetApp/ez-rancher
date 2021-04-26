@@ -16,6 +16,11 @@ locals {
   alias_initial_node = var.rancher_server_url == join("", [var.cluster_nodes[0].ip, ".nip.io"]) ? 1 : 0
 }
 
+locals {
+  mgr_roles    = ["controlplane","etcd", "worker"]
+  worker_roles = ["worker"]
+}
+
 resource "rke_cluster" "cluster" {
   depends_on = [var.vm_depends_on]
   # 2 minute timeout specifically for rke-network-plugin-deploy-job but will apply to any addons
@@ -39,7 +44,7 @@ resource "rke_cluster" "cluster" {
       address           = nodes.value.ip
       hostname_override = nodes.value.name
       user              = "ubuntu"
-      role              = ["controlplane", "etcd", "worker"]
+      role = nodes.key  < var.cluster_master_node_count ? local.mgr_roles : local.worker_roles
       ssh_key           = var.ssh_private_key
     }
   }

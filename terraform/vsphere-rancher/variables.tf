@@ -4,6 +4,12 @@ variable "cluster_node_count" {
   default     = 3
 }
 
+variable "cluster_master_node_count" {
+  type        = number
+  description = "Number of cluster master nodes"
+  default     = 3
+}
+
 variable "vsphere_user" {
   type        = string
   description = "VMware vSphere user name"
